@@ -34,4 +34,4 @@ build/
 /bin/
 
 pom.xml
-application.properties
+/src/main/resources/application.properties

@@ -1,14 +1,27 @@
 package com.lti.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class CustomerDocs {
 
+	@Id
+	@SequenceGenerator(name="customerDocId",initialValue=2001,allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="customerDocId")
+	private int customerDocId;
+	
+	@OneToOne
+	@JoinColumn
 	private CustomerInfo customerId;
+	
 	private MultipartFile aadharCard;
 	private MultipartFile panCard;
 
@@ -17,7 +30,6 @@ public class CustomerDocs {
 	}
 
 	public CustomerDocs(CustomerInfo customerId, MultipartFile aadharCard, MultipartFile panCard) {
-		super();
 		this.customerId = customerId;
 		this.aadharCard = aadharCard;
 		this.panCard = panCard;

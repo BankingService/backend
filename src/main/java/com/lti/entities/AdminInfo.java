@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -12,7 +14,10 @@ public class AdminInfo {
 	@Id
 	@SequenceGenerator(name = "adminId", initialValue = 2021, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adminId")
+	@OneToOne(mappedBy="adminId")
+	@JoinColumn(name="approvedBy")
 	private int adminId;
+	
 	private String adminName;
 	private String adminPassword;
 

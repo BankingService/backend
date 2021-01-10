@@ -1,12 +1,25 @@
 package com.lti.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class CustomerAddress {
 
+	@Id
+	@SequenceGenerator(name = "addressId", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addressId")
+	private int addressId;
+	
+	@OneToOne
+	@JoinColumn
 	private CustomerInfo customerId;
+	
 	private String cAddressLine1;
 	private String pAddressLine1;
 	private String cAddressLine2;
@@ -24,10 +37,10 @@ public class CustomerAddress {
 
 	}
 
-	public CustomerAddress(CustomerInfo customerId, String cAddressLine1, String pAddressLine1, String cAddressLine2,
-			String pAddressLine2, String cLandMark, String pLandMark, String cCity, String pCity, String cState,
-			String pState, int cPincode, int pPincode) {
-		super();
+	public CustomerAddress(int addressId, CustomerInfo customerId, String cAddressLine1, String pAddressLine1,
+			String cAddressLine2, String pAddressLine2, String cLandMark, String pLandMark, String cCity, String pCity,
+			String cState, String pState, int cPincode, int pPincode) {
+		this.addressId = addressId;
 		this.customerId = customerId;
 		this.cAddressLine1 = cAddressLine1;
 		this.pAddressLine1 = pAddressLine1;
@@ -41,6 +54,14 @@ public class CustomerAddress {
 		this.pState = pState;
 		this.cPincode = cPincode;
 		this.pPincode = pPincode;
+	}
+
+	public int getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
 
 	public CustomerInfo getCustomerId() {

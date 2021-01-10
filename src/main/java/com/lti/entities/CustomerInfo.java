@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,12 +15,12 @@ import org.springframework.beans.factory.annotation.Value;
 @Entity
 public class CustomerInfo {
 
-	@SequenceGenerator(name="customerId",initialValue=11111111,allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="customerId")
 	@Id
+	@SequenceGenerator(name = "customerId", initialValue = 11111111, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerId")
+	@OneToOne
 	private int customerId;
-	
-	
+
 	private String title;
 	private String firstName;
 	private String middleName;
@@ -33,35 +35,65 @@ public class CustomerInfo {
 	private long grossAnnualIncome;
 	private String panNumber;
 
-	@Value("0000")
-	private int approvedBy;
+	@Value("2021")
+	@OneToOne
+	@JoinColumn
+	private AdminInfo approvedBy;
 
-	@Value("Pending")
-	private String status;
+	@Value("1")
+	@OneToOne
+	@JoinColumn
+	private Status statusId;
+
+	@OneToOne(mappedBy = "customerId")
+	@JoinColumn(name = "addressId")
+	private CustomerAddress address;
+
+	@OneToOne(mappedBy = "customerId")
+	@JoinColumn(name = "customerDocId")
+	private CustomerDocs customerDoc;
+
+	@OneToOne(mappedBy = "customerId")
+	@JoinColumn(name = "accountNumber")
+	private AccountInfo account;
+
+	@OneToOne(mappedBy = "customerId")
+	@JoinColumn(name = "referenceId")
+	private ApplicationReference appReference;
+
+	public ApplicationReference getAppReference() {
+		return appReference;
+	}
+
+	public void setAppReference(ApplicationReference appReference) {
+		this.appReference = appReference;
+	}
+
+	public AccountInfo getAccount() {
+		return account;
+	}
+
+	public void setAccount(AccountInfo account) {
+		this.account = account;
+	}
 
 	public CustomerInfo() {
 	}
 
-	public CustomerInfo(int customerId, String title, String firstName, String middleName, String lastName,
-			String fatherName, long mobileNumber, String emailId, long aadharCardNo, LocalDate dateOfBirth,
-			String occupationType, String sourceOfIncome, long grossAnnualIncome, String panNumber, int approvedBy,
-			String status) {
-		this.customerId = customerId;
-		this.title = title;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.fatherName = fatherName;
-		this.mobileNumber = mobileNumber;
-		this.emailId = emailId;
-		this.aadharCardNo = aadharCardNo;
-		this.dateOfBirth = dateOfBirth;
-		this.occupationType = occupationType;
-		this.sourceOfIncome = sourceOfIncome;
-		this.grossAnnualIncome = grossAnnualIncome;
-		this.panNumber = panNumber;
-		this.approvedBy = approvedBy;
-		this.status = status;
+	public CustomerDocs getCustomerDoc() {
+		return customerDoc;
+	}
+
+	public void setCustomerDoc(CustomerDocs customerDoc) {
+		this.customerDoc = customerDoc;
+	}
+
+	public CustomerAddress getAddress() {
+		return address;
+	}
+
+	public void setAddress(CustomerAddress address) {
+		this.address = address;
 	}
 
 	public int getCustomerId() {
@@ -176,20 +208,20 @@ public class CustomerInfo {
 		this.panNumber = panNumber;
 	}
 
-	public int getApprovedBy() {
+	public AdminInfo getApprovedBy() {
 		return approvedBy;
 	}
 
-	public void setApprovedBy(int approvedBy) {
+	public void setApprovedBy(AdminInfo approvedBy) {
 		this.approvedBy = approvedBy;
 	}
 
-	public String getStatus() {
-		return status;
+	public Status getStatusId() {
+		return statusId;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusId(Status statusId) {
+		this.statusId = statusId;
 	}
-	
+
 }

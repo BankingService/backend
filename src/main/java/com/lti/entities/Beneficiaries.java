@@ -1,21 +1,26 @@
 package com.lti.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Beneficiaries {
 
 	@Id
+	@SequenceGenerator(name="beneficiaryId",initialValue=2001,allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="beneficiaryId")
 	private Long beneficiaryID;
 	private Long beneficiaryAccountNumber;
 	private String beneficiaryName;
 	private String beneficiaryNickName;
-	private int customerId;
+	private AccountInfo customerId;
 	private String beneficiaryIfsc;
 
 	public Beneficiaries(Long beneficiaryID, Long beneficiaryAccountNumber, String beneficiaryName,
-			String beneficiaryNickName, int customerId, String beneficiaryIFSC) {
+			String beneficiaryNickName, AccountInfo customerId, String beneficiaryIFSC) {
 		this.beneficiaryID = beneficiaryID;
 		this.beneficiaryAccountNumber = beneficiaryAccountNumber;
 		this.beneficiaryName = beneficiaryName;
@@ -56,11 +61,11 @@ public class Beneficiaries {
 		this.beneficiaryNickName = beneficiaryNickName;
 	}
 
-	public int getCustomerId() {
+	public AccountInfo getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(AccountInfo customerId) {
 		this.customerId = customerId;
 	}
 

@@ -1,29 +1,40 @@
 package com.lti.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class AccountInfo {
 
 	@Id
-	private int customerId;
+	@SequenceGenerator(name="accountNumber",initialValue=274527368,allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="accountNumber")
 	private Long accountNumber;
+	
+	@OneToOne
+	@JoinColumn
+	private CustomerInfo customerId;
+	
 	private String ifsc;
 	private Double accountBalance;
 
-	public AccountInfo(int customerId, Long accountNumber, String ifsc, Double accountBalance) {
+	public AccountInfo(CustomerInfo customerId, Long accountNumber, String ifsc, Double accountBalance) {
 		this.customerId = customerId;
 		this.accountNumber = accountNumber;
 		this.ifsc = ifsc;
 		this.accountBalance = accountBalance;
 	}
 
-	public int getCustomerId() {
+	public CustomerInfo getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(CustomerInfo customerId) {
 		this.customerId = customerId;
 	}
 

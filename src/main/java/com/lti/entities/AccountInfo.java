@@ -13,25 +13,30 @@ import javax.persistence.SequenceGenerator;
 @Entity
 public class AccountInfo implements Serializable{
 
-	@Id()
-	@OneToOne
-	@JoinColumn(name = "customerId")
-	private CustomerInfo customerId;
-	
+
+	@Id
 	@SequenceGenerator(name = "accountNumber", initialValue = 274527368, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountNumber")
 	private Long accountNumber;
+	
+	@OneToOne
+	@JoinColumn(name = "customerId")
+	private CustomerInfo customerId;
 
 
 	private String ifsc;
 	private Double accountBalance;
 
 	public AccountInfo() {
+
 	
 	}
 	
 	public AccountInfo(Long accountNumber, String ifsc, Double accountBalance) {
 		this.accountNumber = accountNumber;
+	}
+	
+	public AccountInfo(String ifsc, Double accountBalance) {
 		this.ifsc = ifsc;
 		this.accountBalance = accountBalance;
 	}

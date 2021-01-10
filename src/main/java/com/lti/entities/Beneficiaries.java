@@ -1,4 +1,4 @@
-package com.lti.entities;
+/*package com.lti.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -77,3 +77,4 @@ public class Beneficiaries {
 	}
 
 }
+*/

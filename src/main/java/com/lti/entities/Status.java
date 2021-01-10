@@ -2,7 +2,6 @@ package com.lti.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -10,6 +9,7 @@ public class Status {
 
 	@Id
 	private int statusId;
+	
 	private String statusMessage;
 	
 	@OneToOne

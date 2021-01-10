@@ -1,15 +1,20 @@
 package com.lti.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class CustomerInfo {
 
+	@SequenceGenerator(name="customerId",initialValue=11111111,allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="customerId")
 	@Id
 	private int customerId;
 	private String title;
@@ -20,7 +25,7 @@ public class CustomerInfo {
 	private long mobileNumber;
 	private String emailId;
 	private long aadharCardNo;
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 	private String occupationType;
 	private String sourceOfIncome;
 	private long grossAnnualIncome;
@@ -36,7 +41,7 @@ public class CustomerInfo {
 	}
 
 	public CustomerInfo(int customerId, String title, String firstName, String middleName, String lastName,
-			String fatherName, long mobileNumber, String emailId, long aadharCardNo, Date dateOfBirth,
+			String fatherName, long mobileNumber, String emailId, long aadharCardNo, LocalDate dateOfBirth,
 			String occupationType, String sourceOfIncome, long grossAnnualIncome, String panNumber, int approvedBy,
 			String status) {
 		this.customerId = customerId;
@@ -129,11 +134,11 @@ public class CustomerInfo {
 		this.aadharCardNo = aadharCardNo;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

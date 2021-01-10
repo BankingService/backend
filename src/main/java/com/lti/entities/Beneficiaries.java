@@ -1,13 +1,17 @@
-/*package com.lti.entities;
+package com.lti.entities;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Beneficiaries {
+public class Beneficiaries implements Serializable{
 
 	@Id
 	@SequenceGenerator(name="beneficiaryId",initialValue=2001,allocationSize=1)
@@ -16,7 +20,11 @@ public class Beneficiaries {
 	private Long beneficiaryAccountNumber;
 	private String beneficiaryName;
 	private String beneficiaryNickName;
+	
+	@OneToOne
+	@JoinColumn(name = "customerId")
 	private AccountInfo customerId;
+	
 	private String beneficiaryIfsc;
 
 	public Beneficiaries(Long beneficiaryID, Long beneficiaryAccountNumber, String beneficiaryName,
@@ -77,4 +85,3 @@ public class Beneficiaries {
 	}
 
 }
-*/

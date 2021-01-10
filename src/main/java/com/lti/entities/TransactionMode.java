@@ -1,14 +1,18 @@
-/*package com.lti.entities;
+package com.lti.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.OneToOne;
 
 @Entity
 public class TransactionMode {
 
 	@Id
 	private int transactionModeId;
+
+	@OneToOne(mappedBy = "transactionModeId")
+	private UserTransaction transactionId;
+
 	private String transactionMode;
 	private float transactionFee;
 
@@ -46,4 +50,3 @@ public class TransactionMode {
 	}
 
 }
-*/

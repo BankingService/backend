@@ -17,25 +17,22 @@ public class UserLoginInfo implements Serializable {
 	@OneToOne(targetEntity = UserLoginCredentials.class)
 	@JoinColumn(name = "customerId")
 	private UserLoginCredentials Id;
-	@OneToOne(targetEntity=UserLoginCredentials.class)
-	private UserLoginCredentials customerId;
 
+	@OneToOne(targetEntity = UserLoginCredentials.class)
+	private UserLoginCredentials customerId;
 
 	private String loginPassword;
 	private String profilePassword;
 	private String transactionPassword;
-	
-	
 
 	public UserLoginInfo() {
 	}
 
-		
 	public UserLoginInfo(String loginPassword, String profilePassword, String transactionPassword) {
 		this.loginPassword = loginPassword;
 		this.profilePassword = profilePassword;
 		this.transactionPassword = transactionPassword;
-		
+
 	}
 
 	public UserLoginCredentials getId() {

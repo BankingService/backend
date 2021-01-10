@@ -15,7 +15,7 @@ public class CustomerAddress {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addressId")
 	private int addressId;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "address")
 	private CustomerInfo customerId;
 	
 	private String cAddressLine1;

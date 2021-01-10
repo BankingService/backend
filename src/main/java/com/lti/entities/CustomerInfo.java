@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -35,20 +36,26 @@ public class CustomerInfo {
 
 	@Value("2021")
 	@OneToOne
+	@JoinColumn(name = "adminId")
 	private AdminInfo approvedBy;
 
 	@Value("1")
 	@OneToOne
+	@JoinColumn(name = "statusId")
 	private Status statusId;
 
 	@OneToOne
+	@JoinColumn(name = "addressId")
 	private CustomerAddress address;
 
 	@OneToOne
+	@JoinColumn(name = "customerDocId")
 	private CustomerDocs customerDoc;
 
 	@OneToOne
+	@JoinColumn(name = "accountNumber")
 	private AccountInfo account;
+	
 
 //	@OneToOne
 //	private ApplicationReference appReference;

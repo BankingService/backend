@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -15,8 +16,9 @@ public class AdminInfo {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adminId")
 	private int adminId;
 	
-	@OneToOne
-	private CustomerInfo customer;
+	@OneToOne(mappedBy = "approvedBy")
+	@JoinColumn(name = "customerId")
+	private CustomerInfo customerId;
 	
 	private String adminName;
 	private String adminPassword;
@@ -30,12 +32,12 @@ public class AdminInfo {
 		this.adminPassword = adminPassword;
 	}
 
-	public CustomerInfo getCustomer() {
-		return customer;
+	public CustomerInfo getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomer(CustomerInfo customer) {
-		this.customer = customer;
+	public void setCustomer(CustomerInfo customerId) {
+		this.customerId = customerId;
 	}
 
 	public int getAdminId() {

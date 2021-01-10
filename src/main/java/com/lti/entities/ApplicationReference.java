@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -22,9 +22,11 @@ public class ApplicationReference {
 	private int referenceId;
 	
 	@OneToOne
+	@JoinColumn(name = "statusId")
 	private Status statusId;
 	
 	@OneToOne
+	@JoinColumn(name = "customerId")
 	private CustomerInfo customerId;
 
 	public ApplicationReference() {

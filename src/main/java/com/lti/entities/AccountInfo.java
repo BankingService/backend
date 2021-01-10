@@ -11,36 +11,36 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class AccountInfo implements Serializable{
-
-
-	@Id
-	@SequenceGenerator(name = "accountNumber", initialValue = 274527368, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountNumber")
-	private Long accountNumber;
+public class AccountInfo implements Serializable {
 	
+	@Id
 	@OneToOne
 	@JoinColumn(name = "customerId")
 	private CustomerInfo customerId;
 
+	@SequenceGenerator(name = "accountNumber", initialValue = 274527368, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountNumber")
+	private Long accountNumber;
 
 	private String ifsc;
 	private Double accountBalance;
+	
+	@OneToOne(mappedBy = "customerId")
+	private Beneficiaries beneficiary;
 
 	public AccountInfo() {
 
-	
 	}
-	
+
 	public AccountInfo(Long accountNumber, String ifsc, Double accountBalance) {
 		this.accountNumber = accountNumber;
 	}
-	
+
 	public AccountInfo(String ifsc, Double accountBalance) {
 		this.ifsc = ifsc;
 		this.accountBalance = accountBalance;
 	}
-	
+
 	public CustomerInfo getCustomerId() {
 		return customerId;
 	}

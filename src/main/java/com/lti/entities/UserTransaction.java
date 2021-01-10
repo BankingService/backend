@@ -1,49 +1,53 @@
 package com.lti.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 
 @Entity
-public class UserTransaction {
+public class UserTransaction{
 
+	@Id
 	@SequenceGenerator(name="transactionID",initialValue=10000,allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="transactionId")
-	@Id
 	private int transactionID;
+	
 	private long fromAccountNumber;
 	private long toAccountNumber;
-//	private double transactionAmount;
+	private double transactionAmount;
 	private String transactionType;
 	
+	@OneToOne(targetEntity = TransactionMode.class)
+	@JoinColumn(name = "transactionModeId")
+	private TransactionMode transactionModeId;
 	
-//	private TransactionMode transactionModeId;
-	
-	private LocalDate transactionDateTime;
+	private LocalDateTime transactionDateTime;
 	private String transactionStatus;
-//	private double updatedBalance;
+	private double updatedBalance;
 	private String remark;
 
 	public UserTransaction() {
 	}
 
 	public UserTransaction(int transactionID, long fromAccountNumber, long toAccountNumber, double transactionAmount,
-			 String transactionType, LocalDate transactionDateTime, String transactionStatus,
+			 String transactionType, LocalDateTime transactionDateTime, String transactionStatus,
 			double updatedBalance, String remark) {
 		this.transactionID = transactionID;
 		this.fromAccountNumber = fromAccountNumber;
 		this.toAccountNumber = toAccountNumber;
-//		this.transactionAmount = transactionAmount;
+		this.transactionAmount = transactionAmount;
 		
 		this.transactionType = transactionType;
 		this.transactionDateTime = transactionDateTime;
 		this.transactionStatus = transactionStatus;
-//		this.updatedBalance = updatedBalance;
+		this.updatedBalance = updatedBalance;
 		this.remark = remark;
 	}
 
@@ -71,21 +75,21 @@ public class UserTransaction {
 		this.toAccountNumber = toAccountNumber;
 	}
 
-//	public double getTransactionAmount() {
-//		return transactionAmount;
-//	}
-//
-//	public void setTransactionAmount(double transactionAmount) {
-//		this.transactionAmount = transactionAmount;
-//	}
+	public double getTransactionAmount() {
+		return transactionAmount;
+	}
 
-//	public TransactionMode getTransactionModeId() {
-//		return transactionModeId;
-//	}
-//
-//	public void setTransactionModeId(TransactionMode transactionModeId) {
-//		this.transactionModeId = transactionModeId;
-//	}
+	public void setTransactionAmount(double transactionAmount) {
+		this.transactionAmount = transactionAmount;
+	}
+
+	public TransactionMode getTransactionModeId() {
+		return transactionModeId;
+	}
+
+	public void setTransactionModeId(TransactionMode transactionModeId) {
+		this.transactionModeId = transactionModeId;
+	}
 
 	public String getTransactionType() {
 		return transactionType;
@@ -95,11 +99,11 @@ public class UserTransaction {
 		this.transactionType = transactionType;
 	}
 
-	public LocalDate getTransactionDateTime() {
+	public LocalDateTime getTransactionDateTime() {
 		return transactionDateTime;
 	}
 
-	public void setTransactionDateTime(LocalDate transactionDateTime) {
+	public void setTransactionDateTime(LocalDateTime transactionDateTime) {
 		this.transactionDateTime = transactionDateTime;
 	}
 
@@ -111,13 +115,13 @@ public class UserTransaction {
 		this.transactionStatus = transactionStatus;
 	}
 
-//	public double getUpdatedBalance() {
-//		return updatedBalance;
-//	}
-//
-//	public void setUpdatedBalance(double updatedBalance) {
-//		this.updatedBalance = updatedBalance;
-//	}
+	public double getUpdatedBalance() {
+		return updatedBalance;
+	}
+
+	public void setUpdatedBalance(double updatedBalance) {
+		this.updatedBalance = updatedBalance;
+	}
 
 	public String getRemark() {
 		return remark;

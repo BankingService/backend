@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class UserLoginInfo {
 
 	@Id
-	private int customerId;
+	private UserLoginCredentials customerId;
 	private String loginPassword;
 	private String profilePassword;
 	private String transactionPassword;
@@ -16,18 +16,18 @@ public class UserLoginInfo {
 	public UserLoginInfo() {
 	}
 
-	public UserLoginInfo(int customerId, String loginPassword, String profilePassword, String transactionPassword) {
+	public UserLoginInfo(UserLoginCredentials customerId, String loginPassword, String profilePassword, String transactionPassword) {
 		this.customerId = customerId;
 		this.loginPassword = loginPassword;
 		this.profilePassword = profilePassword;
 		this.transactionPassword = transactionPassword;
 	}
 
-	public int getCustomerId() {
+	public UserLoginCredentials getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(UserLoginCredentials customerId) {
 		this.customerId = customerId;
 	}
 

@@ -21,7 +21,7 @@ public class Transaction {
 	private double transactionAmount;
 	private String transactionType;
 	
-	private int transactionModeId;
+	private TransactionMode transactionModeId;
 	
 	private LocalDate transactionDateTime;
 	private String transactionStatus;
@@ -32,7 +32,7 @@ public class Transaction {
 	}
 
 	public Transaction(int transactionID, long fromAccountNumber, long toAccountNumber, double transactionAmount,
-			int transactionModeId, String transactionType, LocalDate transactionDateTime, String transactionStatus,
+			TransactionMode transactionModeId, String transactionType, LocalDate transactionDateTime, String transactionStatus,
 			double updatedBalance, String remark) {
 		this.transactionID = transactionID;
 		this.fromAccountNumber = fromAccountNumber;
@@ -78,11 +78,11 @@ public class Transaction {
 		this.transactionAmount = transactionAmount;
 	}
 
-	public int getTransactionModeId() {
+	public TransactionMode getTransactionModeId() {
 		return transactionModeId;
 	}
 
-	public void setTransactionModeId(int transactionModeId) {
+	public void setTransactionModeId(TransactionMode transactionModeId) {
 		this.transactionModeId = transactionModeId;
 	}
 

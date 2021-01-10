@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @Entity
 public class UserLoginCredentials {
 
-	private CustomerInfo customerId;
+	private AccountInfo customerId;
 	private int invalidAttempts;
 	private LocalDate lastLoginDateTime;
 	private String lastLoginIpAddress;
@@ -16,7 +16,7 @@ public class UserLoginCredentials {
 	public UserLoginCredentials() {
 	}
 
-	public UserLoginCredentials(CustomerInfo customerId, int invalidAttempts, LocalDate lastLoginDateTime,
+	public UserLoginCredentials(AccountInfo customerId, int invalidAttempts, LocalDate lastLoginDateTime,
 			String lastLoginIpAddress) {
 		this.customerId = customerId;
 		this.invalidAttempts = invalidAttempts;
@@ -24,11 +24,11 @@ public class UserLoginCredentials {
 		this.lastLoginIpAddress = lastLoginIpAddress;
 	}
 
-	public CustomerInfo getCustomerId() {
+	public AccountInfo getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(CustomerInfo customerId) {
+	public void setCustomerId(AccountInfo customerId) {
 		this.customerId = customerId;
 	}
 

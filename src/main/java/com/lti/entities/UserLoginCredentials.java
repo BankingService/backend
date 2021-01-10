@@ -1,28 +1,42 @@
 package com.lti.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
-public class UserLoginCredentials {
+public class UserLoginCredentials implements Serializable {
 
+	@Id
+	@OneToOne(targetEntity = AccountInfo.class)
 	private AccountInfo customerId;
+
 	private int invalidAttempts;
 	private LocalDate lastLoginDateTime;
 	private String lastLoginIpAddress;
 
+//	@OneToOne
+//	private UserLoginInfo loginInfo;
+
 	public UserLoginCredentials() {
 	}
 
-	public UserLoginCredentials(AccountInfo customerId, int invalidAttempts, LocalDate lastLoginDateTime,
-			String lastLoginIpAddress) {
-		this.customerId = customerId;
+	public UserLoginCredentials(int invalidAttempts, LocalDate lastLoginDateTime, String lastLoginIpAddress) {
 		this.invalidAttempts = invalidAttempts;
 		this.lastLoginDateTime = lastLoginDateTime;
 		this.lastLoginIpAddress = lastLoginIpAddress;
 	}
+
+//	public UserLoginInfo getLoginInfo() {
+//		return loginInfo;
+//	}
+//
+//	public void setLoginInfo(UserLoginInfo loginInfo) {
+//		this.loginInfo = loginInfo;
+//	}
 
 	public AccountInfo getCustomerId() {
 		return customerId;

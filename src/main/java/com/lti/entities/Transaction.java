@@ -1,4 +1,4 @@
-package com.lti.entities;
+/*package com.lti.entities;
 
 import java.time.LocalDate;
 
@@ -127,3 +127,4 @@ public class Transaction {
 	}
 
 }
+*/

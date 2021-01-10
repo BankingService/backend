@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -18,7 +17,6 @@ public class CustomerInfo {
 	@Id
 	@SequenceGenerator(name = "customerId", initialValue = 11111111, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerId")
-	@OneToOne
 	private int customerId;
 
 	private String title;
@@ -37,37 +35,52 @@ public class CustomerInfo {
 
 	@Value("2021")
 	@OneToOne
-	@JoinColumn
 	private AdminInfo approvedBy;
 
 	@Value("1")
 	@OneToOne
-	@JoinColumn
 	private Status statusId;
 
-	@OneToOne(mappedBy = "customerId")
-	@JoinColumn(name = "addressId")
+	@OneToOne
 	private CustomerAddress address;
 
-	@OneToOne(mappedBy = "customerId")
-	@JoinColumn(name = "customerDocId")
+	@OneToOne
 	private CustomerDocs customerDoc;
 
-	@OneToOne(mappedBy = "customerId")
-	@JoinColumn(name = "accountNumber")
+	@OneToOne
 	private AccountInfo account;
 
-	@OneToOne(mappedBy = "customerId")
-	@JoinColumn(name = "referenceId")
-	private ApplicationReference appReference;
+//	@OneToOne
+//	private ApplicationReference appReference;
 
-	public ApplicationReference getAppReference() {
-		return appReference;
+	public CustomerInfo() {
 	}
 
-	public void setAppReference(ApplicationReference appReference) {
-		this.appReference = appReference;
+	public CustomerInfo(String title, String firstName, String middleName, String lastName,
+			String fatherName, long mobileNumber, String emailId, long aadharCardNo, LocalDate dateOfBirth,
+			String occupationType, String sourceOfIncome, long grossAnnualIncome, String panNumber) {
+		this.title = title;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.fatherName = fatherName;
+		this.mobileNumber = mobileNumber;
+		this.emailId = emailId;
+		this.aadharCardNo = aadharCardNo;
+		this.dateOfBirth = dateOfBirth;
+		this.occupationType = occupationType;
+		this.sourceOfIncome = sourceOfIncome;
+		this.grossAnnualIncome = grossAnnualIncome;
+		this.panNumber = panNumber;
 	}
+
+//	public ApplicationReference getAppReference() {
+//		return appReference;
+//	}
+//
+//	public void setAppReference(ApplicationReference appReference) {
+//		this.appReference = appReference;
+//	}
 
 	public AccountInfo getAccount() {
 		return account;
@@ -75,9 +88,6 @@ public class CustomerInfo {
 
 	public void setAccount(AccountInfo account) {
 		this.account = account;
-	}
-
-	public CustomerInfo() {
 	}
 
 	public CustomerDocs getCustomerDoc() {

@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -17,7 +16,6 @@ public class CustomerAddress {
 	private int addressId;
 	
 	@OneToOne
-	@JoinColumn
 	private CustomerInfo customerId;
 	
 	private String cAddressLine1;
@@ -37,11 +35,9 @@ public class CustomerAddress {
 
 	}
 
-	public CustomerAddress(int addressId, CustomerInfo customerId, String cAddressLine1, String pAddressLine1,
+	public CustomerAddress(String cAddressLine1, String pAddressLine1,
 			String cAddressLine2, String pAddressLine2, String cLandMark, String pLandMark, String cCity, String pCity,
 			String cState, String pState, int cPincode, int pPincode) {
-		this.addressId = addressId;
-		this.customerId = customerId;
 		this.cAddressLine1 = cAddressLine1;
 		this.pAddressLine1 = pAddressLine1;
 		this.cAddressLine2 = cAddressLine2;

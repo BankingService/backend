@@ -2,16 +2,13 @@ package com.lti.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Status {
 
 	@Id
-	@OneToOne(mappedBy="statusId")
-	@JoinColumn(name="customerId")
 	private int statusId;
+	
 	private String statusMessage;
 
 	public Status() {

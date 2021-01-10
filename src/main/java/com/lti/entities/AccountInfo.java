@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -12,24 +11,24 @@ import javax.persistence.SequenceGenerator;
 public class AccountInfo {
 
 	@Id
-	@SequenceGenerator(name="accountNumber",initialValue=274527368,allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="accountNumber")
+	@SequenceGenerator(name = "accountNumber", initialValue = 274527368, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountNumber")
 	private Long accountNumber;
-	
+
 	@OneToOne
-	@JoinColumn
 	private CustomerInfo customerId;
-	
+
 	private String ifsc;
 	private Double accountBalance;
 
-	public AccountInfo(CustomerInfo customerId, Long accountNumber, String ifsc, Double accountBalance) {
-		this.customerId = customerId;
-		this.accountNumber = accountNumber;
+	public AccountInfo() {
+	}
+	
+	public AccountInfo(String ifsc, Double accountBalance) {
 		this.ifsc = ifsc;
 		this.accountBalance = accountBalance;
 	}
-
+	
 	public CustomerInfo getCustomerId() {
 		return customerId;
 	}

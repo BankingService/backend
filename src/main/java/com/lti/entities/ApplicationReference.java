@@ -1,39 +1,31 @@
 package com.lti.entities;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+@Entity
 public class ApplicationReference {
 
 	@Id
 	@SequenceGenerator(name = "referenceId", initialValue = 10000, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "referenceId")
-	private int refernceId;
+	private int referenceId;
+	
+	@OneToOne
 	private Status statusId;
 	
 	@OneToOne
-	@JoinColumn
 	private CustomerInfo customerId;
 
 	public ApplicationReference() {
 	}
 
-	public ApplicationReference(int refernceId, CustomerInfo customerId, Status statusId) {
-		this.refernceId = refernceId;
-		this.customerId = customerId;
-		this.statusId = statusId;
-	}
-
-	public int getRefernceId() {
-		return refernceId;
-	}
-
-	public void setRefernceId(int refernceId) {
-		this.refernceId = refernceId;
+	public ApplicationReference(int referenceId) {
+		this.referenceId = referenceId;
 	}
 
 	public CustomerInfo getCustomerId() {
@@ -51,5 +43,4 @@ public class ApplicationReference {
 	public void setStatusId(Status statusId) {
 		this.statusId = statusId;
 	}
-
 }

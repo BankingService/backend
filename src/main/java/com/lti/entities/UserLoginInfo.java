@@ -1,14 +1,18 @@
 package com.lti.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.OneToOne;
 
 @Entity
-public class UserLoginInfo {
+public class UserLoginInfo implements Serializable {
 
 	@Id
+	@OneToOne(targetEntity=UserLoginCredentials.class)
 	private UserLoginCredentials customerId;
+
 	private String loginPassword;
 	private String profilePassword;
 	private String transactionPassword;
@@ -16,8 +20,7 @@ public class UserLoginInfo {
 	public UserLoginInfo() {
 	}
 
-	public UserLoginInfo(UserLoginCredentials customerId, String loginPassword, String profilePassword, String transactionPassword) {
-		this.customerId = customerId;
+	public UserLoginInfo(String loginPassword, String profilePassword, String transactionPassword) {
 		this.loginPassword = loginPassword;
 		this.profilePassword = profilePassword;
 		this.transactionPassword = transactionPassword;

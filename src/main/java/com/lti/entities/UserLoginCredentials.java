@@ -3,13 +3,12 @@ package com.lti.entities;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
+
 
 @Entity
 public class UserLoginCredentials {
 
-	@Id
-	private int customerId;
+	private CustomerInfo customerId;
 	private int invalidAttempts;
 	private LocalDate lastLoginDateTime;
 	private String lastLoginIpAddress;
@@ -17,7 +16,7 @@ public class UserLoginCredentials {
 	public UserLoginCredentials() {
 	}
 
-	public UserLoginCredentials(int customerId, int invalidAttempts, LocalDate lastLoginDateTime,
+	public UserLoginCredentials(CustomerInfo customerId, int invalidAttempts, LocalDate lastLoginDateTime,
 			String lastLoginIpAddress) {
 		this.customerId = customerId;
 		this.invalidAttempts = invalidAttempts;
@@ -25,11 +24,11 @@ public class UserLoginCredentials {
 		this.lastLoginIpAddress = lastLoginIpAddress;
 	}
 
-	public int getCustomerId() {
+	public CustomerInfo getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(CustomerInfo customerId) {
 		this.customerId = customerId;
 	}
 

@@ -3,6 +3,7 @@ package com.lti.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+
 @Entity
 public class UserLoginInfo {
 

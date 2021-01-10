@@ -15,7 +15,7 @@ public class CustomerDocs {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerDocId")
 	private int customerDocId;
 
-	@OneToOne(mappedBy = "customerDoc")
+	@OneToOne
 	private CustomerInfo customerId;
 
 	private String aadharCard;

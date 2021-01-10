@@ -1,7 +1,6 @@
 package com.lti.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,56 +8,57 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
+
 public class UserLoginCredentials implements Serializable {
 
 	@Id
 	@OneToOne(targetEntity = AccountInfo.class)
 	@JoinColumn(name = "customerId")
-	private AccountInfo customerId;
-	private int invalidAttempts;
-	private LocalDate lastLoginDateTime;
-	private String lastLoginIpAddress;
+	private UserLoginInfo Id;
+
+	private String loginPassword;
+	private String profilePassword;
+	private String transactionPassword;
 
 	public UserLoginCredentials() {
 	}
 
-	public UserLoginCredentials(int invalidAttempts, LocalDate lastLoginDateTime, String lastLoginIpAddress) {
+	public UserLoginCredentials(String loginPassword, String profilePassword, String transactionPassword) {
+		this.loginPassword = loginPassword;
+		this.profilePassword = profilePassword;
+		this.transactionPassword = transactionPassword;
 
-		this.invalidAttempts = invalidAttempts;
-		this.lastLoginDateTime = lastLoginDateTime;
-		this.lastLoginIpAddress = lastLoginIpAddress;
 	}
 
-	public AccountInfo getCustomerId() {
-		return customerId;
+	public UserLoginInfo getId() {
+		return Id;
 	}
 
-	public void setCustomerId(AccountInfo customerId) {
-		this.customerId = customerId;
+	public void setId(UserLoginInfo id) {
+		Id = id;
 	}
 
-	public int getInvalidAttempts() {
-		return invalidAttempts;
+	public String getLoginPassword() {
+		return loginPassword;
 	}
 
-	public void setInvalidAttempts(int invalidAttempts) {
-		this.invalidAttempts = invalidAttempts;
+	public void setLoginPassword(String loginPassword) {
+		this.loginPassword = loginPassword;
 	}
 
-	public LocalDate getLastLoginDateTime() {
-		return lastLoginDateTime;
+	public String getProfilePassword() {
+		return profilePassword;
 	}
 
-	public void setLastLoginDateTime(LocalDate lastLoginDateTime) {
-		this.lastLoginDateTime = lastLoginDateTime;
+	public void setProfilePassword(String profilePassword) {
+		this.profilePassword = profilePassword;
 	}
 
-	public String getLastLoginIpAddress() {
-		return lastLoginIpAddress;
+	public String getTransactionPassword() {
+		return transactionPassword;
 	}
 
-	public void setLastLoginIpAddress(String lastLoginIpAddress) {
-		this.lastLoginIpAddress = lastLoginIpAddress;
+	public void setTransactionPassword(String transactionPassword) {
+		this.transactionPassword = transactionPassword;
 	}
-
 }

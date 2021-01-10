@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -34,31 +35,31 @@ public class CustomerInfo {
 	private long grossAnnualIncome;
 	private String panNumber;
 
-	@Value("2021")
+//	@Value("2021")
 	@OneToOne
-	@JoinColumn(name = "adminId")
+//	@JoinColumn(name = "adminId")
 	private AdminInfo approvedBy;
 
 	@Value("1")
 	@OneToOne
-	@JoinColumn(name = "statusId")
+//	@JoinColumn(name = "statusId")
 	private Status statusId;
 
-	@OneToOne
-	@JoinColumn(name = "addressId")
+	@OneToOne(mappedBy = "customerId")
+//	@JoinColumn(name = "addressId")
 	private CustomerAddress address;
 
-	@OneToOne
-	@JoinColumn(name = "customerDocId")
+	@OneToOne(mappedBy = "customerId")
+//	@JoinColumn(name = "customerDocId")
 	private CustomerDocs customerDoc;
 
-	@OneToOne
-	@JoinColumn(name = "accountNumber")
+	@OneToOne(mappedBy = "customerId")
+//	@JoinColumn(name = "accountNumber")
 	private AccountInfo account;
 	
 
-//	@OneToOne
-//	private ApplicationReference appReference;
+	@OneToOne
+	private ApplicationReference appReference;
 
 	public CustomerInfo() {
 	}
@@ -81,13 +82,13 @@ public class CustomerInfo {
 		this.panNumber = panNumber;
 	}
 
-//	public ApplicationReference getAppReference() {
-//		return appReference;
-//	}
-//
-//	public void setAppReference(ApplicationReference appReference) {
-//		this.appReference = appReference;
-//	}
+	public ApplicationReference getAppReference() {
+		return appReference;
+	}
+
+	public void setAppReference(ApplicationReference appReference) {
+		this.appReference = appReference;
+	}
 
 	public AccountInfo getAccount() {
 		return account;

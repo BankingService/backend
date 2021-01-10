@@ -25,7 +25,7 @@ public class AccountInfo implements Serializable {
 	private String ifsc;
 	private Double accountBalance;
 	
-	@OneToOne(mappedBy = "customerId")
+	@OneToOne
 	private Beneficiaries beneficiary;
 
 	public AccountInfo() {

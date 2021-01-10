@@ -26,6 +26,9 @@ public class Beneficiaries implements Serializable{
 	private AccountInfo customerId;
 	
 	private String beneficiaryIfsc;
+	public Beneficiaries() {
+	
+	}
 
 	public Beneficiaries(Long beneficiaryID, Long beneficiaryAccountNumber, String beneficiaryName,
 			String beneficiaryNickName, String beneficiaryIFSC) {

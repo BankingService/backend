@@ -3,15 +3,21 @@ package com.lti.entities;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class CustomerInfo {
 
-	@Id
+	@SequenceGenerator(name="custId_seq",initialValue=2001,allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="custId_seq")
 	private int customerId;
+	
+	
 	private String title;
 	private String firstName;
 	private String middleName;

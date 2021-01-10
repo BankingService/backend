@@ -20,12 +20,11 @@ public class Beneficiaries {
 	private String beneficiaryIfsc;
 
 	public Beneficiaries(Long beneficiaryID, Long beneficiaryAccountNumber, String beneficiaryName,
-			String beneficiaryNickName, AccountInfo customerId, String beneficiaryIFSC) {
+			String beneficiaryNickName, String beneficiaryIFSC) {
 		this.beneficiaryID = beneficiaryID;
 		this.beneficiaryAccountNumber = beneficiaryAccountNumber;
 		this.beneficiaryName = beneficiaryName;
 		this.beneficiaryNickName = beneficiaryNickName;
-		this.customerId = customerId;
 		this.beneficiaryIfsc = beneficiaryIFSC;
 	}
 

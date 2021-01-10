@@ -11,3 +11,10 @@ public class BankingApplication {
 	}
 
 }
+
+
+
+//
+//@Access(AccessType.PROPERTY)@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)@JoinColumn(name="userId")public User getUser() {​​
+//    return user;
+//}​​

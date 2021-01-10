@@ -1,5 +1,7 @@
 package com.lti.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,27 +11,31 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class AccountInfo {
+public class AccountInfo implements Serializable{
 
-	@Id
-	@SequenceGenerator(name="accountNumber",initialValue=274527368,allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="accountNumber")
-	private Long accountNumber;
-	
+	@Id()
 	@OneToOne
-	@JoinColumn
+	@JoinColumn(name = "customerId")
 	private CustomerInfo customerId;
 	
+	@SequenceGenerator(name = "accountNumber", initialValue = 274527368, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountNumber")
+	private Long accountNumber;
+
+
 	private String ifsc;
 	private Double accountBalance;
 
-	public AccountInfo(CustomerInfo customerId, Long accountNumber, String ifsc, Double accountBalance) {
-		this.customerId = customerId;
+	public AccountInfo() {
+	
+	}
+	
+	public AccountInfo(Long accountNumber, String ifsc, Double accountBalance) {
 		this.accountNumber = accountNumber;
 		this.ifsc = ifsc;
 		this.accountBalance = accountBalance;
 	}
-
+	
 	public CustomerInfo getCustomerId() {
 		return customerId;
 	}

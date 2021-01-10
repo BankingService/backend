@@ -9,10 +9,13 @@ import javax.persistence.OneToOne;
 public class Status {
 
 	@Id
-	@OneToOne(mappedBy="statusId")
-	@JoinColumn(name="customerId")
 	private int statusId;
 	private String statusMessage;
+	
+	@OneToOne
+	private ApplicationReference appRefernce;
+
+	
 
 	public Status() {
 	}
@@ -36,6 +39,14 @@ public class Status {
 
 	public void setStatusMessage(String statusMessage) {
 		this.statusMessage = statusMessage;
+	}
+	
+	public ApplicationReference getAppRefernce() {
+		return appRefernce;
+	}
+
+	public void setAppRefernce(ApplicationReference appRefernce) {
+		this.appRefernce = appRefernce;
 	}
 
 }

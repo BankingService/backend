@@ -1,34 +1,43 @@
 package com.lti.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 
 @Entity
-public class UserLoginInfo {
+public class UserLoginInfo implements Serializable{
 
 	@Id
-	private UserLoginCredentials customerId;
+	@OneToOne(targetEntity = UserLoginCredentials.class)
+	@JoinColumn(name = "customerId")
+	private UserLoginCredentials Id;
 	private String loginPassword;
 	private String profilePassword;
 	private String transactionPassword;
+	
+	
 
 	public UserLoginInfo() {
 	}
 
-	public UserLoginInfo(UserLoginCredentials customerId, String loginPassword, String profilePassword, String transactionPassword) {
-		this.customerId = customerId;
+	public UserLoginInfo( String loginPassword, String profilePassword, String transactionPassword) {
+		
 		this.loginPassword = loginPassword;
 		this.profilePassword = profilePassword;
 		this.transactionPassword = transactionPassword;
+		
 	}
 
-	public UserLoginCredentials getCustomerId() {
-		return customerId;
+	public UserLoginCredentials getId() {
+		return Id;
 	}
 
-	public void setCustomerId(UserLoginCredentials customerId) {
-		this.customerId = customerId;
+	public void setId(UserLoginCredentials id) {
+		Id = id;
 	}
 
 	public String getLoginPassword() {

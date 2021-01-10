@@ -1,13 +1,19 @@
 package com.lti.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 
 @Entity
-public class UserLoginCredentials {
-
+public class UserLoginCredentials implements Serializable {
+	@Id
+	@OneToOne(targetEntity = AccountInfo.class)
+	@JoinColumn(name = "customerId")
 	private AccountInfo customerId;
 	private int invalidAttempts;
 	private LocalDate lastLoginDateTime;
@@ -16,9 +22,9 @@ public class UserLoginCredentials {
 	public UserLoginCredentials() {
 	}
 
-	public UserLoginCredentials(AccountInfo customerId, int invalidAttempts, LocalDate lastLoginDateTime,
+	public UserLoginCredentials( int invalidAttempts, LocalDate lastLoginDateTime,
 			String lastLoginIpAddress) {
-		this.customerId = customerId;
+		
 		this.invalidAttempts = invalidAttempts;
 		this.lastLoginDateTime = lastLoginDateTime;
 		this.lastLoginIpAddress = lastLoginIpAddress;

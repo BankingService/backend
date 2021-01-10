@@ -190,4 +190,5 @@ public class CustomerInfo {
 		this.status = status;
 	}
 
+	
 }

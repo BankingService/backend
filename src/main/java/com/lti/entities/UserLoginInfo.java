@@ -9,20 +9,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class UserLoginCredentials implements Serializable {
+public class UserLoginInfo implements Serializable {
 
 	@Id
-	@OneToOne(targetEntity = AccountInfo.class)
+	@OneToOne(targetEntity = UserLoginCredentials.class)
 	@JoinColumn(name = "customerId")
 	private AccountInfo customerId;
+	
 	private int invalidAttempts;
 	private LocalDate lastLoginDateTime;
 	private String lastLoginIpAddress;
 
-	public UserLoginCredentials() {
+	public UserLoginInfo() {
 	}
 
-	public UserLoginCredentials(int invalidAttempts, LocalDate lastLoginDateTime, String lastLoginIpAddress) {
+	public UserLoginInfo(int invalidAttempts, LocalDate lastLoginDateTime, String lastLoginIpAddress) {
 
 		this.invalidAttempts = invalidAttempts;
 		this.lastLoginDateTime = lastLoginDateTime;

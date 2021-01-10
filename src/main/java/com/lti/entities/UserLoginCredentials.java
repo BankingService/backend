@@ -7,39 +7,34 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import javax.persistence.OneToOne;
-
 @Entity
 
-public class UserLoginInfo implements Serializable {
+public class UserLoginCredentials implements Serializable {
 
 	@Id
-	@OneToOne(targetEntity = UserLoginCredentials.class)
+	@OneToOne(targetEntity = AccountInfo.class)
 	@JoinColumn(name = "customerId")
-	private UserLoginCredentials Id;
-
-	@OneToOne(targetEntity = UserLoginCredentials.class)
-	private UserLoginCredentials customerId;
+	private UserLoginInfo Id;
 
 	private String loginPassword;
 	private String profilePassword;
 	private String transactionPassword;
 
-	public UserLoginInfo() {
+	public UserLoginCredentials() {
 	}
 
-	public UserLoginInfo(String loginPassword, String profilePassword, String transactionPassword) {
+	public UserLoginCredentials(String loginPassword, String profilePassword, String transactionPassword) {
 		this.loginPassword = loginPassword;
 		this.profilePassword = profilePassword;
 		this.transactionPassword = transactionPassword;
 
 	}
 
-	public UserLoginCredentials getId() {
+	public UserLoginInfo getId() {
 		return Id;
 	}
 
-	public void setId(UserLoginCredentials id) {
+	public void setId(UserLoginInfo id) {
 		Id = id;
 	}
 

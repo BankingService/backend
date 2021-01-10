@@ -57,8 +57,8 @@ public class CustomerInfo {
 	private AccountInfo account;
 	
 
-//	@OneToOne
-//	private ApplicationReference appReference;
+	@OneToOne
+	private ApplicationReference appReference;
 
 	public CustomerInfo() {
 	}

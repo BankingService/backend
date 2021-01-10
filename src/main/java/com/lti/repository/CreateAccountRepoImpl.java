@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.lti.entities.CustomerAddress;
 import com.lti.entities.CustomerInfo;
 
 @Repository
@@ -20,6 +21,12 @@ public class CreateAccountRepoImpl implements CreateAccountRepo {
 		
 		entityManager.persist(customerInfo);
        
+	}
+
+	@Override
+	public void createAccountAdd(CustomerAddress customerAddress) {
+		entityManager.persist(customerAddress);
+		
 	}
 
 }

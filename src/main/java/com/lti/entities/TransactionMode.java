@@ -6,7 +6,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class TransactionMode {
-
+ 
 	@Id
 	private int transactionModeId;
 

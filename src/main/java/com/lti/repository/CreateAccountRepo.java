@@ -11,3 +11,4 @@ public interface CreateAccountRepo {
 	public AdminInfo getAdminInfo(int id);
 
 }
+ 

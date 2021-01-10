@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 public class UserTransaction{
-
+ 
 	@Id
 	@SequenceGenerator(name="transactionID",initialValue=10000,allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="transactionId")

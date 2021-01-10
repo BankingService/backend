@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class AdminInfo {
-
+ 
 	@Id
 	private int adminId;
 	

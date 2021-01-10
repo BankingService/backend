@@ -30,9 +30,6 @@ public class Beneficiaries implements Serializable {
 	
 	}
 
-	public Beneficiaries() {
-	}
-
 	public Beneficiaries(Long beneficiaryID, Long beneficiaryAccountNumber, String beneficiaryName,
 			String beneficiaryNickName, String beneficiaryIFSC) {
 		this.beneficiaryID = beneficiaryID;

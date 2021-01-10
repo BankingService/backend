@@ -15,7 +15,7 @@ import org.hibernate.annotations.ManyToAny;
 
 @Entity
 public class ApplicationReference {
-
+ 
 	@Id
 	@SequenceGenerator(name = "referenceId", initialValue = 100, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "referenceId")

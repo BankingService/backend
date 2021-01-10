@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 @Entity
 
 public class UserLoginCredentials implements Serializable {
-
+ 
 	@Id
 	@OneToOne(targetEntity = AccountInfo.class)
 	@JoinColumn(name = "customerId")

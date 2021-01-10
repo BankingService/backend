@@ -6,7 +6,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Status {
-
+ 
 	@Id
 	private int statusId;
 	

@@ -12,7 +12,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 public class AccountInfo implements Serializable {
-	
+	 
 	@Id
 	@OneToOne
 	@JoinColumn(name = "customerId")

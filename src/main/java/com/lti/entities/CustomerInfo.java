@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class CustomerInfo {
-
+ 
 	@Id
 	@SequenceGenerator(name = "customerId", initialValue = 11111111, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerId")

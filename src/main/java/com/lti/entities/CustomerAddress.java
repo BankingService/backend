@@ -9,7 +9,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 public class CustomerAddress {
-
+ 
 	@Id
 	@SequenceGenerator(name = "addressId", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addressId")

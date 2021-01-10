@@ -11,23 +11,26 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Beneficiaries implements Serializable{
+public class Beneficiaries implements Serializable {
 
 	@Id
-	@SequenceGenerator(name="beneficiaryId",initialValue=2001,allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="beneficiaryId")
+	@SequenceGenerator(name = "beneficiaryId", initialValue = 2001, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "beneficiaryId")
 	private Long beneficiaryID;
 	private Long beneficiaryAccountNumber;
 	private String beneficiaryName;
 	private String beneficiaryNickName;
-	
+
 	@OneToOne
 	@JoinColumn(name = "customerId")
 	private AccountInfo customerId;
-	
+
 	private String beneficiaryIfsc;
 	public Beneficiaries() {
 	
+	}
+
+	public Beneficiaries() {
 	}
 
 	public Beneficiaries(Long beneficiaryID, Long beneficiaryAccountNumber, String beneficiaryName,

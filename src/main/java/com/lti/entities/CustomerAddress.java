@@ -1,5 +1,6 @@
 package com.lti.entities;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,16 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-@Entity
+//@Entity
+@Embeddable
 public class CustomerAddress {
  
-	@Id
-	@SequenceGenerator(name = "addressId", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addressId")
-	private int addressId;
+//	@Id
+//	@SequenceGenerator(name = "addressId", initialValue = 1, allocationSize = 1)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addressId")
+//	private int addressId;
 	
-	@OneToOne
-	private CustomerInfo customerId;
+//	@OneToOne
+//	private CustomerInfo customerId;
 	
 	private String cAddressLine1;
 	private String pAddressLine1;
@@ -52,21 +54,21 @@ public class CustomerAddress {
 		this.pPincode = pPincode;
 	}
 
-	public int getAddressId() {
-		return addressId;
-	}
+//	public int getAddressId() {
+//		return addressId;
+//	}
+//
+//	public void setAddressId(int addressId) {
+//		this.addressId = addressId;
+//	}
 
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
-	}
-
-	public CustomerInfo getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(CustomerInfo customerId) {
-		this.customerId = customerId;
-	}
+//	public CustomerInfo getCustomerId() {
+//		return customerId;
+//	}
+//
+//	public void setCustomerId(CustomerInfo customerId) {
+//		this.customerId = customerId;
+//	}
 
 	public String getcAddressLine1() {
 		return cAddressLine1;
@@ -166,7 +168,7 @@ public class CustomerAddress {
 
 	@Override
 	public String toString() {
-		return "CustomerAddress [customerId=" + customerId + ", cAddressLine1=" + cAddressLine1 + ", pAddressLine1="
+		return "CustomerAddress [ cAddressLine1=" + cAddressLine1 + ", pAddressLine1="
 				+ pAddressLine1 + ", cAddressLine2=" + cAddressLine2 + ", pAddressLine2=" + pAddressLine2
 				+ ", cLandMark=" + cLandMark + ", pLandMark=" + pLandMark + ", cCity=" + cCity + ", pCity=" + pCity
 				+ ", cState=" + cState + ", pState=" + pState + ", cPincode=" + cPincode + ", pPincode=" + pPincode

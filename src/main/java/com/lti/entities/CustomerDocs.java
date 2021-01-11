@@ -1,5 +1,6 @@
 package com.lti.entities;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,16 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-@Entity
+//@Entity
+@Embeddable
 public class CustomerDocs {
  
-	@Id
-	@SequenceGenerator(name = "customerDocId", initialValue = 2001, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerDocId")
-	private int customerDocId;
+//	@Id
+//	@SequenceGenerator(name = "customerDocId", initialValue = 2001, allocationSize = 1)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerDocId")
+//	private int customerDocId;
 
-	@OneToOne
-	private CustomerInfo customerId;
+//	@OneToOne
+//	private CustomerInfo customerId;
 
 	private String aadharCard;
 	private String panCard;
@@ -30,21 +32,21 @@ public class CustomerDocs {
 		this.panCard = panCard;
 	}
 
-	public int getCustomerDocId() {
-		return customerDocId;
-	}
+//	public int getCustomerDocId() {
+//		return customerDocId;
+//	}
+//
+//	public void setCustomerDocId(int customerDocId) {
+//		this.customerDocId = customerDocId;
+//	}
 
-	public void setCustomerDocId(int customerDocId) {
-		this.customerDocId = customerDocId;
-	}
-
-	public CustomerInfo getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(CustomerInfo customerId) {
-		this.customerId = customerId;
-	}
+//	public CustomerInfo getCustomerId() {
+//		return customerId;
+//	}
+//
+//	public void setCustomerId(CustomerInfo customerId) {
+//		this.customerId = customerId;
+//	}
 
 	public String getAadharCard() {
 		return aadharCard;
@@ -64,7 +66,7 @@ public class CustomerDocs {
 
 	@Override
 	public String toString() {
-		return "CustomerDocs [customerId=" + customerId + ", aadharCard=" + aadharCard + ", panCard=" + panCard + "]";
+		return "CustomerDocs [ aadharCard=" + aadharCard + ", panCard=" + panCard + "]";
 	}
 
 }

@@ -45,28 +45,29 @@ public class CustomerInfo {
 //	@JoinColumn(name = "statusId")
 	private Status statusId;
 
-	@OneToOne(mappedBy = "customerId")
+//	@OneToOne
 //	@JoinColumn(name = "addressId")
 	private CustomerAddress address;
 
-	@OneToOne(mappedBy = "customerId")
+//	@OneToOne(mappedBy = "customerId")
 //	@JoinColumn(name = "customerDocId")
 	private CustomerDocs customerDoc;
 
-	@OneToOne(mappedBy = "customerId")
+//	@OneToOne(mappedBy = "customerId")
 //	@JoinColumn(name = "accountNumber")
-	private AccountInfo account;
+//	private AccountInfo account;
 	
 
-	@OneToOne
-	private ApplicationReference appReference;
+//	@OneToOne
+//	private ApplicationReference appReference;
 
 	public CustomerInfo() {
 	}
 
 	public CustomerInfo(String title, String firstName, String middleName, String lastName,
 			String fatherName, long mobileNumber, String emailId, long aadharCardNo, LocalDate dateOfBirth,
-			String occupationType, String sourceOfIncome, long grossAnnualIncome, String panNumber) {
+			String occupationType, String sourceOfIncome, long grossAnnualIncome, String panNumber, AdminInfo approvedBy,
+			CustomerAddress address, CustomerDocs customerDoc) {
 		this.title = title;
 		this.firstName = firstName;
 		this.middleName = middleName;
@@ -80,23 +81,26 @@ public class CustomerInfo {
 		this.sourceOfIncome = sourceOfIncome;
 		this.grossAnnualIncome = grossAnnualIncome;
 		this.panNumber = panNumber;
+		this.approvedBy = approvedBy;
+		this.address = address;
+		this.customerDoc = customerDoc;
 	}
 
-	public ApplicationReference getAppReference() {
-		return appReference;
-	}
-
-	public void setAppReference(ApplicationReference appReference) {
-		this.appReference = appReference;
-	}
-
-	public AccountInfo getAccount() {
-		return account;
-	}
-
-	public void setAccount(AccountInfo account) {
-		this.account = account;
-	}
+//	public ApplicationReference getAppReference() {
+//		return appReference;
+//	}
+//
+//	public void setAppReference(ApplicationReference appReference) {
+//		this.appReference = appReference;
+//	}
+//
+//	public AccountInfo getAccount() {
+//		return account;
+//	}
+//
+//	public void setAccount(AccountInfo account) {
+//		this.account = account;
+//	}
 
 	public CustomerDocs getCustomerDoc() {
 		return customerDoc;

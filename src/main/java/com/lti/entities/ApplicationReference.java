@@ -55,4 +55,11 @@ public class ApplicationReference {
 	public void setStatusId(Status statusId) {
 		this.statusId = statusId;
 	}
+
+	@Override
+	public String toString() {
+		return "ApplicationReference [referenceId=" + referenceId + ", statusId=" + statusId + ", customerId="
+				+ customerId + "]";
+	}
+	
 }

@@ -67,7 +67,7 @@ public class CustomerInfo {
 	public CustomerInfo(String title, String firstName, String middleName, String lastName,
 			String fatherName, long mobileNumber, String emailId, long aadharCardNo, LocalDate dateOfBirth,
 			String occupationType, String sourceOfIncome, long grossAnnualIncome, String panNumber, AdminInfo approvedBy,
-			CustomerAddress address, CustomerDocs customerDoc) {
+			CustomerAddress address, CustomerDocs customerDoc, Status statusId) {
 		this.title = title;
 		this.firstName = firstName;
 		this.middleName = middleName;
@@ -84,6 +84,7 @@ public class CustomerInfo {
 		this.approvedBy = approvedBy;
 		this.address = address;
 		this.customerDoc = customerDoc;
+		this.statusId = statusId;
 	}
 
 //	public ApplicationReference getAppReference() {
@@ -245,5 +246,17 @@ public class CustomerInfo {
 	public void setStatusId(Status statusId) {
 		this.statusId = statusId;
 	}
+
+	@Override
+	public String toString() {
+		return "CustomerInfo [customerId=" + customerId + ", title=" + title + ", firstName=" + firstName
+				+ ", middleName=" + middleName + ", lastName=" + lastName + ", fatherName=" + fatherName
+				+ ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", aadharCardNo=" + aadharCardNo
+				+ ", dateOfBirth=" + dateOfBirth + ", occupationType=" + occupationType + ", sourceOfIncome="
+				+ sourceOfIncome + ", grossAnnualIncome=" + grossAnnualIncome + ", panNumber=" + panNumber
+				+ ", approvedBy=" + approvedBy + ", statusId=" + statusId + ", address=" + address + ", customerDoc="
+				+ customerDoc + "]";
+	}
+	
 
 }

@@ -12,8 +12,8 @@ public class Status {
 	
 	private String statusMessage;
 	
-	@OneToOne
-	private ApplicationReference appRefernce;
+//	@OneToOne
+//	private ApplicationReference appRefernce;
 
 	
 
@@ -40,13 +40,19 @@ public class Status {
 	public void setStatusMessage(String statusMessage) {
 		this.statusMessage = statusMessage;
 	}
+
+	@Override
+	public String toString() {
+		return "Status [statusId=" + statusId + ", statusMessage=" + statusMessage + "]";
+	}
 	
-	public ApplicationReference getAppRefernce() {
-		return appRefernce;
-	}
+//	public ApplicationReference getAppRefernce() {
+//		return appRefernce;
+//	}
+//
+//	public void setAppRefernce(ApplicationReference appRefernce) {
+//		this.appRefernce = appRefernce;
+//	}
 
-	public void setAppRefernce(ApplicationReference appRefernce) {
-		this.appRefernce = appRefernce;
-	}
-
+	
 }

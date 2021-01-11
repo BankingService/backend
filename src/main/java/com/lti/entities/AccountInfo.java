@@ -73,4 +73,11 @@ public class AccountInfo implements Serializable {
 		this.accountBalance = accountBalance;
 	}
 
+	@Override
+	public String toString() {
+		return "AccountInfo [customerId=" + customerId + ", accountNumber=" + accountNumber + ", ifsc=" + ifsc
+				+ ", accountBalance=" + accountBalance + ", beneficiary=" + beneficiary + "]";
+	}
+	
+
 }

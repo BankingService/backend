@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.CreateAccountRequest;
 import com.lti.entities.CustomerInfo;
 import com.lti.services.CreateAccountService;
 
@@ -19,21 +20,34 @@ public class CreateAccountController {
 
 	@Autowired
 	CreateAccountService service;
+	
 
 	@RequestMapping(value = "/customerInfo/", method = RequestMethod.POST)
-	public List<String> customerInfo(@RequestBody CustomerInfo customerInfo) {
-//			System.out.println(customerInfo.getCustomerId());
+	public  CreateAccountRequest customerInfo(@RequestBody CustomerInfo customerInfo) {
+		CreateAccountRequest status = new CreateAccountRequest();
+		try {
 			int refId = service.createAccount(customerInfo);
-			List<String> list = new ArrayList<String>();
-			list.add("Account Created Successfully");
-			list.add("Your Refernce Id: " + refId);
-			return list;
+			status.setMsg("Account Creation Request Submitted Successfully");
+			status.setRefId(refId);
+			return status;
+		} catch (Exception e) {
+			status.setMsg("Account Request Already Exist");
+//			status.setRefId(refId);
+			return status;
+		}
+			
 	}
 	
 	@GetMapping("/checkStatus/{refId}")
 	public String checkStatus(@PathVariable("refId") int refId) {
-		String res = service.checkStatus(refId);
-		return res;
+		try {
+			String res = service.checkStatus(refId);
+			String msg = "Your Account request is: "+ res;
+			return msg;
+		} catch (Exception e) {
+			return "Account is Active";
+		}
+		
 	}
 
 

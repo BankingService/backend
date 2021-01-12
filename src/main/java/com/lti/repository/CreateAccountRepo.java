@@ -16,4 +16,6 @@ public interface CreateAccountRepo {
 
 	public int findCustomerId();
 
+	public String checkStatus(int refId);
+
 }

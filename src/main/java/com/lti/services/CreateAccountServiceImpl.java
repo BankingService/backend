@@ -42,4 +42,10 @@ public class CreateAccountServiceImpl implements CreateAccountService {
 
 	}
 
+	@Override
+	public String checkStatus(int refId) {
+		String res = createAccount.checkStatus(refId);
+		return res;
+	}
+
 }

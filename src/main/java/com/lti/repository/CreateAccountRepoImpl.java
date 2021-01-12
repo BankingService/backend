@@ -60,5 +60,12 @@ public class CreateAccountRepoImpl implements CreateAccountRepo {
 		em.createQuery(query).setParameter("cId", customerInfo).executeUpdate();
 	}
 
+	@Override
+	public String checkStatus(int refId) {
+		String query = "from ApplicationReference ar where ar.referenceId =: refId";
+		ApplicationReference apr =  em.createQuery(query, ApplicationReference.class).setParameter("refId", refId).getSingleResult();
+		return apr.getStatusId().getStatusMessage();
+	}
+
 
 }

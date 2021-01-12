@@ -6,6 +6,8 @@ public interface CreateAccountService {
   
 	public int createAccount(CustomerInfo customerInfo);
 
+	public String checkStatus(int refId);
+
 	
 }
  

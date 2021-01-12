@@ -14,6 +14,9 @@ public class CreateAccountServiceImpl implements CreateAccountService {
 
 	@Autowired
 	CreateAccountRepo createAccount;
+	
+	@Autowired
+	EmailServiceImpl email;
 
 	@Override
 	public int createAccount(CustomerInfo customerInfo) {
@@ -22,6 +25,7 @@ public class CreateAccountServiceImpl implements CreateAccountService {
 				customerInfo = createAccount.updateAccount(customerInfo, createAccount.findCustomerId());
 //				System.out.println(customerInfo.getCustomerId());
 				createAccount.deleteAppRef(customerInfo);
+				
 
 			} else {
 				createAccount.createAccount(customerInfo);
@@ -29,16 +33,30 @@ public class CreateAccountServiceImpl implements CreateAccountService {
 //				 System.out.println(customerInfo.getStatusId().getStatusMessage());
 
 			}
-
-		} catch (Exception e) {
 			
+			ApplicationReference appRef = new ApplicationReference();
+			appRef.setCustomerId(customerInfo);
+			appRef.setStatusId(customerInfo.getStatusId());
+			createAccount.insertAppRef(appRef);
+			
+			String toEmail = customerInfo.getEmailId();
+			String subject = "Account Creation Request";
+			String msg = "Hi "
+					+ customerInfo.getFirstName()
+					+ ",\nCongratulations!!"
+					+ "\nYour account opening request is registered successfully.\n"
+					+ "Please not down this Reference Id: " +appRef.getRefernceId()+" to check your status.\n"
+					+ "Thank You\n"
+					+ "Regards\n"
+					+ "Bank";
+			email.sendEmail(toEmail, subject, msg);
+			return appRef.getRefernceId(); 
+			
+		} catch (Exception e) {
+			return 0;
 		}
 
-		ApplicationReference appRef = new ApplicationReference();
-		appRef.setCustomerId(customerInfo);
-		appRef.setStatusId(customerInfo.getStatusId());
-		createAccount.insertAppRef(appRef);
-		return appRef.getRefernceId(); 
+		
 
 	}
 

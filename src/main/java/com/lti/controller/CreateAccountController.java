@@ -1,8 +1,5 @@
 package com.lti.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +29,6 @@ public class CreateAccountController {
 			return status;
 		} catch (Exception e) {
 			status.setMsg("Account Request Already Exist");
-//			status.setRefId(refId);
 			return status;
 		}
 			

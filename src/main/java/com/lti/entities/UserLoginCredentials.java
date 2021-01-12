@@ -14,7 +14,7 @@ public class UserLoginCredentials implements Serializable {
 	@Id
 	@OneToOne(targetEntity = AccountInfo.class)
 	@JoinColumn(name = "customerId")
-	private UserLoginInfo Id;
+	private AccountInfo customerId;
 
 	private String loginPassword;
 	private String profilePassword;
@@ -30,12 +30,14 @@ public class UserLoginCredentials implements Serializable {
 
 	}
 
-	public UserLoginInfo getId() {
-		return Id;
+	
+
+	public AccountInfo getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(UserLoginInfo id) {
-		Id = id;
+	public void setCustomerId(AccountInfo customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getLoginPassword() {

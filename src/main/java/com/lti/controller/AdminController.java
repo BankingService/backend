@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.AdminStatus;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
 import com.lti.dto.ViewAcceptedCustomers;
@@ -24,13 +25,15 @@ public class AdminController {
 	private AdminService service;
 	
 	@PostMapping(path="/loginAdmin")
-	public Status adminLogin(@RequestBody AdminInfo adminInfo) {			
+	public AdminStatus adminLogin(@RequestBody AdminInfo adminInfo) {
+		AdminStatus a = new AdminStatus();
 		try {
 			int result = service.adminLogin(adminInfo);
-			Status a = new Status();
 			if(result!=0) {
 				a.setStatus(StatusType.SUCCESS);
-			a.setMessage("Login success");
+				a.setMessage("Login success");
+				a.setAdminId(adminInfo.getAdminId());
+				a.setAdminName(adminInfo.getAdminName());
 			}
 			else {
 				a.setStatus(StatusType.FAILURE);
@@ -38,7 +41,6 @@ public class AdminController {
 			}
 			return a;
 		} catch (Exception e) {
-			Status a = new Status();
 			a.setStatus(StatusType.FAILURE);
 			a.setMessage("Incorrect Id or Password");
 			return a;

@@ -8,8 +8,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+
+import com.lti.entities.AdminInfo;
 import com.lti.entities.ApplicationReference;
 import com.lti.entities.CustomerInfo;
+import com.lti.entities.Status;
 
 @Repository
 @Transactional
@@ -64,6 +67,15 @@ public class CreateAccountRepoImpl implements CreateAccountRepo {
 		String query = "from ApplicationReference ar where ar.referenceId =: refId";
 		ApplicationReference apr =  em.createQuery(query, ApplicationReference.class).setParameter("refId", refId).getSingleResult();
 		return apr.getStatusId().getStatusMessage();
+	}
+
+	@Override
+	public CustomerInfo setDefaults(CustomerInfo customerInfo) {
+		AdminInfo admin = em.find(AdminInfo.class, 1);
+		Status status = em.find(Status.class, 1);
+		customerInfo.setApprovedBy(admin);
+		customerInfo.setStatusId(status);
+		return customerInfo;
 	}
 
 

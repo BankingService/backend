@@ -23,6 +23,7 @@ public class CreateAccountController {
 	public  CreateAccountRequest customerInfo(@RequestBody CustomerInfo customerInfo) {
 		CreateAccountRequest status = new CreateAccountRequest();
 		try {
+			customerInfo = service.setDefault(customerInfo);
 			int refId = service.createAccount(customerInfo);
 			status.setMsg("Account Creation Request Submitted Successfully");
 			status.setRefId(refId);

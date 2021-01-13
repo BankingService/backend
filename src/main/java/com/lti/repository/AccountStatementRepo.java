@@ -9,5 +9,4 @@ public interface AccountStatementRepo {
 
 	List<UserTransaction> getStatement(AccountStatementRequest accRequest);
 
-
 }

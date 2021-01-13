@@ -17,6 +17,7 @@ public class AccountStatementDTO {
 		return transactionType;
 	}
 
+	
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
 	}

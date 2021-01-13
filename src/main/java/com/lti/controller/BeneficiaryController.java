@@ -1,6 +1,7 @@
 package com.lti.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import com.lti.entities.Beneficiaries;
 import com.lti.services.BeneficiariesService;
 
 @RestController
+@CrossOrigin
 public class BeneficiaryController {
 
 	@Autowired

@@ -34,6 +34,5 @@ public class AccountStatementRepoImpl implements AccountStatementRepo {
 		return usrTrans;
 	}
 
-	
 
 }

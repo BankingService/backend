@@ -9,5 +9,4 @@ public interface AccountStatementService {
 
 	List<AccountStatementDTO> getStatement(AccountStatementRequest accRequest);
 
-
 }

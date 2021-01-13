@@ -31,7 +31,6 @@ public class AccountStatementControler {
 			aDTO.get(0).setMessage("FAILED");
 			return aDTO;
 		}
-
 	}
 
 }

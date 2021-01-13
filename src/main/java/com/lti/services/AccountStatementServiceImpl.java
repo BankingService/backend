@@ -42,6 +42,5 @@ public class AccountStatementServiceImpl implements AccountStatementService {
 		return accStatement;
 	}
 	
-	
 
 }

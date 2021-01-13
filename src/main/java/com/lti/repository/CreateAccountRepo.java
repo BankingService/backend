@@ -18,4 +18,6 @@ public interface CreateAccountRepo {
 
 	public String checkStatus(int refId);
 
+	public CustomerInfo setDefaults(CustomerInfo customerInfo);
+
 }

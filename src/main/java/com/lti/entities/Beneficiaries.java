@@ -16,8 +16,8 @@ public class Beneficiaries implements Serializable {
 	@Id
 	@SequenceGenerator(name = "beneficiaryId", initialValue = 2001, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "beneficiaryId")
-	private Long beneficiaryID;
-	private Long beneficiaryAccountNumber;
+	private int beneficiaryID;
+	private String beneficiaryAccountNumber;
 	private String beneficiaryName;
 	private String beneficiaryNickName;
 
@@ -26,32 +26,34 @@ public class Beneficiaries implements Serializable {
 	private AccountInfo customerId;
 
 	private String beneficiaryIfsc;
+
 	public Beneficiaries() {
-	
+
 	}
 
-	public Beneficiaries(Long beneficiaryID, Long beneficiaryAccountNumber, String beneficiaryName,
-			String beneficiaryNickName, String beneficiaryIFSC) {
+	public Beneficiaries(int beneficiaryID, String beneficiaryAccountNumber, String beneficiaryName,
+			String beneficiaryNickName, AccountInfo customerId, String beneficiaryIfsc) {
 		this.beneficiaryID = beneficiaryID;
 		this.beneficiaryAccountNumber = beneficiaryAccountNumber;
 		this.beneficiaryName = beneficiaryName;
 		this.beneficiaryNickName = beneficiaryNickName;
-		this.beneficiaryIfsc = beneficiaryIFSC;
+		this.customerId = customerId;
+		this.beneficiaryIfsc = beneficiaryIfsc;
 	}
 
-	public Long getBeneficiaryID() {
+	public int getBeneficiaryID() {
 		return beneficiaryID;
 	}
 
-	public void setBeneficiaryID(Long beneficiaryID) {
+	public void setBeneficiaryID(int beneficiaryID) {
 		this.beneficiaryID = beneficiaryID;
 	}
 
-	public Long getBeneficiaryAccountNumber() {
+	public String getBeneficiaryAccountNumber() {
 		return beneficiaryAccountNumber;
 	}
 
-	public void setBeneficiaryAccountNumber(Long beneficiaryAccountNumber) {
+	public void setBeneficiaryAccountNumber(String beneficiaryAccountNumber) {
 		this.beneficiaryAccountNumber = beneficiaryAccountNumber;
 	}
 
@@ -79,12 +81,12 @@ public class Beneficiaries implements Serializable {
 		this.customerId = customerId;
 	}
 
-	public String getBeneficiaryIFSC() {
+	public String getBeneficiaryIfsc() {
 		return beneficiaryIfsc;
 	}
 
-	public void setBeneficiaryIFSC(String beneficiaryIFSC) {
-		this.beneficiaryIfsc = beneficiaryIFSC;
+	public void setBeneficiaryIfsc(String beneficiaryIfsc) {
+		this.beneficiaryIfsc = beneficiaryIfsc;
 	}
 
 }

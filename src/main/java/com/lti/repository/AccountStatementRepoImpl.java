@@ -25,7 +25,7 @@ public class AccountStatementRepoImpl implements AccountStatementRepo {
 	@Override
 	public List<UserTransaction> getStatement(AccountStatementRequest accRequest) {
 		String query = "from UserTransaction ut where "
-				+ "(ut.fromAccountNumber =:accNumber or ut.toAccountNumber =:accNumber) "
+				+ "(ut.fromAccountNumber =:accNumber) "
 				+ "and (transactionDateTime >=:fromDate and transactionDateTime <=:toDate)";
 
 		List<UserTransaction> usrTrans = em.createQuery(query).setParameter("accNumber", accRequest.getAccountNumber())

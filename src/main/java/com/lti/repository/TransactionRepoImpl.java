@@ -77,10 +77,10 @@ public class TransactionRepoImpl implements TransactionRepo {
 		UserTransaction ut = new UserTransaction();
 		ut.setTransactionID(transactionId);
 		if (transactionType.equals("CREDIT")) {
-			ut.setFromAccountNumber(usertransaction.getFromAccountNumber());
-			ut.setToAccountNumber("0");
+			ut.setFromAccountNumber(usertransaction.getToAccountNumber());
+			ut.setToAccountNumber(usertransaction.getFromAccountNumber());
 		} else {
-			ut.setFromAccountNumber("0");
+			ut.setFromAccountNumber(usertransaction.getFromAccountNumber());
 			ut.setToAccountNumber(usertransaction.getToAccountNumber());
 		}
 		ut.setTransactionAmount(usertransaction.getTransactionAmount());

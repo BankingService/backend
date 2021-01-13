@@ -28,11 +28,11 @@ public class AccountStatementServiceImpl implements AccountStatementService {
 			aDTO.setDate(ci.getTransactionDateTime());
 			aDTO.setTransactionAmount(ci.getTransactionAmount());
 			aDTO.setUpdatedBalance(ci.getUpdatedBalance());
-			if(ci.getFromAccountNumber().equals("0")) {
+			if(ci.getTransactionType().equals("DEBIT")) {
 				aDTO.setMessage("TO ACCOUNT NO: "+ ci.getToAccountNumber() + ""
 						+ " MODE:" + ci.getTransactionModeId().getTransactionMode());
 			}else {
-				aDTO.setMessage("FROM ACCOUNT NO: "+ ci.getFromAccountNumber() + ""
+				aDTO.setMessage("FROM ACCOUNT NO: "+ ci.getToAccountNumber() + ""
 						+ " MODE:" + ci.getTransactionModeId().getTransactionMode());
 			}
 			aDTO.setTransactionType(ci.getTransactionType());

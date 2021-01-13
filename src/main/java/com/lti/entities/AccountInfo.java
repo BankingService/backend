@@ -18,29 +18,20 @@ public class AccountInfo implements Serializable {
 	@JoinColumn(name = "customerId")
 	private CustomerInfo customerId;
 
-	@SequenceGenerator(name = "accountNumber", initialValue = 274527368, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountNumber")
-	private Long accountNumber;
+//	@Id
+//	@Column(name="accountNumber", columnDefinition = " NUMBER(19,0) DEFAULT ON NULL sensor_seq.nextval", insertable = false)
+//	@org.hibernate.annotations.Generated(GenerationTime.INSERT)
+//	@SequenceGenerator(name = "customerDocId", initialValue = 2001, allocationSize = 1)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerDocId")
+	private long accountNumber;
 
 	private String ifsc;
-	private Double accountBalance;
+	private double accountBalance;
 	
-	@OneToOne
-	private Beneficiaries beneficiary;
-
 	public AccountInfo() {
-
+		// TODO Auto-generated constructor stub
 	}
-
-	public AccountInfo(Long accountNumber, String ifsc, Double accountBalance) {
-		this.accountNumber = accountNumber;
-	}
-
-	public AccountInfo(String ifsc, Double accountBalance) {
-		this.ifsc = ifsc;
-		this.accountBalance = accountBalance;
-	}
-
+	
 	public CustomerInfo getCustomerId() {
 		return customerId;
 	}
@@ -49,11 +40,11 @@ public class AccountInfo implements Serializable {
 		this.customerId = customerId;
 	}
 
-	public Long getAccountNumber() {
+	public long getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(Long accountNumber) {
+	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
@@ -65,19 +56,25 @@ public class AccountInfo implements Serializable {
 		this.ifsc = ifsc;
 	}
 
-	public Double getAccountBalance() {
+	public double getAccountBalance() {
 		return accountBalance;
 	}
 
-	public void setAccountBalance(Double accountBalance) {
+	public void setAccountBalance(double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
 
-	@Override
-	public String toString() {
-		return "AccountInfo [customerId=" + customerId + ", accountNumber=" + accountNumber + ", ifsc=" + ifsc
-				+ ", accountBalance=" + accountBalance + ", beneficiary=" + beneficiary + "]";
+	public AccountInfo(CustomerInfo customerId, long accountNumber, String ifsc, double accountBalance) {
+		this.customerId = customerId;
+		this.accountNumber = accountNumber;
+		this.ifsc = ifsc;
+		this.accountBalance = accountBalance;
 	}
+	
+//	@OneToOne
+//	private Beneficiaries beneficiary;
+
+	
 	
 
 }

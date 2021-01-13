@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,45 +15,66 @@ import com.lti.entities.CustomerInfo;
 import com.lti.entities.Status;
 
 @Repository
+@Transactional
 public class AdminRepoImpl implements AdminRepo {
 
 	@PersistenceContext
 	protected EntityManager entityManager;
 	
 	@Override
-	public void adminLogin(AdminInfo adminInfo) {
+	public int adminLogin(AdminInfo adminInfo) {
 
 		int i = (int) entityManager.createQuery(
 				"select admin.adminId from AdminInfo admin where admin.adminId =:user and admin.adminPassword=:pass")
 				.setParameter("user", adminInfo.getAdminId()).setParameter("pass", adminInfo.getAdminPassword()).getSingleResult();
 		if(i!=0)
-			System.out.println("Login success");
+			return 1;
+		return 0;
 	}
 
 	@Override
-	public void viewAcceptedCustomers() {
+	public List<CustomerInfo> viewAcceptedCustomers() {
 
 		List<CustomerInfo> list = entityManager.createQuery(
 				"from CustomerInfo c where c.statusId = 2",CustomerInfo.class).getResultList();
-		System.out.println(list);
+	
+		return list;
 	}
 
 	@Override
-	public void viewPendingCustomers() {
-		List<CustomerInfo> list = entityManager.createQuery(
-				"from CustomerInfo c where c.statusId = 1",CustomerInfo.class).getResultList();
-		System.out.println(list);
+	public  List<ApplicationReference> viewPendingCustomers() {
+		List<ApplicationReference> list = entityManager.createQuery(
+				"from ApplicationReference r where r.statusId = 1",ApplicationReference.class).getResultList();
+		return list;
 		
 	}
 
 	@Override
-	public void viewPendingCustomersById(int id) {
+	public CustomerInfo viewPendingCustomersById(int refid) {
+		
+		ApplicationReference appRef = (ApplicationReference) entityManager.createQuery(
+				"from ApplicationReference a where a.referenceId =:id")
+				.setParameter("id", refid).getSingleResult();
+		
+		int custId = appRef.getCustomerId().getCustomerId();
+		
 		CustomerInfo c = entityManager.createQuery(
 				"from CustomerInfo c where c.customerId=: cid and c.statusId = 1",CustomerInfo.class)
-				.setParameter("cid", id).getSingleResult();
-		System.out.println(c);
+				.setParameter("cid", custId).getSingleResult();
+
+		return c;
 	}
 
+	@Override
+	public CustomerInfo viewAcceptedCustomersById(int custid) {
+		CustomerInfo c = entityManager.createQuery(
+				"from CustomerInfo c where c.customerId=: cid and c.statusId = 2",CustomerInfo.class)
+				.setParameter("cid", custid).getSingleResult();
+
+		return c;
+	}
+
+	
 	@Override
 	public void insertAccountInfo(int aid, int refid) {
 
@@ -60,10 +82,15 @@ public class AdminRepoImpl implements AdminRepo {
 		ApplicationReference appRef = (ApplicationReference) entityManager.createQuery(
 				"from ApplicationReference a where a.referenceId =:id")
 				.setParameter("id", refid).getSingleResult();
+		
+		CustomerInfo custInfo = entityManager.find(CustomerInfo.class, appRef.getCustomerId().getCustomerId());
 		AccountInfo accInfo = new AccountInfo();
-		accInfo.setCustomerId(appRef.getCustomerId());
+		accInfo.setCustomerId(custInfo);
+		Long accNo = appRef.getCustomerId().getCustomerId()+23452L;
+		accInfo.setAccountNumber(accNo);
 		accInfo.setIfsc("BANK001122");
 		accInfo.setAccountBalance(1000.00);
+				
 		entityManager.persist(accInfo);
 		entityManager.flush();
 		
@@ -84,12 +111,12 @@ public class AdminRepoImpl implements AdminRepo {
 
 	@Override
 	public void deleteApplicationReference(int refid) {
-		entityManager.createQuery("delete from ApplicationReference ar where ar.referenceId = :rId").setParameter("rId", refid);
+		entityManager.createQuery("delete from ApplicationReference ar where ar.referenceId = :rId").setParameter("rId", refid).executeUpdate();
 		
 	}
 
 	@Override
-	public void updateAppReference(int refid) {
+	public void updateStatusAppReference(int refid) {
 
 		ApplicationReference apr = entityManager.find(ApplicationReference.class, refid);
 		apr.setStatusId(entityManager.find(Status.class, 3));
@@ -97,5 +124,35 @@ public class AdminRepoImpl implements AdminRepo {
 		entityManager.flush();
 	}
 
+	@Override
+	public void updateStatusCustomerInfo(int aid,int refid) {
+		ApplicationReference apr = entityManager.find(ApplicationReference.class, refid);
+		CustomerInfo custInfo = apr.getCustomerId();
+		custInfo.setStatusId(entityManager.find(Status.class, 3));
+		custInfo.setApprovedBy(entityManager.find(AdminInfo.class, aid));
+		entityManager.merge(custInfo);
+		entityManager.flush();
+	
+	}
+
+	@Override
+	public CustomerInfo getdetails(int refid) {
+		ApplicationReference apr = entityManager.find(ApplicationReference.class, refid);
+		CustomerInfo custInfo = new CustomerInfo();
+		custInfo.setCustomerId(apr.getCustomerId().getCustomerId());
+		custInfo.setEmailId(apr.getCustomerId().getEmailId());
+		custInfo.setFirstName(apr.getCustomerId().getFirstName());
+		return custInfo;
+	}
+
+	@Override
+	public AccountInfo getAccountDetails(int refid) {
+		ApplicationReference apr = entityManager.find(ApplicationReference.class, refid);
+		int custId = apr.getCustomerId().getCustomerId();
+		AccountInfo a = entityManager.find(AccountInfo.class, custId);
+		return a;
+	}
+
+	
 	
 }

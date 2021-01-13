@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.CreateAccountRequest;
+import com.lti.dto.Status;
+import com.lti.dto.Status.StatusType;
 import com.lti.entities.CustomerInfo;
 import com.lti.services.CreateAccountService;
 
@@ -39,13 +41,17 @@ public class CreateAccountController {
 	}
 	
 	@GetMapping("/checkStatus/{refId}")
-	public String checkStatus(@PathVariable("refId") int refId) {
+	public Status checkStatus(@PathVariable("refId") int refId) {
+		Status status = new Status();
 		try {
 			String res = service.checkStatus(refId);
-			String msg = "Your Account request is: "+ res;
-			return msg;
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("Your Account request is: "+ res);
+			return status;
 		} catch (Exception e) {
-			return "Account is Active";
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("Account is Active");
+			return status;
 		}
 		
 	}

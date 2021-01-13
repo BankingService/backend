@@ -17,6 +17,7 @@ import com.lti.entities.Status;
 import com.lti.entities.UserLoginCredentials;
 import com.lti.entities.UserLoginInfo;
 
+
 @Repository
 @Transactional
 public class UserLoginRepoImpl implements UserLoginRepo {

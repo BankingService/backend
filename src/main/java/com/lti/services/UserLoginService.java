@@ -8,7 +8,6 @@ public interface UserLoginService {
 	String loginCustomer(UserLoginCredentials user);
 
 	AccountInfo viewAcceptedCustomersById(UserLoginCredentials user);
-
 	
 
 }

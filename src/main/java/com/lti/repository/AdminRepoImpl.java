@@ -87,9 +87,9 @@ public class AdminRepoImpl implements AdminRepo {
 		AccountInfo accInfo = new AccountInfo();
 		accInfo.setCustomerId(custInfo);
 		Long accNo = appRef.getCustomerId().getCustomerId()+23452L;
-		accInfo.setAccountNumber(accNo);
+		accInfo.setAccountNumber(String.valueOf(accNo));
 		accInfo.setIfsc("BANK001122");
-		accInfo.setAccountBalance(1000.00);
+		accInfo.setAccountBalance(1000);
 				
 		entityManager.persist(accInfo);
 		entityManager.flush();

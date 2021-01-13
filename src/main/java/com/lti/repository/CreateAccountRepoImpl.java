@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.lti.entities.ApplicationReference;
 import com.lti.entities.CustomerInfo;
-import com.lti.entities.Status;
 
 @Repository
 @Transactional

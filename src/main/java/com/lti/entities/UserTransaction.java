@@ -10,45 +10,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-
 @Entity
-public class UserTransaction{
- 
+public class UserTransaction {
+
 	@Id
-	@SequenceGenerator(name="transactionID",initialValue=10000,allocationSize=1)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="transactionId")
+	@SequenceGenerator(name = "id", initialValue = 10000, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id")
+	private int id;
+
 	private int transactionID;
-	
-	private long fromAccountNumber;
-	private long toAccountNumber;
+
+	private String fromAccountNumber;
+	private String toAccountNumber;
 	private double transactionAmount;
-	private String transactionType;
-	
+
 	@OneToOne(targetEntity = TransactionMode.class)
 	@JoinColumn(name = "transactionModeId")
 	private TransactionMode transactionModeId;
-	
+	private String transactionType;
 	private LocalDateTime transactionDateTime;
-	private String transactionStatus;
-	private double updatedBalance;
+	private float updatedBalance;
 	private String remark;
 
 	public UserTransaction() {
 	}
 
-	public UserTransaction(int transactionID, long fromAccountNumber, long toAccountNumber, double transactionAmount,
-			 String transactionType, LocalDateTime transactionDateTime, String transactionStatus,
-			double updatedBalance, String remark) {
-		this.transactionID = transactionID;
-		this.fromAccountNumber = fromAccountNumber;
-		this.toAccountNumber = toAccountNumber;
-		this.transactionAmount = transactionAmount;
-		
-		this.transactionType = transactionType;
-		this.transactionDateTime = transactionDateTime;
-		this.transactionStatus = transactionStatus;
-		this.updatedBalance = updatedBalance;
-		this.remark = remark;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getTransactionID() {
@@ -59,19 +51,19 @@ public class UserTransaction{
 		this.transactionID = transactionID;
 	}
 
-	public long getFromAccountNumber() {
+	public String getFromAccountNumber() {
 		return fromAccountNumber;
 	}
 
-	public void setFromAccountNumber(long fromAccountNumber) {
+	public void setFromAccountNumber(String fromAccountNumber) {
 		this.fromAccountNumber = fromAccountNumber;
 	}
 
-	public long getToAccountNumber() {
+	public String getToAccountNumber() {
 		return toAccountNumber;
 	}
 
-	public void setToAccountNumber(long toAccountNumber) {
+	public void setToAccountNumber(String toAccountNumber) {
 		this.toAccountNumber = toAccountNumber;
 	}
 
@@ -91,14 +83,6 @@ public class UserTransaction{
 		this.transactionModeId = transactionModeId;
 	}
 
-	public String getTransactionType() {
-		return transactionType;
-	}
-
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
-	}
-
 	public LocalDateTime getTransactionDateTime() {
 		return transactionDateTime;
 	}
@@ -107,19 +91,19 @@ public class UserTransaction{
 		this.transactionDateTime = transactionDateTime;
 	}
 
-	public String getTransactionStatus() {
-		return transactionStatus;
-	}
+//	public String getTransactionStatus() {
+//		return transactionStatus;
+//	}
+//
+//	public void setTransactionStatus(String transactionStatus) {
+//		this.transactionStatus = transactionStatus;
+//	}
 
-	public void setTransactionStatus(String transactionStatus) {
-		this.transactionStatus = transactionStatus;
-	}
-
-	public double getUpdatedBalance() {
+	public float getUpdatedBalance() {
 		return updatedBalance;
 	}
 
-	public void setUpdatedBalance(double updatedBalance) {
+	public void setUpdatedBalance(float updatedBalance) {
 		this.updatedBalance = updatedBalance;
 	}
 
@@ -129,6 +113,23 @@ public class UserTransaction{
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
+	}
+
+	@Override
+	public String toString() {
+		return "UserTransaction [id=" + id + ", transactionID=" + transactionID + ", fromAccountNumber="
+				+ fromAccountNumber + ", toAccountNumber=" + toAccountNumber + ", transactionAmount="
+				+ transactionAmount + ", transactionModeId=" + transactionModeId + ", transactionType="
+				+ transactionType + ", transactionDateTime=" + transactionDateTime + ", updatedBalance="
+				+ updatedBalance + ", remark=" + remark + "]";
 	}
 
 }

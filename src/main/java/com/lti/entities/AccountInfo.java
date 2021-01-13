@@ -12,7 +12,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 public class AccountInfo implements Serializable {
-	 
+
 	@Id
 	@OneToOne
 	@JoinColumn(name = "customerId")
@@ -23,15 +23,15 @@ public class AccountInfo implements Serializable {
 //	@org.hibernate.annotations.Generated(GenerationTime.INSERT)
 //	@SequenceGenerator(name = "customerDocId", initialValue = 2001, allocationSize = 1)
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerDocId")
-	private long accountNumber;
+	private String accountNumber;
 
 	private String ifsc;
-	private double accountBalance;
-	
+	private float accountBalance;
+
 	public AccountInfo() {
-		// TODO Auto-generated constructor stub
+		
 	}
-	
+
 	public CustomerInfo getCustomerId() {
 		return customerId;
 	}
@@ -40,11 +40,11 @@ public class AccountInfo implements Serializable {
 		this.customerId = customerId;
 	}
 
-	public long getAccountNumber() {
+	public String getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(long accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
@@ -56,25 +56,12 @@ public class AccountInfo implements Serializable {
 		this.ifsc = ifsc;
 	}
 
-	public double getAccountBalance() {
+	public float getAccountBalance() {
 		return accountBalance;
 	}
 
-	public void setAccountBalance(double accountBalance) {
+	public void setAccountBalance(float accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-
-	public AccountInfo(CustomerInfo customerId, long accountNumber, String ifsc, double accountBalance) {
-		this.customerId = customerId;
-		this.accountNumber = accountNumber;
-		this.ifsc = ifsc;
-		this.accountBalance = accountBalance;
-	}
-	
-//	@OneToOne
-//	private Beneficiaries beneficiary;
-
-	
-	
 
 }

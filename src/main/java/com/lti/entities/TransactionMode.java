@@ -10,16 +10,16 @@ public class TransactionMode {
 	@Id
 	private int transactionModeId;
 
-	@OneToOne(mappedBy = "transactionModeId")
-	private UserTransaction transactionId;
+//	@OneToOne(mappedBy = "transactionModeId")
+//	private UserTransaction transactionId;
 
 	private String transactionMode;
-	private float transactionFee;
+	private int transactionFee;
 
 	public TransactionMode() {
 	}
 
-	public TransactionMode(int transactionModeId, String transactionMode, float transactionFee) {
+	public TransactionMode(int transactionModeId, String transactionMode, int transactionFee) {
 		this.transactionModeId = transactionModeId;
 		this.transactionMode = transactionMode;
 		this.transactionFee = transactionFee;
@@ -41,11 +41,11 @@ public class TransactionMode {
 		this.transactionMode = transactionMode;
 	}
 
-	public float getTransactionFee() {
+	public int getTransactionFee() {
 		return transactionFee;
 	}
 
-	public void setTransactionFee(float transactionFee) {
+	public void setTransactionFee(int transactionFee) {
 		this.transactionFee = transactionFee;
 	}
 

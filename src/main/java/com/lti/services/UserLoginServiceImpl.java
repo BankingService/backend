@@ -1,7 +1,9 @@
 package com.lti.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Service;
 
 import com.lti.entities.AccountInfo;
@@ -22,6 +24,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 	public String loginCustomer(UserLoginCredentials user) {
 		int result = repo.findCustomer(user);
 		System.out.println(result);
+		List<String> res = new ArrayList<>();
+		
 		if (result == 1) {
 			int check = repo.checkCredentials(user);
 			System.out.println("check "+check);
@@ -58,6 +62,12 @@ public class UserLoginServiceImpl implements UserLoginService {
 			}
 		}
 		return "Customer not present";
+	}
+
+	@Override
+	public AccountInfo viewAcceptedCustomersById(UserLoginCredentials user) {
+		AccountInfo a = repo.getAccountDetails(user);
+		return a;
 	}
 
 }

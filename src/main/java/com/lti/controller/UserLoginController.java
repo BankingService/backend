@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.LoginStatus;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
+import com.lti.entities.AccountInfo;
 import com.lti.entities.UserLoginCredentials;
 import com.lti.services.UserLoginService;
 
@@ -18,12 +20,20 @@ public class UserLoginController {
 
 	@PostMapping(path = "/userLogin")
 	public Status loginInfo(@RequestBody UserLoginCredentials user) {
+		LoginStatus a = new LoginStatus();
 		try {
 			String result = service.loginCustomer(user);
-			Status a = new Status();
+			
 			if (result.equals("Login Success")) {
 				a.setStatus(StatusType.SUCCESS);
 				a.setMessage("Login Success");
+				
+				AccountInfo details = service.viewAcceptedCustomersById(user);
+				a.setCustomerId(details.getCustomerId().getCustomerId());
+				a.setAccountNumber(details.getAccountNumber());
+				a.setIfsc(details.getIfsc());
+				a.setAccountBalance(details.getAccountBalance());
+				
 			} else if (result.equals("Invalid Id or Password")) {
 				a.setStatus(StatusType.FAILURE);
 				a.setMessage("Incorrect Id or Password");
@@ -38,7 +48,6 @@ public class UserLoginController {
 		} catch (
 
 		Exception e) {
-			Status a = new Status();
 			a.setStatus(StatusType.FAILURE);
 			a.setMessage("Something went wrong");
 			return a;

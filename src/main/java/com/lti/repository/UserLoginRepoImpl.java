@@ -88,7 +88,7 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 
 		AccountInfo ac = em.createQuery("from AccountInfo c where c.customerId =: id", AccountInfo.class)
 				.setParameter("id", user.getCustomerId().getCustomerId()).getSingleResult();
-		System.out.println(ac);
+		System.out.println("Account Info : "+ac);
 		return ac;
 
 	}

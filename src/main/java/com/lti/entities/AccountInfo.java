@@ -13,6 +13,12 @@ import javax.persistence.SequenceGenerator;
 @Entity
 public class AccountInfo implements Serializable {
 
+	@Override
+	public String toString() {
+		return "AccountInfo [customerId=" + customerId + ", accountNumber=" + accountNumber + ", ifsc=" + ifsc
+				+ ", accountBalance=" + accountBalance + "]";
+	}
+
 	@Id
 	@OneToOne
 	@JoinColumn(name = "customerId")

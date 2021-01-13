@@ -12,18 +12,18 @@ import javax.persistence.OneToOne;
 public class UserLoginInfo implements Serializable {
  
 	@Id
-	@OneToOne(targetEntity = UserLoginCredentials.class)
+	@OneToOne(targetEntity = AccountInfo.class)
 	@JoinColumn(name = "customerId")
 	private AccountInfo customerId;
 	
 	private int invalidAttempts;
-	private LocalDate lastLoginDateTime;
+	private String lastLoginDateTime;
 	private String lastLoginIpAddress;
 
 	public UserLoginInfo() {
 	}
 
-	public UserLoginInfo(int invalidAttempts, LocalDate lastLoginDateTime, String lastLoginIpAddress) {
+	public UserLoginInfo(int invalidAttempts, String lastLoginDateTime, String lastLoginIpAddress) {
 
 		this.invalidAttempts = invalidAttempts;
 		this.lastLoginDateTime = lastLoginDateTime;
@@ -46,11 +46,11 @@ public class UserLoginInfo implements Serializable {
 		this.invalidAttempts = invalidAttempts;
 	}
 
-	public LocalDate getLastLoginDateTime() {
+	public String getLastLoginDateTime() {
 		return lastLoginDateTime;
 	}
 
-	public void setLastLoginDateTime(LocalDate lastLoginDateTime) {
+	public void setLastLoginDateTime(String lastLoginDateTime) {
 		this.lastLoginDateTime = lastLoginDateTime;
 	}
 

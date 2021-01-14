@@ -2,6 +2,8 @@ package com.lti.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,20 +72,20 @@ public class AdminController {
 	}
 	
 	@GetMapping(path="/viewAccepted/{custId}")
-	public CustomerInfo getDetails(@PathVariable("custId") int custid) {
-		CustomerInfo details = service.viewAcceptedCustomersById(custid);
+	public CustomerInfo getDetails(@PathVariable("custId") int custid,HttpServletRequest request) {
+		CustomerInfo details = service.viewAcceptedCustomersById(custid,request);
 		return details;
 	}
 	
 	@GetMapping(path="/viewPending/{refid}")
-	public CustomerInfo get(@PathVariable("refid") int refid) {
-		CustomerInfo details = service.viewPendingCustomersById(refid);
+	public CustomerInfo get(@PathVariable("refid") int refid,HttpServletRequest request) {
+		CustomerInfo details = service.viewPendingCustomersById(refid,request);
 		return details;
 	}
 	
 	@GetMapping(path="/viewBlocked/{custId}")
-	public CustomerInfo getDetailsBlocked(@PathVariable("custId") int custid) {
-		CustomerInfo details = service.viewBlockedCustomersById(custid);
+	public CustomerInfo getDetailsBlocked(@PathVariable("custId") int custid,HttpServletRequest request) {
+		CustomerInfo details = service.viewBlockedCustomersById(custid,request);
 		return details;
 	}
 	

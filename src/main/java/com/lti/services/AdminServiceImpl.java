@@ -3,6 +3,8 @@ package com.lti.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private EmailServiceImpl email;
+	
+	@Autowired
+	private ImageService image;
 	
 	@Override
 	public AdminInfo adminLogin(AdminInfo adminInfo) {
@@ -79,22 +84,24 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public CustomerInfo viewPendingCustomersById(int refid) {
+	public CustomerInfo viewPendingCustomersById(int refid,HttpServletRequest request) {
 		CustomerInfo c = adminRepo.viewPendingCustomersById(refid);
-		
+		image.imageDownload(c.getCustomerId(), request);
 		return c;
 		
 	}
 
 	@Override
-	public CustomerInfo viewAcceptedCustomersById(int custid) {
+	public CustomerInfo viewAcceptedCustomersById(int custid,HttpServletRequest request) {
+		image.imageDownload(custid, request);
 		CustomerInfo c = adminRepo.viewAcceptedCustomersById(custid);
 		return c;
 		
 	}
 	
 	@Override
-	public CustomerInfo viewBlockedCustomersById(int custid) {
+	public CustomerInfo viewBlockedCustomersById(int custid,HttpServletRequest request) {
+		image.imageDownload(custid, request);
 		CustomerInfo c = adminRepo.viewBlockedCustomersById(custid);
 		return c;
 	}

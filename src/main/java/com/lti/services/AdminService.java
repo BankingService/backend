@@ -2,6 +2,8 @@ package com.lti.services;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.lti.dto.ViewAcceptedCustomers;
 import com.lti.dto.ViewPendingCustomers;
 import com.lti.entities.AdminInfo;
@@ -15,9 +17,9 @@ public interface AdminService {
 	public List<ViewPendingCustomers> viewPendingCustomers();
 	public List<ViewAcceptedCustomers> viewBlockedCustomers();
 	
-	public CustomerInfo viewPendingCustomersById(int refid);
-	public CustomerInfo viewAcceptedCustomersById(int custid);
-	public CustomerInfo viewBlockedCustomersById(int custid);
+	public CustomerInfo viewPendingCustomersById(int refid, HttpServletRequest request);
+	public CustomerInfo viewAcceptedCustomersById(int custid, HttpServletRequest request);
+	public CustomerInfo viewBlockedCustomersById(int custid, HttpServletRequest request);
 	
 	public int actionPerformed(int aid, int refid, String action);
 

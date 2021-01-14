@@ -19,7 +19,7 @@ import com.lti.services.UserLoginService;
 
 @RestController
 @CrossOrigin
-public class UserLoginController {
+public class UserController {
 
 	@Autowired
 	private UserLoginService service;

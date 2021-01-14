@@ -73,6 +73,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 
 	@Override
 	public int forgotPassword(int custid) {
+		
+		int result = repo.verifyCustomerId(custid);
+		if(result!=0) {
 		int randomPin = (int) (Math.random()*9000)+1000;
 		System.out.println(randomPin);
 		
@@ -91,10 +94,16 @@ public class UserLoginServiceImpl implements UserLoginService {
 		email.sendEmail(toEmail, subject, msg);
 		
 		return randomPin;
+		}
+		else return 0;
 	}
 
 	@Override
 	public int forgotUserId(String accNo) {
+		
+		int result = repo.verifyAccountNumber(accNo);
+		
+		if(result!=0) {
 		int randomPin = (int) (Math.random()*9000)+1000;
 		System.out.println(randomPin);
 		
@@ -113,6 +122,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 		email.sendEmail(toEmail, subject, msg);
 		
 		return randomPin;
+		}
+		else return 0;
 	}
 
 	@Override
@@ -137,6 +148,18 @@ public class UserLoginServiceImpl implements UserLoginService {
 				+ "Bank";
 		email.sendEmail(toEmail, subject, msg);
 		
+	}
+
+	@Override
+	public CustomerInfo getCustomerDetails(int custid) {
+		CustomerInfo c = repo.getCustomerInfo(custid);
+		return c;
+	}
+
+	@Override
+	public CustomerInfo editCustomerDetails(CustomerInfo custInfo) {
+		CustomerInfo c = repo.editCustomerInfo(custInfo);
+		return c;
 	}
 
 }

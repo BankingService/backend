@@ -24,6 +24,12 @@ public interface UserLoginRepo {
 
 	void updateUserLoginCredentials(int custid, String loginPassword, String transactionPassword);
 
+	int verifyCustomerId(int custid);
+
+	int verifyAccountNumber(String accNo);
+
+	CustomerInfo editCustomerInfo(CustomerInfo custInfo);
+
 	
 
 }

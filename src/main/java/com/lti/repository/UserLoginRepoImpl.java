@@ -27,8 +27,8 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 
 	@Override
 	public int findCustomer(UserLoginCredentials user) {
-		System.out.println(user.getCustomerId());
-		System.out.println(user.getLoginPassword());
+//		System.out.println(user.getCustomerId());
+//		System.out.println(user.getLoginPassword());
 		//AccountInfo ac = em.find(AccountInfo.class, user.getCustomerId());
 		return em.find(UserLoginCredentials.class, user.getCustomerId()) != null ? 1 : 0;
 	}
@@ -64,10 +64,10 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
-			System.out.println(dtf.format(now));
+//			System.out.println(dtf.format(now));
 
 			InetAddress myIP = InetAddress.getLocalHost();
-			System.out.println(myIP.getHostAddress());
+//			System.out.println(myIP.getHostAddress());
 
 			if (res != null) {
 				res.setLastLoginDateTime(dtf.format(now));
@@ -91,7 +91,7 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 
 		AccountInfo ac = em.createQuery("from AccountInfo c where c.customerId =: id", AccountInfo.class)
 				.setParameter("id", user.getCustomerId().getCustomerId()).getSingleResult();
-		System.out.println("Account Info : "+ac);
+//		System.out.println("Account Info : "+ac);
 		return ac;
 
 	}
@@ -105,10 +105,10 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
-			System.out.println(dtf.format(now));
+//			System.out.println(dtf.format(now));
 
 			InetAddress myIP = InetAddress.getLocalHost();
-			System.out.println(myIP.getHostAddress());
+//			System.out.println(myIP.getHostAddress());
 
 			if (uli != null) {
 
@@ -120,7 +120,7 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 					em.flush();
 					System.out.println(uli.getInvalidAttempts());
 				} else {
-					System.out.println("hello");
+//					System.out.println("hello");
 					CustomerInfo c = em.find(CustomerInfo.class, ac.getCustomerId().getCustomerId());
 					System.out.println(c);
 					c.setStatusId(em.find(Status.class, 4));
@@ -181,13 +181,42 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 	@Override
 	public void updateUserLoginCredentials(int custid, String loginPassword, String transactionPassword) {
 		CustomerInfo custInfo = em.find(CustomerInfo.class, custid);
-		System.out.println("hello2");
+//		System.out.println("hello2");
 		AccountInfo a = em.find(AccountInfo.class, custInfo.getCustomerId());
-		System.out.println("hello3");
+//		System.out.println("hello3");
 		UserLoginCredentials u = em.find(UserLoginCredentials.class, a);
 		u.setLoginPassword(loginPassword);
 		u.setTransactionPassword(transactionPassword);
 		em.merge(u);
 		em.flush();
+	}
+
+	@Override
+	public int verifyCustomerId(int custid) {
+		CustomerInfo custInfo = em.find(CustomerInfo.class, custid);
+//		System.out.println("hello2");
+		AccountInfo a = em.find(AccountInfo.class, custInfo.getCustomerId());
+//		System.out.println("hello3");
+		return em.find(UserLoginCredentials.class, a) != null ? 1 : 0;
+	}
+
+	@Override
+	public int verifyAccountNumber(String accNo) {
+		System.out.println("hello4");
+		return em.createQuery("from AccountInfo a where a.accountNumber=: acc",AccountInfo.class)
+				.setParameter("acc", accNo).getSingleResult() != null ? 1 : 0;
+	}
+
+	@Override
+	public CustomerInfo editCustomerInfo(CustomerInfo custInfo) {
+
+		CustomerInfo c = em.find(CustomerInfo.class, custInfo.getCustomerId());
+		
+		custInfo.setApprovedBy(c.getApprovedBy());
+		custInfo.setStatusId(c.getStatusId());
+		
+		em.merge(custInfo);
+		em.flush();
+		return c;
 	}
 }

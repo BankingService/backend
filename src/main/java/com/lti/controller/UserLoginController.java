@@ -12,6 +12,7 @@ import com.lti.dto.LoginStatus;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
 import com.lti.entities.AccountInfo;
+import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
 import com.lti.services.UserLoginService;
 
@@ -69,7 +70,7 @@ public class UserLoginController {
 		return status;
 		}catch(Exception e) {
 			status.setStatus(StatusType.FAILURE);
-			status.setMessage("Something went wrong");
+			status.setMessage("User Not Registered");
 			return status;
 	}
 		
@@ -85,7 +86,7 @@ public class UserLoginController {
 		return status;
 		}catch(Exception e) {
 			status.setStatus(StatusType.FAILURE);
-			status.setMessage("Something went wrong");
+			status.setMessage("Invalid Account Number");
 			return status;
 		}
 	}
@@ -120,6 +121,19 @@ public class UserLoginController {
 			return status;
 		}
 	}
+	
+	@GetMapping(path="/viewProfile/{custId}")
+	public CustomerInfo getCustomerDetails(@PathVariable("custId") int custid) {
+		CustomerInfo details = service.getCustomerDetails(custid);
+		return details;
+	}
+	
+	@PostMapping(path="/editCustomerDetails")
+	public CustomerInfo editCustomerDetails(@RequestBody CustomerInfo custInfo) {
+		CustomerInfo details = service.editCustomerDetails(custInfo);
+		return details;
+	}
+	
 }
 
 

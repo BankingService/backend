@@ -9,10 +9,18 @@ import com.lti.entities.CustomerInfo;
 
 public interface AdminService {
 
-	public int adminLogin(AdminInfo adminInfo);
+	public AdminInfo adminLogin(AdminInfo adminInfo);
+	
 	public List<ViewAcceptedCustomers> viewAcceptedCustomers();
 	public List<ViewPendingCustomers> viewPendingCustomers();
+	public List<ViewAcceptedCustomers> viewBlockedCustomers();
+	
 	public CustomerInfo viewPendingCustomersById(int refid);
 	public CustomerInfo viewAcceptedCustomersById(int custid);
+	public CustomerInfo viewBlockedCustomersById(int custid);
+	
 	public int actionPerformed(int aid, int refid, String action);
+
+	public int actionPerformedUnblocking(int aid, int custid, String action);
+
 }

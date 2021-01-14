@@ -30,18 +30,20 @@ public class AdminController {
 	public AdminStatus adminLogin(@RequestBody AdminInfo adminInfo) {
 		AdminStatus a = new AdminStatus();
 		try {
-			int result = service.adminLogin(adminInfo);
-			if(result!=0) {
+			AdminInfo ad = service.adminLogin(adminInfo);
+			if(ad!=null) {
 				a.setStatus(StatusType.SUCCESS);
 				a.setMessage("Login success");
-				a.setAdminId(adminInfo.getAdminId());
-				a.setAdminName(adminInfo.getAdminName());
+				a.setAdminId(ad.getAdminId());
+				a.setAdminName(ad.getAdminName());
+				return a;
 			}
 			else {
 				a.setStatus(StatusType.FAILURE);
 				a.setMessage("Incorrect Id or Password");
+				return a;
 			}
-			return a;
+			
 		} catch (Exception e) {
 			a.setStatus(StatusType.FAILURE);
 			a.setMessage("Incorrect Id or Password");
@@ -61,6 +63,12 @@ public class AdminController {
 		return vac;
 	}
 	
+	@GetMapping(path="/viewBlocked")
+	public List<ViewAcceptedCustomers> viewBlockedCustomer() {
+		List<ViewAcceptedCustomers> vac = service.viewBlockedCustomers();
+		return vac;
+	}
+	
 	@GetMapping(path="/viewAccepted/{custId}")
 	public CustomerInfo getDetails(@PathVariable("custId") int custid) {
 		CustomerInfo details = service.viewAcceptedCustomersById(custid);
@@ -73,6 +81,12 @@ public class AdminController {
 		return details;
 	}
 	
+	@GetMapping(path="/viewBlocked/{custId}")
+	public CustomerInfo getDetailsBlocked(@PathVariable("custId") int custid) {
+		CustomerInfo details = service.viewBlockedCustomersById(custid);
+		return details;
+	}
+	
 	@GetMapping(path="/viewAction/{aid}/{refid}/{action}")
 	public Status actionPerformed(@PathVariable("aid") int aid,@PathVariable("refid") int refid, @PathVariable("action") String action) {
 			try {
@@ -80,18 +94,41 @@ public class AdminController {
 				Status a = new Status();
 				if(result!=0) {
 					a.setStatus(StatusType.SUCCESS);
-					a.setMessage("Action Performed");
+					a.setMessage(action+" action Performed");
 				} else {
 					a.setStatus(StatusType.FAILURE);
-					a.setMessage("Action Failed");
+					a.setMessage(action+" action Failed");
 				}
 				return a;
 			} catch (Exception e) {
 				Status a = new Status();
 				a.setStatus(StatusType.FAILURE);
-				a.setMessage("Action Failed");
+				a.setMessage("Something went wrong");
 				return a;
 			}		
 		
 	}
+	
+	@GetMapping(path="/performAction/{aid}/{custid}/{action}")
+	public Status actionPerformedUnblocking(@PathVariable("aid") int aid,@PathVariable("custid") int custid, @PathVariable("action") String action) {
+			try {
+				int result = service.actionPerformedUnblocking(aid, custid, action);
+				Status a = new Status();
+				if(result!=0) {
+					a.setStatus(StatusType.SUCCESS);
+					a.setMessage(action+" action Performed");
+				} else {
+					a.setStatus(StatusType.FAILURE);
+					a.setMessage(action+" action Failed");
+				}
+				return a;
+			} catch (Exception e) {
+				Status a = new Status();
+				a.setStatus(StatusType.FAILURE);
+				a.setMessage("Something went wrong");
+				return a;
+			}		
+		
+	}
+	
 }

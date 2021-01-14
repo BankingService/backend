@@ -36,11 +36,13 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 	@Override
 	public int checkCredentials(UserLoginCredentials user) {
 		// AccountInfo ac = em.find(AccountInfo.class, user.getCustomerId());
-		System.out.println(user.getCustomerId() + "  " + user.getLoginPassword());
-		List<UserLoginCredentials> i = em
-				.createQuery("from UserLoginCredentials u where u.customerId =:id and u.loginPassword =: pass",
+		List<UserLoginCredentials> i = null;
+		CustomerInfo c = em.find(CustomerInfo.class, user.getCustomerId().getCustomerId().getCustomerId()); 
+		if(c.getStatusId().getStatusId()==2) {
+		i = em.createQuery("from UserLoginCredentials u where u.customerId =:id and u.loginPassword =: pass",
 						UserLoginCredentials.class)
 				.setParameter("id", user.getCustomerId()).setParameter("pass", user.getLoginPassword()).getResultList();
+		}
 		if (i != null) {
 			System.out.println("Size " + i.size());
 			int size = i.size();

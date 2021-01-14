@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +29,8 @@ public class ImageServiceImpl implements ImageService {
 	@Autowired
 	EmailServiceImpl email;
 	
-
+	Random rand = new Random();
+	
 	@Override
 	public int imageUpload(ImageDto images) {
 		
@@ -43,7 +45,7 @@ public class ImageServiceImpl implements ImageService {
 		
 		for(MultipartFile file : pics) {
 			String uploadedFileName = file.getOriginalFilename();
-			String newFileName =  (int)Math.random()+ "-" + uploadedFileName;
+			String newFileName =  rand.nextInt(100000)+ "-" + uploadedFileName;
 			String targetFileName = imgUploadLocation + newFileName;
 			
 			try {

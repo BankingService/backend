@@ -13,6 +13,7 @@ import com.lti.entities.AdminInfo;
 import com.lti.entities.ApplicationReference;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.Status;
+import com.lti.entities.UserLoginInfo;
 
 @Repository
 @Transactional
@@ -22,14 +23,12 @@ public class AdminRepoImpl implements AdminRepo {
 	protected EntityManager entityManager;
 	
 	@Override
-	public int adminLogin(AdminInfo adminInfo) {
+	public AdminInfo adminLogin(AdminInfo adminInfo) {
 
-		int i = (int) entityManager.createQuery(
-				"select admin.adminId from AdminInfo admin where admin.adminId =:user and admin.adminPassword=:pass")
+		AdminInfo ad = entityManager.createQuery(
+				"from AdminInfo admin where admin.adminId =:user and admin.adminPassword=:pass",AdminInfo.class)
 				.setParameter("user", adminInfo.getAdminId()).setParameter("pass", adminInfo.getAdminPassword()).getSingleResult();
-		if(i!=0)
-			return 1;
-		return 0;
+		return ad;
 	}
 
 	@Override
@@ -47,6 +46,14 @@ public class AdminRepoImpl implements AdminRepo {
 				"from ApplicationReference r where r.statusId = 1",ApplicationReference.class).getResultList();
 		return list;
 		
+	}
+	
+	@Override
+	public List<CustomerInfo> viewBlockedCustomers() {
+		List<CustomerInfo> list = entityManager.createQuery(
+				"from CustomerInfo c where c.statusId = 4",CustomerInfo.class).getResultList();
+	
+		return list;
 	}
 
 	@Override
@@ -69,6 +76,16 @@ public class AdminRepoImpl implements AdminRepo {
 	public CustomerInfo viewAcceptedCustomersById(int custid) {
 		CustomerInfo c = entityManager.createQuery(
 				"from CustomerInfo c where c.customerId=: cid and c.statusId = 2",CustomerInfo.class)
+				.setParameter("cid", custid).getSingleResult();
+
+		return c;
+	}
+	
+	
+	@Override
+	public CustomerInfo viewBlockedCustomersById(int custid) {
+		CustomerInfo c = entityManager.createQuery(
+				"from CustomerInfo c where c.customerId=: cid and c.statusId = 4",CustomerInfo.class)
 				.setParameter("cid", custid).getSingleResult();
 
 		return c;
@@ -153,6 +170,57 @@ public class AdminRepoImpl implements AdminRepo {
 		return a;
 	}
 
+	@Override
+	public void updateCustomerInfoStatusUnblocked(int aid, int custid) {
+		System.out.println("hello");
+		CustomerInfo custInfo = entityManager.find(CustomerInfo.class, custid);
+		custInfo.setStatusId(entityManager.find(Status.class, 2));
+		custInfo.setApprovedBy(entityManager.find(AdminInfo.class, aid));
+		entityManager.merge(custInfo);
+		entityManager.flush();
+		
+	}
+
+	@Override
+	public void updateStatusCustomerInfoRejected(int aid, int custid) {
+		CustomerInfo custInfo = entityManager.find(CustomerInfo.class, custid);
+		custInfo.setStatusId(entityManager.find(Status.class, 3));
+		custInfo.setApprovedBy(entityManager.find(AdminInfo.class, aid));
+		entityManager.merge(custInfo);
+		entityManager.flush();
+		
+	}
+
+	@Override
+	public void updateUserLoginInfo(int custid) {
+		System.out.println("hello1");
+		CustomerInfo custInfo = entityManager.find(CustomerInfo.class, custid);
+		System.out.println("hello2");
+		AccountInfo a = entityManager.find(AccountInfo.class, custInfo.getCustomerId());
+		System.out.println("hello3");
+		System.out.println(a.getCustomerId());
+		UserLoginInfo u = entityManager.find(UserLoginInfo.class, a);
+		System.out.println(u.getCustomerId());
+		u.setInvalidAttempts(0);
+		entityManager.merge(u);
+		entityManager.flush();
+		
+	}
+
+	@Override
+	public AccountInfo getAccountDetailsAfterUpdation(int custid) {
+		CustomerInfo c = entityManager.find(CustomerInfo.class, custid);
+		AccountInfo a = entityManager.find(AccountInfo.class, c.getCustomerId());
+		return a;
+	}
+
+	@Override
+	public CustomerInfo getdetailsAfterUpdation(int custid) {
+		CustomerInfo c = entityManager.find(CustomerInfo.class, custid);
+		return c;
+	}
+
+	
 	
 	
 }

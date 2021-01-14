@@ -24,13 +24,10 @@ public class AdminServiceImpl implements AdminService {
 	private EmailServiceImpl email;
 	
 	@Override
-	public int adminLogin(AdminInfo adminInfo) {
+	public AdminInfo adminLogin(AdminInfo adminInfo) {
 	
-		int result = adminRepo.adminLogin(adminInfo);
-		if(result!=0)
-			return 1;
-		else 
-			return 0;
+		AdminInfo ad = adminRepo.adminLogin(adminInfo);
+		return ad;
 	}
 
 	@Override
@@ -64,6 +61,22 @@ public class AdminServiceImpl implements AdminService {
 	        return vac;
 		
 	}
+	
+	@Override
+	public List<ViewAcceptedCustomers> viewBlockedCustomers() {
+		List<CustomerInfo> list = adminRepo.viewBlockedCustomers();
+		List<ViewAcceptedCustomers> vac = new ArrayList<ViewAcceptedCustomers>();
+        for(CustomerInfo cf : list) {
+            ViewAcceptedCustomers v = new ViewAcceptedCustomers();
+            v.setCustomerId(cf.getCustomerId());
+            v.setFirstName(cf.getFirstName());
+            v.setLastName(cf.getLastName());
+            v.setMiddleName(cf.getMiddleName());
+            v.setTitle(cf.getTitle());
+            vac.add(v);
+        }
+        return vac;
+	}
 
 	@Override
 	public CustomerInfo viewPendingCustomersById(int refid) {
@@ -78,6 +91,12 @@ public class AdminServiceImpl implements AdminService {
 		CustomerInfo c = adminRepo.viewAcceptedCustomersById(custid);
 		return c;
 		
+	}
+	
+	@Override
+	public CustomerInfo viewBlockedCustomersById(int custid) {
+		CustomerInfo c = adminRepo.viewBlockedCustomersById(custid);
+		return c;
 	}
 	
 	@Override
@@ -118,6 +137,45 @@ public class AdminServiceImpl implements AdminService {
 		return 1;
 	}
 
+	@Override
+	public int actionPerformedUnblocking(int aid, int custid, String action) {
+		try{
+			if(action.equals("Accepted")){
+				
+			adminRepo.updateCustomerInfoStatusUnblocked(aid,custid);
+			System.out.println("hello");
+			adminRepo.updateUserLoginInfo(custid);
+			
+			CustomerInfo c = adminRepo.getdetailsAfterUpdation(custid);
+			AccountInfo a = adminRepo.getAccountDetailsAfterUpdation(custid);
+			
+			String toEmail = c.getEmailId();
+			
+			String subject = "Account Unblocked";
+			String msg = "Hi "
+					+ c.getFirstName()
+					+ ",\nCongratulations!!"
+					+ "\nYour account has been unblocked.\n"
+					+ "You can start using the services again.\n" 
+					+ "User Id : "+c.getCustomerId()+"\n"
+					+ "Account Number : "+a.getAccountNumber()+"\n"
+					+ "Thank You\n"
+					+ "Best Regards,\n"
+					+ "Bank";
+			email.sendEmail(toEmail, subject, msg);
+					
+			
+			
+		 } else {
+			adminRepo.updateStatusCustomerInfoRejected(aid,custid);
+		}
+	}catch(Exception e) {
+		return 0;
+	}
+		return 1;
+	}
+
+	
 	
 
 }

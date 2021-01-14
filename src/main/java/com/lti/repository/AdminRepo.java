@@ -9,13 +9,16 @@ import com.lti.entities.CustomerInfo;
 
 public interface AdminRepo {
 
-	public int adminLogin(AdminInfo adminInfo);
+	public AdminInfo adminLogin(AdminInfo adminInfo);
 	
 	public List<CustomerInfo> viewAcceptedCustomers();
 	public CustomerInfo viewAcceptedCustomersById(int custid);
 	
 	public List<ApplicationReference> viewPendingCustomers();
 	public CustomerInfo viewPendingCustomersById(int refid);
+	
+	public List<CustomerInfo> viewBlockedCustomers();
+	public CustomerInfo viewBlockedCustomersById(int custid);
 	
 	public void insertAccountInfo(int aid,int refid);
 	public void updateCustomerInfo(int aid,int refid);
@@ -27,5 +30,17 @@ public interface AdminRepo {
 	public CustomerInfo getdetails(int refid);
 
 	public AccountInfo getAccountDetails(int refid);
+
+	public void updateCustomerInfoStatusUnblocked(int aid, int custid);
+
+	public void updateStatusCustomerInfoRejected(int aid, int custid);
+
+	public void updateUserLoginInfo(int custid);
+
+	public AccountInfo getAccountDetailsAfterUpdation(int custid);
+
+	public CustomerInfo getdetailsAfterUpdation(int custid);
+
+
 
 }

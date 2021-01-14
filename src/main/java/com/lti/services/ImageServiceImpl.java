@@ -1,9 +1,12 @@
 package com.lti.services;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,6 +77,44 @@ public class ImageServiceImpl implements ImageService {
 				+ "Thank You\n" + "Regards\n" + "Bank";
 		email.sendEmail(toEmail, subject, msg);
 		return apr.getRefernceId();
+	}
+	
+	
+	public void imageDownload(int customerId, HttpServletRequest request) {
+		
+		CustomerInfo customerInfo = createAccount.getCustomer(customerId);
+		List<String> images = new ArrayList<>();
+		images.add(customerInfo.getCustomerDoc().getAadharCard());
+		images.add(customerInfo.getCustomerDoc().getPanCard());
+		
+		//the problem is that the image is in some another folder outside this project
+		//because of this, on the client we will not be able to access it by default
+		//we need to write the code to copy the image from d:/uploads folder temporarily into this project of ours
+	
+		//reading the project's deployed location
+		String projPath = request.getServletContext().getRealPath("/");
+		System.out.println(projPath);
+		String tempDownloadPath = projPath + "/downloads/";
+		//creating this downloads folder in case if it doesn't exist
+		File f = new File(tempDownloadPath);
+		if(!f.exists())
+			f.mkdir();
+		
+		//the target location where we will save the profile pic of the customer
+		for(String list : images) {
+			
+			String targetFile = tempDownloadPath + list;
+			
+			//reading the original location where the image is present
+			String uploadedImagesPath = "D://uploads/";
+			String sourceFile = uploadedImagesPath + list;
+			
+			try {
+				FileCopyUtils.copy(new File(sourceFile), new File(targetFile));
+			} catch(IOException e) {
+				e.printStackTrace(); //hoping for no error will occur
+			}
+		}
 	}
 
 }

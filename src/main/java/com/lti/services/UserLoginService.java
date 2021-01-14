@@ -3,6 +3,7 @@ package com.lti.services;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
+import com.lti.entities.UserLoginInfo;
 
 public interface UserLoginService {
 
@@ -16,11 +17,15 @@ public interface UserLoginService {
 
 	void setNewPassword(int custid, String loginPassword, String transactionPassword);
 
-	void generateMail(int custid);
+	void generateMail(String accNo);
 
 	CustomerInfo getCustomerDetails(int custid);
 
 	CustomerInfo editCustomerDetails(CustomerInfo custInfo);
+
+	int verifyProfilePassword(int custid, String profilePassword);
+
+	UserLoginInfo getLogoutDetails(int custid);
 	
 
 }

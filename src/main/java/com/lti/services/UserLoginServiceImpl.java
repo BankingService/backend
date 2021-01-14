@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
+import com.lti.entities.UserLoginInfo;
 import com.lti.repository.UserLoginRepo;
 
 
@@ -132,8 +133,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public void generateMail(int custid) {
-		CustomerInfo c = repo.getCustomerInfo(custid);
+	public void generateMail(String accNo) {
+		CustomerInfo c = repo.getCustomerInfo(accNo);
 		
 		String toEmail = c.getEmailId();
 		
@@ -160,6 +161,20 @@ public class UserLoginServiceImpl implements UserLoginService {
 	public CustomerInfo editCustomerDetails(CustomerInfo custInfo) {
 		CustomerInfo c = repo.editCustomerInfo(custInfo);
 		return c;
+	}
+
+	@Override
+	public int verifyProfilePassword(int custid, String profilePassword) {
+		int result = repo.verifyProfilePassword(custid, profilePassword);
+		if(result!=0) 		
+			return 1;
+		else return 0;
+	}
+
+	@Override
+	public UserLoginInfo getLogoutDetails(int custid) {
+		UserLoginInfo u = repo.getLogoutDetails(custid);
+		return u;
 	}
 
 }

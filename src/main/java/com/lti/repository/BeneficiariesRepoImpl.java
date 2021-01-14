@@ -51,4 +51,9 @@ public class BeneficiariesRepoImpl implements BeneficiariesRepo {
 		return b;
 	}
 
+	@Override
+	public CustomerInfo getCustomerInfo(int custid) {
+		return em.find(CustomerInfo.class, custid);
+	}
+
 }

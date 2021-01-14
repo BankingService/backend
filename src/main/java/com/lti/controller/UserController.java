@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.LoginStatus;
+import com.lti.dto.LogoutDTO;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
+import com.lti.entities.UserLoginInfo;
 import com.lti.services.UserLoginService;
-
 
 @RestController
 @CrossOrigin
@@ -29,17 +30,17 @@ public class UserController {
 		LoginStatus a = new LoginStatus();
 		try {
 			String result = service.loginCustomer(user);
-			
+
 			if (result.equals("Login Success")) {
 				a.setStatus(StatusType.SUCCESS);
 				a.setMessage("Login Success");
-				
+
 				AccountInfo details = service.viewAcceptedCustomersById(user);
 				a.setCustomerId(details.getCustomerId().getCustomerId());
 				a.setAccountNumber(details.getAccountNumber());
 				a.setIfsc(details.getIfsc());
 				a.setAccountBalance(details.getAccountBalance());
-				
+
 			} else if (result.equals("Invalid Id or Password")) {
 				a.setStatus(StatusType.FAILURE);
 				a.setMessage("Incorrect Id or Password");
@@ -58,84 +59,127 @@ public class UserController {
 		}
 
 	}
-	
-	@GetMapping(path="/forgotpassword/{custid}")
+
+	@GetMapping(path = "/forgotpassword/{custid}")
 	public Status forgotPassword(@PathVariable("custid") int custid) {
-		
+
 		Status status = new Status();
 		try {
-		int otp = service.forgotPassword(custid);
-		status.setStatus(StatusType.SUCCESS);
-		status.setMessage("The otp is : "+otp);
-		return status;
-		}catch(Exception e) {
+			int otp = service.forgotPassword(custid);
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("The otp is : " + otp);
+			return status;
+		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);
 			status.setMessage("User Not Registered");
 			return status;
+		}
+
 	}
-		
-	}
-	
-	@GetMapping(path="/forgotuserid/{accno}")
+
+	@GetMapping(path = "/forgotuserid/{accno}")
 	public Status generateOtp(@PathVariable("accno") String accNo) {
 		Status status = new Status();
 		try {
-		int otp = service.forgotUserId(accNo);
-		status.setStatus(StatusType.SUCCESS);
-		status.setMessage("The otp is : "+otp);
-		return status;
-		}catch(Exception e) {
+			int otp = service.forgotUserId(accNo);
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("The otp is : " + otp);
+			return status;
+		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);
 			status.setMessage("Invalid Account Number");
 			return status;
 		}
 	}
-	
-	@GetMapping(path="/setnewpassword/{custid}/{loginPassword}/{transactionPassword}")
-	public Status setNewPassword(@PathVariable("custid") int custid, @PathVariable("loginPassword") String loginPassword, 
+
+	@GetMapping(path = "/setnewpassword/{custid}/{loginPassword}/{transactionPassword}")
+	public Status setNewPassword(@PathVariable("custid") int custid,
+			@PathVariable("loginPassword") String loginPassword,
 			@PathVariable("transactionPassword") String transactionPassword) {
 		Status status = new Status();
 		try {
-			  service.setNewPassword(custid,loginPassword,transactionPassword);
-				status.setStatus(StatusType.SUCCESS);
-				status.setMessage("Password reset done succesfully");
-				return status;
-		}catch(Exception e) {
+			service.setNewPassword(custid, loginPassword, transactionPassword);
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("Password reset done succesfully");
+			return status;
+		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);
 			status.setMessage("Something went wrong");
 			return status;
 		}
 	}
-	
-	@GetMapping(path="/otpverified/{custid}")
-	public Status generateMail(@PathVariable("custid") int custid) {
+
+	@GetMapping(path = "/forgotUserIdOtpVerified/{accno}") //when user forgets custid he enters accNo and otp is sent when otp is verified mail is sent with custId;
+	public Status generateMail(@PathVariable("accno") String accNo) {
 		Status status = new Status();
 		try {
-			  service.generateMail(custid);
-				status.setStatus(StatusType.SUCCESS);
-				status.setMessage("Mail has been sent to your registered email Id");
-				return status;
-		}catch(Exception e) {
+			service.generateMail(accNo);
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("Mail has been sent to your registered email Id");
+			return status;
+		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);
 			status.setMessage("Something went wrong");
 			return status;
 		}
 	}
-	
-	@GetMapping(path="/viewProfile/{custId}")
+
+	@GetMapping(path = "/viewProfileDetails/{custid}")
 	public CustomerInfo getCustomerDetails(@PathVariable("custId") int custid) {
 		CustomerInfo details = service.getCustomerDetails(custid);
 		return details;
 	}
-	
-	@PostMapping(path="/editCustomerDetails")
+
+	@PostMapping(path = "/editCustomerDetails")
 	public CustomerInfo editCustomerDetails(@RequestBody CustomerInfo custInfo) {
 		CustomerInfo details = service.editCustomerDetails(custInfo);
 		return details;
 	}
+
+	@GetMapping(path="/viewProfile/{custid}/{profilePassword}")
+	public Status viewProfileUsingPassword(@PathVariable("custid") int custid,@PathVariable("profilePassword") String profilePassword) {
+		Status s = new Status();
+		try {
+			int result = service.verifyProfilePassword(custid, profilePassword);
+				if(result!=0) {
+					s.setStatus(StatusType.SUCCESS);
+					s.setMessage("Correct password");
+					return s;
+				}
+				else {
+					s.setStatus(StatusType.FAILURE);
+					s.setMessage("Incorrect Password");
+					return s;
+				}	
+			} catch (Exception e) {
+				s.setStatus(StatusType.FAILURE);
+				s.setMessage("Incorrect Password");
+				return s;
+			}		
+		
+	}
 	
+	@GetMapping(path="/logout/{custid}")
+	public LogoutDTO logoutDetails(@PathVariable("custid") int custid) {
+		LogoutDTO l = new LogoutDTO();
+		try {
+		UserLoginInfo u = service.getLogoutDetails(custid);
+		if(u!=null) {
+			l.setStatus(StatusType.SUCCESS);
+			l.setMessage("Logout Success");
+			l.setLastLoginDateTime(u.getLastLoginDateTime());
+			l.setLastLoginIpAddress(u.getLastLoginIpAddress());
+			return l;
+		}else {
+			l.setStatus(StatusType.FAILURE);
+			l.setMessage("Logout Failed");
+			return l;
+		}
+		}catch(Exception e) {
+			l.setStatus(StatusType.FAILURE);
+			l.setMessage("Logout Failed");
+			return l;
+		}
+	}
+
 }
-
-
-
-

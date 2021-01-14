@@ -11,4 +11,6 @@ public interface BeneficiariesService {
 
 	List<BeneficiariesDTO> viewBeneficiaries(int custid);
 
+	int generateOtp(int custid);
+
 }

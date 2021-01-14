@@ -56,4 +56,22 @@ public class CreateAccountServiceImpl implements CreateAccountService {
 		return createAccount.setDefaults(customerInfo);
 	}
 
+	@Override
+	public int generateOtp(String emailId) {
+
+		int randomPin = (int) (Math.random()*9000)+1000;
+		
+		String toEmail = emailId;
+		
+		String subject = "OTP";
+		String msg = "Hi, "
+				+ "\nYour OTP is : "+randomPin
+				+ "\nThank You\n"
+				+ "Best Regards,\n"
+				+ "Bank";
+		email.sendEmail(toEmail, subject, msg);
+		
+		return randomPin;
+	}
+
 }

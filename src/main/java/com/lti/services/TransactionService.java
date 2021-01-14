@@ -6,4 +6,6 @@ public interface TransactionService {
 
 	String userTransaction(TransactionDto transaction);
 
+	int generateOtp(int custid);
+
 }

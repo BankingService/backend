@@ -3,6 +3,7 @@ package com.lti.repository;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
+import com.lti.entities.UserLoginInfo;
 
 public interface UserLoginRepo {
 
@@ -29,6 +30,10 @@ public interface UserLoginRepo {
 	int verifyAccountNumber(String accNo);
 
 	CustomerInfo editCustomerInfo(CustomerInfo custInfo);
+
+	int verifyProfilePassword(int custid, String profilePassword);
+
+	UserLoginInfo getLogoutDetails(int custid);
 
 	
 

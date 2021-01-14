@@ -18,6 +18,9 @@ public class BeneficiariesServiceImpl implements BeneficiariesService {
 	@Autowired
 	private BeneficiariesRepo repo;
 	
+	@Autowired
+	private EmailServiceImpl email;
+	
 	@Override
 	public int addBeneficiary(Beneficiaries beneficiary, int custId) {
 		try {
@@ -41,5 +44,28 @@ public class BeneficiariesServiceImpl implements BeneficiariesService {
         }
         return bdto;
 	}
+
+	@Override
+	public int generateOtp(int custid) {
+		int randomPin = (int) (Math.random()*9000)+1000;
+		System.out.println(randomPin);
+		
+		CustomerInfo c = repo.getCustomerInfo(custid);
+		
+		String toEmail = c.getEmailId();
+		
+		String subject = "OTP";
+		String msg = "Hi "
+				+ c.getFirstName()
+				+", "
+				+ "\nYour OTP is : "+randomPin
+				+ "\nThank You\n"
+				+ "Best Regards,\n"
+				+ "Bank";
+		email.sendEmail(toEmail, subject, msg);
+		
+		return randomPin;
+	}
+	
 
 }

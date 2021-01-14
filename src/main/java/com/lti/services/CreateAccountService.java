@@ -10,4 +10,6 @@ public interface CreateAccountService {
 
 	public CustomerInfo setDefault(CustomerInfo customerInfo);
 
+	public int generateOtp(String emailId);
+
 }

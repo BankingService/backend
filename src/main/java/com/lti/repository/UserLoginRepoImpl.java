@@ -219,4 +219,25 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 		em.flush();
 		return c;
 	}
+
+	@Override
+	public int verifyProfilePassword(int custid, String profilePassword) {
+		
+		CustomerInfo custInfo = em.find(CustomerInfo.class, custid);
+		AccountInfo a = em.find(AccountInfo.class, custInfo.getCustomerId());
+		UserLoginCredentials u = em.find(UserLoginCredentials.class, a);
+		return em.createQuery("from UserLoginCredentials ulc where ulc.customerId =: id and ulc.profilePassword =: pass"
+				,UserLoginCredentials.class)
+				.setParameter("id", u.getCustomerId()).setParameter("pass", profilePassword).getSingleResult() != null ? 1 : 0;
+	}
+
+	@Override
+	public UserLoginInfo getLogoutDetails(int custid) {
+		
+		CustomerInfo custInfo = em.find(CustomerInfo.class, custid);
+		AccountInfo a = em.find(AccountInfo.class, custInfo.getCustomerId());
+		UserLoginInfo u = em.find(UserLoginInfo.class, a);
+		return em.createQuery("from UserLoginInfo uli where uli.customerId =: id",UserLoginInfo.class)
+				.setParameter("id", u.getCustomerId()).getSingleResult();
+	}
 }

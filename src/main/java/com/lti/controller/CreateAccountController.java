@@ -87,8 +87,24 @@ public class CreateAccountController {
 			status.setStatus(StatusType.FAILURE);
 			status.setMessage("Request Failed");
 			return status;
+		}	
+		
+	}
+	
+	@GetMapping(path = "/verifyEmailOtp/{emailId}")
+	public Status generateOtp(@PathVariable("emailId") String emailId) {
+
+		Status status = new Status();
+		try {
+			int otp = service.generateOtp(emailId);
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("The otp is : " + otp);
+			return status;
+		} catch (Exception e) {
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("User Not Registered");
+			return status;
 		}
-		
-		
+
 	}
 }

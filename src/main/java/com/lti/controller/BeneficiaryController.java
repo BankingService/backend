@@ -51,4 +51,21 @@ public class BeneficiaryController {
 		List<BeneficiariesDTO> b = service.viewBeneficiaries(custid);
 		return b;
 	}
+	
+	@GetMapping(path = "/addBeneficiaryOtp/{custid}")
+	public Status generateOtp(@PathVariable("custid") int custid) {
+
+		Status status = new Status();
+		try {
+			int otp = service.generateOtp(custid);
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage("The otp is : " + otp);
+			return status;
+		} catch (Exception e) {
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("Failed");
+			return status;
+		}
+
+	}
 }

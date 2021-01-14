@@ -1,12 +1,16 @@
 package com.lti.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.dto.BeneficiariesDTO;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
 import com.lti.entities.Beneficiaries;
@@ -40,5 +44,11 @@ public class BeneficiaryController {
 			s.setMessage("Something went wrong");
 			return s;
 		}
+	}
+	
+	@GetMapping(path="/viewBeneficiaries/{custId}")
+	public List<BeneficiariesDTO> viewBeneficiaries(@PathVariable("custId") int custid){
+		List<BeneficiariesDTO> b = service.viewBeneficiaries(custid);
+		return b;
 	}
 }

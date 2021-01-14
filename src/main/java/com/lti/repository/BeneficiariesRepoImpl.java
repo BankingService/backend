@@ -1,12 +1,13 @@
 package com.lti.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.lti.dto.Status;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.Beneficiaries;
 import com.lti.entities.CustomerInfo;
@@ -36,6 +37,18 @@ public class BeneficiariesRepoImpl implements BeneficiariesRepo {
 		em.persist(b);
 		em.flush();
 	
+	}
+
+	@Override
+	public List<Beneficiaries> viewBeneficiaries(int custid) {
+
+		CustomerInfo c = em.find(CustomerInfo.class,custid);
+		AccountInfo ac = em.find(AccountInfo.class, c.getCustomerId());
+		UserLoginCredentials u = em.find(UserLoginCredentials.class, ac);
+		
+		List<Beneficiaries> b = em.createQuery("from Beneficiaries bn where bn.customerId =:id",Beneficiaries.class)
+				.setParameter("id", u.getCustomerId()).getResultList();
+		return b;
 	}
 
 }

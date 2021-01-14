@@ -20,4 +20,8 @@ public interface CreateAccountRepo {
 
 	public CustomerInfo setDefaults(CustomerInfo customerInfo);
 
+	public CustomerInfo getCustomer(int customerId);
+
+	public ApplicationReference completeAccount(CustomerInfo customerInfo);
+
 }

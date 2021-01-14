@@ -6,6 +6,6 @@ import com.lti.dto.ImageDto;
 
 public interface ImageService {
 
-	public List<String> imageUpload(ImageDto images);
+	public int imageUpload(ImageDto images);
 
 }

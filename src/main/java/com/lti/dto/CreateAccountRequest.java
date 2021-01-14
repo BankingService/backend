@@ -2,7 +2,7 @@ package com.lti.dto;
 
 public class CreateAccountRequest {
 	private String msg;
-	private int refId;
+	private int Id;
 
 	public CreateAccountRequest() {
 
@@ -16,12 +16,14 @@ public class CreateAccountRequest {
 		this.msg = msg;
 	}
 
-	public int getRefId() {
-		return refId;
+	public int getId() {
+		return Id;
 	}
 
-	public void setRefId(int refId) {
-		this.refId = refId;
+	public void setId(int id) {
+		Id = id;
 	}
+
+	
 
 }

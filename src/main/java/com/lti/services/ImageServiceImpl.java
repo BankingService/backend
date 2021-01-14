@@ -11,19 +11,29 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lti.dto.ImageDto;
-import com.lti.dto.Status;
-import com.lti.dto.Status.StatusType;
+import com.lti.entities.ApplicationReference;
+import com.lti.entities.CustomerDocs;
+import com.lti.entities.CustomerInfo;
+import com.lti.repository.CreateAccountRepo;
 
 @Service
 public class ImageServiceImpl implements ImageService {
 	
+	@Autowired
+	CreateAccountRepo createAccount;
+	
+	@Autowired
+	EmailServiceImpl email;
+	
 
 	@Override
-	public List<String> imageUpload(ImageDto images) {
-		String imgUploadLocation = "D://uploads";
+	public int imageUpload(ImageDto images) {
 		
+		CustomerInfo customerInfo = createAccount.getCustomer(images.getCustomerId());
+		
+		String imgUploadLocation = "D://uploads/";
 		List<MultipartFile> pics = new ArrayList<MultipartFile>();
-		pics.add(images.getAadharPic());
+		pics.add(images.getAadharCard());
 		pics.add(images.getPanCard());
 		
 		List<String> fileName = new ArrayList<>();
@@ -40,17 +50,30 @@ public class ImageServiceImpl implements ImageService {
 //				Status status = new Status();
 //				status.setStatus(StatusType.FAILURE);
 //				status.setMessage("File upload failed!");
-				return fileName;
-			}
-			
+				return 0;
+			}			
 			fileName.add(newFileName);
 //			customerService.updateProfilePic(customerId, newFileName);
 //			Status status = new Status();
 //			status.setStatus(StatusType.SUCCESS);
 //			status.setMessage("Profile pic updated!");
 		}
+		CustomerDocs docs = new CustomerDocs();
+//		System.out.println(fileName.get(0));
+		docs.setAadharCard(fileName.get(0));
+		docs.setPanCard(fileName.get(1));
+		customerInfo.setCustomerDoc(docs);
 		
-		return fileName;
+		ApplicationReference apr = createAccount.completeAccount(customerInfo);
+		String toEmail = customerInfo.getEmailId();
+		System.out.println(apr.getRefernceId());
+		String subject = "Account Creation Request";
+		String msg = "Hi " + customerInfo.getFirstName() + ",\nCongratulations!!"
+				+ "\nYour account opening request is registered successfully.\n"
+				+ "Please not down this Reference Id: " + apr.getRefernceId() + " to check your status.\n"
+				+ "Thank You\n" + "Regards\n" + "Bank";
+		email.sendEmail(toEmail, subject, msg);
+		return apr.getRefernceId();
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.lti.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.SequenceGenerator;
 import org.springframework.beans.factory.annotation.Value;
 
 @Entity
-public class CustomerInfo {
+public class CustomerInfo implements Serializable {
  
 	@Id
 	@SequenceGenerator(name = "customerId", initialValue = 11111111, allocationSize = 1)

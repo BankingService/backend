@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-
 import com.lti.entities.AdminInfo;
 import com.lti.entities.ApplicationReference;
 import com.lti.entities.CustomerInfo;
@@ -76,6 +75,22 @@ public class CreateAccountRepoImpl implements CreateAccountRepo {
 		customerInfo.setApprovedBy(admin);
 		customerInfo.setStatusId(status);
 		return customerInfo;
+	}
+
+	@Override
+	public CustomerInfo getCustomer(int customerId) {
+		CustomerInfo customer = em.find(CustomerInfo.class, customerId);
+		return customer;
+	}
+
+	@Override
+	public ApplicationReference completeAccount(CustomerInfo customerInfo) {
+		ApplicationReference apr = (ApplicationReference) em.createQuery("from ApplicationReference ar where ar.customerId =: custId").setParameter("custId", customerInfo).getSingleResult();
+//		System.out.println("hello");
+//		System.out.println(apr.getRefernceId());
+		em.merge(customerInfo);
+		em.flush();
+		return apr;
 	}
 
 

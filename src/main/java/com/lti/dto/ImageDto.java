@@ -4,20 +4,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ImageDto {
 
-//	private int customerId;
-	private MultipartFile aadharPic;
+	private int customerId;
+	private MultipartFile aadharCard;
 	private MultipartFile panCard;
 
 	public ImageDto() {
 
 	}
 
-	public MultipartFile getAadharPic() {
-		return aadharPic;
+	public MultipartFile getAadharCard() {
+		return aadharCard;
 	}
 
-	public void setAadharPic(MultipartFile aadharPic) {
-		this.aadharPic = aadharPic;
+	public void setAadharCard(MultipartFile aadharPic) {
+		this.aadharCard = aadharPic;
 	}
 
 	public MultipartFile getPanCard() {
@@ -27,6 +27,16 @@ public class ImageDto {
 	public void setPanCard(MultipartFile panCard) {
 		this.panCard = panCard;
 	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+	
+	
 
 
 }

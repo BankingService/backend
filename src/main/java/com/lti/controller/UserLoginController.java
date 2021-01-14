@@ -2,6 +2,8 @@ package com.lti.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,14 +50,75 @@ public class UserLoginController {
 				a.setMessage("Customer not present");
 			}
 			return a;
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			a.setStatus(StatusType.FAILURE);
 			a.setMessage("Something went wrong");
 			return a;
 		}
 
+	}
+	
+	@GetMapping(path="/forgotpassword/{custid}")
+	public Status forgotPassword(@PathVariable("custid") int custid) {
+		
+		Status status = new Status();
+		try {
+		int otp = service.forgotPassword(custid);
+		status.setStatus(StatusType.SUCCESS);
+		status.setMessage("The otp is : "+otp);
+		return status;
+		}catch(Exception e) {
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("Something went wrong");
+			return status;
+	}
+		
+	}
+	
+	@GetMapping(path="/forgotuserid/{accno}")
+	public Status generateOtp(@PathVariable("accno") String accNo) {
+		Status status = new Status();
+		try {
+		int otp = service.forgotUserId(accNo);
+		status.setStatus(StatusType.SUCCESS);
+		status.setMessage("The otp is : "+otp);
+		return status;
+		}catch(Exception e) {
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("Something went wrong");
+			return status;
+		}
+	}
+	
+	@GetMapping(path="/setnewpassword/{custid}/{loginPassword}/{transactionPassword}")
+	public Status setNewPassword(@PathVariable("custid") int custid, @PathVariable("loginPassword") String loginPassword, 
+			@PathVariable("transactionPassword") String transactionPassword) {
+		Status status = new Status();
+		try {
+			  service.setNewPassword(custid,loginPassword,transactionPassword);
+				status.setStatus(StatusType.SUCCESS);
+				status.setMessage("Password reset done succesfully");
+				return status;
+		}catch(Exception e) {
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("Something went wrong");
+			return status;
+		}
+	}
+	
+	@GetMapping(path="/otpverified/{custid}")
+	public Status generateMail(@PathVariable("custid") int custid) {
+		Status status = new Status();
+		try {
+			  service.generateMail(custid);
+				status.setStatus(StatusType.SUCCESS);
+				status.setMessage("Mail has been sent to your registered email Id");
+				return status;
+		}catch(Exception e) {
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("Something went wrong");
+			return status;
+		}
 	}
 }
 

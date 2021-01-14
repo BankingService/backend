@@ -18,6 +18,12 @@ public interface UserLoginRepo {
 
 	AccountInfo getAccountDetails(UserLoginCredentials user);
 
+	CustomerInfo getCustomerInfo(int custid);
+
+	CustomerInfo getCustomerInfo(String accNo);
+
+	void updateUserLoginCredentials(int custid, String loginPassword, String transactionPassword);
+
 	
 
 }

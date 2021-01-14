@@ -84,10 +84,16 @@ public class ImageServiceImpl implements ImageService {
 	
 	public void imageDownload(int customerId, HttpServletRequest request) {
 		
-		CustomerInfo customerInfo = createAccount.getCustomer(customerId);
 		List<String> images = new ArrayList<>();
-		images.add(customerInfo.getCustomerDoc().getAadharCard());
-		images.add(customerInfo.getCustomerDoc().getPanCard());
+		try {
+			CustomerInfo customerInfo = createAccount.getCustomer(customerId);
+			images.add(customerInfo.getCustomerDoc().getAadharCard());
+			images.add(customerInfo.getCustomerDoc().getPanCard());
+		} catch (Exception e) {
+			System.out.println("No image found");
+		}
+		
+		
 		
 		//the problem is that the image is in some another folder outside this project
 		//because of this, on the client we will not be able to access it by default

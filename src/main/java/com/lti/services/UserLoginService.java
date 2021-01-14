@@ -8,6 +8,14 @@ public interface UserLoginService {
 	String loginCustomer(UserLoginCredentials user);
 
 	AccountInfo viewAcceptedCustomersById(UserLoginCredentials user);
+
+	int forgotPassword(int custid);
+
+	int forgotUserId(String accNo);
+
+	void setNewPassword(int custid, String loginPassword, String transactionPassword);
+
+	void generateMail(int custid);
 	
 
 }

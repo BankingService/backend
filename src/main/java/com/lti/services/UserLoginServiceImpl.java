@@ -71,4 +71,72 @@ public class UserLoginServiceImpl implements UserLoginService {
 		return a;
 	}
 
+	@Override
+	public int forgotPassword(int custid) {
+		int randomPin = (int) (Math.random()*9000)+1000;
+		System.out.println(randomPin);
+		
+		CustomerInfo c = repo.getCustomerInfo(custid);
+		
+		String toEmail = c.getEmailId();
+		
+		String subject = "OTP";
+		String msg = "Hi "
+				+ c.getFirstName()
+				+", "
+				+ "\nYour OTP is : "+randomPin
+				+ "\nThank You\n"
+				+ "Best Regards,\n"
+				+ "Bank";
+		email.sendEmail(toEmail, subject, msg);
+		
+		return randomPin;
+	}
+
+	@Override
+	public int forgotUserId(String accNo) {
+		int randomPin = (int) (Math.random()*9000)+1000;
+		System.out.println(randomPin);
+		
+		CustomerInfo c = repo.getCustomerInfo(accNo);
+		
+		String toEmail = c.getEmailId();
+		
+		String subject = "OTP";
+		String msg = "Hi "
+				+ c.getFirstName()
+				+", "
+				+ "\nYour OTP is : "+randomPin
+				+ "\nThank You\n"
+				+ "Best Regards,\n"
+				+ "Bank";
+		email.sendEmail(toEmail, subject, msg);
+		
+		return randomPin;
+	}
+
+	@Override
+	public void setNewPassword(int custid, String loginPassword, String transactionPassword) {
+		repo.updateUserLoginCredentials(custid,loginPassword,transactionPassword);
+	}
+
+	@Override
+	public void generateMail(int custid) {
+		CustomerInfo c = repo.getCustomerInfo(custid);
+		
+		String toEmail = c.getEmailId();
+		
+		String subject = "Customer ID";
+		String msg = "Hi "
+				+ c.getFirstName()
+				+", "
+				+ "\nThe OTP is succesfully verified.\n"
+				+ "\nYour Customer ID is : "+c.getCustomerId()
+				+ "\nThank You\n"
+				+ "Best Regards,\n"
+				+ "Bank";
+		email.sendEmail(toEmail, subject, msg);
+		
+	}
+
 }

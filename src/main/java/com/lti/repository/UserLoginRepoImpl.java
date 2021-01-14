@@ -163,4 +163,31 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 		AccountInfo ac = em.find(AccountInfo.class, user.getCustomerId());
 		return ac;
 	}
+
+	@Override
+	public CustomerInfo getCustomerInfo(int custid) {
+		CustomerInfo c = em.find(CustomerInfo.class, custid);
+		return c;
+	}
+
+	@Override
+	public CustomerInfo getCustomerInfo(String accNo) {
+		AccountInfo ac = em.createQuery("from AccountInfo a where a.accountNumber=: acc",AccountInfo.class)
+				.setParameter("acc", accNo).getSingleResult();
+		CustomerInfo c = em.find(CustomerInfo.class, ac.getCustomerId().getCustomerId());
+		return c;
+	}
+
+	@Override
+	public void updateUserLoginCredentials(int custid, String loginPassword, String transactionPassword) {
+		CustomerInfo custInfo = em.find(CustomerInfo.class, custid);
+		System.out.println("hello2");
+		AccountInfo a = em.find(AccountInfo.class, custInfo.getCustomerId());
+		System.out.println("hello3");
+		UserLoginCredentials u = em.find(UserLoginCredentials.class, a);
+		u.setLoginPassword(loginPassword);
+		u.setTransactionPassword(transactionPassword);
+		em.merge(u);
+		em.flush();
+	}
 }

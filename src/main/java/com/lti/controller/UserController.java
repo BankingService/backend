@@ -1,5 +1,6 @@
 package com.lti.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,9 +131,9 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/viewProfileDetails/{custId}")
-	public CustomerInfo getCustomerDetails(@PathVariable("custId") int custid) {
+	public CustomerInfo getCustomerDetails(@PathVariable("custId") int custid, HttpServletRequest request) {
 		System.out.println(custid);
-		CustomerInfo details = service.getCustomerDetails(custid);
+		CustomerInfo details = service.getCustomerDetails(custid, request);
 		return details;
 	}
 

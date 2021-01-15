@@ -166,7 +166,8 @@ public class AdminServiceImpl implements AdminService {
 					+ "You can start using the services again.\n" 
 					+ "User Id : "+c.getCustomerId()+"\n"
 					+ "Account Number : "+a.getAccountNumber()+"\n"
-					+ "Thank You\n"
+							+ "IFSC: "+ a.getIfsc()
+					+ "\nThank You\n"
 					+ "Best Regards,\n"
 					+ "Bank";
 			email.sendEmail(toEmail, subject, msg);

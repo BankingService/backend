@@ -1,5 +1,7 @@
 package com.lti.services;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.lti.dto.UserCredentialsDTO;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.CustomerInfo;
@@ -20,7 +22,7 @@ public interface UserLoginService {
 
 	void generateMail(String accNo);
 
-	CustomerInfo getCustomerDetails(int custid);
+	CustomerInfo getCustomerDetails(int custid, HttpServletRequest request);
 
 	CustomerInfo editCustomerDetails(CustomerInfo custInfo);
 

@@ -24,12 +24,12 @@ import com.lti.repository.CreateAccountRepo;
 public class ImageServiceImpl implements ImageService {
 	
 	@Autowired
-	CreateAccountRepo createAccount;
+	private CreateAccountRepo createAccount;
 	
 	@Autowired
-	EmailServiceImpl email;
+	private EmailServiceImpl email;
 	
-	Random rand = new Random();
+	private Random rand = new Random();
 	
 	@Override
 	public int imageUpload(ImageDto images) {

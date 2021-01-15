@@ -3,6 +3,8 @@ package com.lti.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 	
 	@Autowired
 	private EmailServiceImpl email;
+	
+	@Autowired
+	private ImageService imageService;
 
 	@Override
 	public String loginCustomer(UserLoginCredentials user) {
@@ -153,11 +158,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 	}
 
 	@Override
-	public CustomerInfo getCustomerDetails(int custid) {
+	public CustomerInfo getCustomerDetails(int custid, HttpServletRequest request) {
+		imageService.imageDownload(custid, request);
 		CustomerInfo c = repo.getCustomerInfo(custid);
 		return c;
 	}
-
 	@Override
 	public CustomerInfo editCustomerDetails(CustomerInfo custInfo) {
 		CustomerInfo c = repo.editCustomerInfo(custInfo);

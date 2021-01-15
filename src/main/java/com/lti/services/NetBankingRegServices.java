@@ -6,4 +6,6 @@ public interface NetBankingRegServices {
 
 	String registerUser(UserCredentialsDTO registration);
 
+	int generateOtp(int custid);
+
 }

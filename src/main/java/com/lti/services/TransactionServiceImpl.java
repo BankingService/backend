@@ -6,7 +6,9 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lti.dto.TransactionDetailsDTO;
 import com.lti.dto.TransactionDto;
+import com.lti.dto.Status.StatusType;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserTransaction;
 import com.lti.repository.TransactionRepo;
@@ -23,7 +25,8 @@ public class TransactionServiceImpl implements TransactionService {
 	Random rand = new Random();
 	
 	@Override
-	public String userTransaction(TransactionDto usertransaction) {
+	public TransactionDetailsDTO userTransaction(TransactionDto usertransaction) {
+		TransactionDetailsDTO status = new TransactionDetailsDTO();
 		if (transaction.isBalance(usertransaction)) {
 			if (transaction.isValidPwd(usertransaction)) {
 				int transactionId = rand.nextInt(100000)+ (int)usertransaction.getTransactionAmount();
@@ -32,13 +35,27 @@ public class TransactionServiceImpl implements TransactionService {
 				UserTransaction ut = transaction.transact(usertransaction, balance.get(0), transactionType, transactionId, usertransaction.getCustomerId());
 				transactionType = "CREDIT";
 				UserTransaction ut1 = transaction.transact(usertransaction, balance.get(1), transactionType, transactionId, usertransaction.getCustomerId());
-				System.out.println(ut.toString());
-				return ut.toString();
+//				System.out.println(ut.toString());
+				status.setStatus(StatusType.SUCCESS);
+				status.setMessage("Transaction Successfull");
+				status.setTransactionId(ut.getTransactionID());
+				status.setFromAccountNumber(ut.getFromAccountNumber());
+				status.setToAccountNumber(ut.getToAccountNumber());
+				status.setTransactionAmount(ut.getTransactionAmount());
+				status.setTransactionDateTime(ut.getTransactionDateTime());
+				status.setTransactionMode(ut.getTransactionModeId().getTransactionMode());
+				status.setUpdatedBalance(ut.getUpdatedBalance());
+				status.setRemark(ut.getRemark());
+				return status;
 			} else {
-				return "INVALID TRANSACTION PASSWORD";
+				status.setStatus(StatusType.FAILURE);
+				status.setMessage("INVALID TRANSACTION PASSWORD");
+				return status;
 			}
 		} else {
-			return "INSUFFICIENT FUND";
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("INSUFFICIENT FUND");
+			return status;
 		}
 	}
 

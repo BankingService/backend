@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
+import com.lti.dto.TransactionDetailsDTO;
 import com.lti.dto.TransactionDto;
+import com.lti.entities.UserTransaction;
 import com.lti.services.TransactionService;
 
 @RestController
@@ -23,15 +25,13 @@ public class TransactionController {
 	TransactionService service;
 	
 	@PostMapping(path = "/transact/")
-	public Status userTransaction(@RequestBody TransactionDto transaction) {
-		Status status = new Status();
+	public TransactionDetailsDTO userTransaction(@RequestBody TransactionDto transaction) {
 		try {
 			transaction.setTransactionDateTime(LocalDateTime.now());
-			String res = service.userTransaction(transaction);
-			status.setStatus(StatusType.SUCCESS);
-			status.setMessage(res);
+			TransactionDetailsDTO status = service.userTransaction(transaction);
 			return status;
 		} catch (Exception e) {
+			TransactionDetailsDTO status = new TransactionDetailsDTO();
 			status.setStatus(StatusType.FAILURE);
 			status.setMessage("TRANSACTION FAILED");
 			return status;

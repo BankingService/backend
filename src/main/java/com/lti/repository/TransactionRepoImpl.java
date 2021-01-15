@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.lti.dto.TransactionDto;
@@ -15,6 +16,7 @@ import com.lti.entities.CustomerInfo;
 import com.lti.entities.TransactionMode;
 import com.lti.entities.UserLoginCredentials;
 import com.lti.entities.UserTransaction;
+import com.lti.services.EmailServiceImpl;
 
 @Repository
 @Transactional
@@ -22,6 +24,9 @@ public class TransactionRepoImpl implements TransactionRepo {
 
 	@PersistenceContext
 	EntityManager em;
+	
+	@Autowired
+	EmailServiceImpl email;
 
 	@Override
 	public boolean isBalance(TransactionDto usertransaction) {
@@ -73,7 +78,7 @@ public class TransactionRepoImpl implements TransactionRepo {
 	}
 
 	@Override
-	public void transact(TransactionDto usertransaction, Float balance, String transactionType, int transactionId) {
+	public UserTransaction transact(TransactionDto usertransaction, Float balance, String transactionType, int transactionId, int customerId) {
 
 		UserTransaction ut = new UserTransaction();
 		ut.setTransactionID(transactionId);
@@ -92,6 +97,24 @@ public class TransactionRepoImpl implements TransactionRepo {
 		ut.setRemark(usertransaction.getRemark());
 		em.persist(ut);
 		em.flush();
+		
+		AccountInfo ai = (AccountInfo) em.createQuery("from AccountInfo ai where ai.accountNumber =: accNumber")
+				.setParameter("accNumber", ut.getFromAccountNumber()).getSingleResult();
+		System.out.println(ai.getAccountNumber());
+
+		System.out.println(ai.getCustomerId().getCustomerId());
+		CustomerInfo custInfo = em.find(CustomerInfo.class, ai.getCustomerId().getCustomerId());
+
+		String toEmail = custInfo.getEmailId();
+		String toSubject = "Transaction In Your Account";
+		String message = "Hi "+ custInfo.getFirstName() +",\n"
+				+ ut.getTransactionAmount() +" has been "+ut.getTransactionType()+"ED "
+						+ "from/in your account.\n"
+						+ "Your updated balance is: " + ut.getUpdatedBalance();
+
+		email.sendEmail(toEmail, toSubject, message);
+
+		return ut;
 	}
 
 	@Override

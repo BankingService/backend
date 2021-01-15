@@ -1,5 +1,7 @@
 package com.lti.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,7 @@ public class TransactionController {
 	public Status userTransaction(@RequestBody TransactionDto transaction) {
 		Status status = new Status();
 		try {
+			transaction.setTransactionDateTime(LocalDateTime.now());
 			String res = service.userTransaction(transaction);
 			status.setStatus(StatusType.SUCCESS);
 			status.setMessage(res);

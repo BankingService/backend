@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lti.dto.TransactionDto;
 import com.lti.entities.CustomerInfo;
+import com.lti.entities.UserTransaction;
 
 public interface TransactionRepo {
 
@@ -13,7 +14,7 @@ public interface TransactionRepo {
 
 	List<Float> updateAccBalance(TransactionDto usertransaction);
 
-	void transact(TransactionDto usertransaction, Float balance, String transactionType, int transactionId);
+	UserTransaction transact(TransactionDto usertransaction, Float balance, String transactionType, int transactionId, int i);
 
 	CustomerInfo getCustomerInfo(int custid);
 

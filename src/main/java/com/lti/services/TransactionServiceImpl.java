@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.lti.dto.TransactionDto;
 import com.lti.entities.CustomerInfo;
+import com.lti.entities.UserTransaction;
 import com.lti.repository.TransactionRepo;
 
 @Service
@@ -28,10 +29,11 @@ public class TransactionServiceImpl implements TransactionService {
 				int transactionId = rand.nextInt(100000)+ (int)usertransaction.getTransactionAmount();
 				List<Float> balance = transaction.updateAccBalance(usertransaction);
 				String transactionType = "DEBIT";
-				transaction.transact(usertransaction, balance.get(0), transactionType, transactionId);
+				UserTransaction ut = transaction.transact(usertransaction, balance.get(0), transactionType, transactionId, usertransaction.getCustomerId());
 				transactionType = "CREDIT";
-				transaction.transact(usertransaction, balance.get(1), transactionType, transactionId);
-				return "SUCCESS";
+				UserTransaction ut1 = transaction.transact(usertransaction, balance.get(1), transactionType, transactionId, usertransaction.getCustomerId());
+				System.out.println(ut.toString());
+				return ut.toString();
 			} else {
 				return "INVALID TRANSACTION PASSWORD";
 			}

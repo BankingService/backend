@@ -93,36 +93,26 @@ public class ImageServiceImpl implements ImageService {
 			System.out.println("No image found");
 		}
 		
-		
-		
-		//the problem is that the image is in some another folder outside this project
-		//because of this, on the client we will not be able to access it by default
-		//we need to write the code to copy the image from d:/uploads folder temporarily into this project of ours
-	
-		//reading the project's deployed location
 		String projPath = request.getServletContext().getRealPath("/");
-		System.out.println(projPath);
-		String tempDownloadPath = projPath + "/downloads/";
-		//creating this downloads folder in case if it doesn't exist
+		String tempDownloadPath = projPath + "/downloads/" ;
+		System.out.println(tempDownloadPath);
 		File f = new File(tempDownloadPath);
 		if(!f.exists())
 			f.mkdir();
 		
-		//the target location where we will save the profile pic of the customer
 		for(String list : images) {
 			
 			String targetFile = tempDownloadPath + list;
-			
-			//reading the original location where the image is present
 			String uploadedImagesPath = "D://uploads/";
 			String sourceFile = uploadedImagesPath + list;
-			
+			System.out.println(sourceFile);
 			try {
 				FileCopyUtils.copy(new File(sourceFile), new File(targetFile));
 			} catch(IOException e) {
-				e.printStackTrace(); //hoping for no error will occur
+				e.printStackTrace(); 
 			}
 		}
 	}
+	
 
 }

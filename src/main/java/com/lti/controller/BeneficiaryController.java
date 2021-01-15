@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.BeneficiariesDTO;
+import com.lti.dto.GetBeneficiary;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
 import com.lti.entities.Beneficiaries;
@@ -23,11 +24,11 @@ public class BeneficiaryController {
 	@Autowired
 	private BeneficiariesService service;
 
-	@PostMapping(path = "/addBeneficiary/{custId}")
-	public Status add(@RequestBody Beneficiaries beneficiary, @PathVariable("custId") int custId) {
+	@PostMapping(path = "/addBeneficiary/")
+	public Status add(@RequestBody GetBeneficiary beneficiary) {
 		Status s =new Status();
 		try {
-			int result = service.addBeneficiary(beneficiary, custId);
+			int result = service.addBeneficiary(beneficiary);
 			if(result!=0) {
 				s.setStatus(StatusType.SUCCESS);
 				s.setMessage("Beneficiary Added");
@@ -69,3 +70,6 @@ public class BeneficiaryController {
 
 	}
 }
+
+
+

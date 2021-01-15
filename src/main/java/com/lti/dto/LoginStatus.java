@@ -4,9 +4,21 @@ public class LoginStatus extends Status {
 
 	
 	private int customerId;
+	private String customerName;
 	private String accountNumber;
 	private String ifsc;
 	private double accountBalance;
+	
+	public LoginStatus() {
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 
 	public int getCustomerId() {
 		return customerId;

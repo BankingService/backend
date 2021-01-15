@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.lti.dto.GetBeneficiary;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.Beneficiaries;
 import com.lti.entities.CustomerInfo;
@@ -21,9 +22,9 @@ public class BeneficiariesRepoImpl implements BeneficiariesRepo {
 	protected EntityManager em;
 	
 	@Override
-	public void addBeneficiary(Beneficiaries beneficiary, int custId) {
+	public void addBeneficiary(GetBeneficiary beneficiary) {
 		
-		CustomerInfo c = em.find(CustomerInfo.class,custId);
+		CustomerInfo c = em.find(CustomerInfo.class,beneficiary.getCustomerId());
 		AccountInfo ac = em.find(AccountInfo.class, c.getCustomerId());
 		UserLoginCredentials u = em.find(UserLoginCredentials.class, ac);
 		

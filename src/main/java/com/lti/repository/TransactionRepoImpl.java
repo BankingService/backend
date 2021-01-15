@@ -113,7 +113,6 @@ public class TransactionRepoImpl implements TransactionRepo {
 						+ "Your updated balance is: " + ut.getUpdatedBalance();
 
 		email.sendEmail(toEmail, toSubject, message);
-
 		return ut;
 	}
 

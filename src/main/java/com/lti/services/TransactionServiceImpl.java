@@ -52,6 +52,7 @@ public class TransactionServiceImpl implements TransactionService {
 				status.setMessage("INVALID TRANSACTION PASSWORD");
 				return status;
 			}
+			
 		} else {
 			status.setStatus(StatusType.FAILURE);
 			status.setMessage("INSUFFICIENT FUND");

@@ -38,6 +38,7 @@ public class TransactionController {
 		}
 		
 	}
+
 	
 	@GetMapping(path = "/getTransactionOtp/{custid}")
 	public Status generateOtp(@PathVariable("custid") int custid) {

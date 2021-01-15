@@ -9,4 +9,5 @@ public interface TransactionService {
 
 	int generateOtp(int custid);
 
+	
 }

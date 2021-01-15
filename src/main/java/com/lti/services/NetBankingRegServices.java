@@ -1,9 +1,9 @@
 package com.lti.services;
 
-import com.lti.entities.UserLoginCredentials;
+import com.lti.dto.UserCredentialsDTO;
 
 public interface NetBankingRegServices {
 
-	String registerUser(UserLoginCredentials userCredentials);
+	String registerUser(UserCredentialsDTO registration);
 
 }

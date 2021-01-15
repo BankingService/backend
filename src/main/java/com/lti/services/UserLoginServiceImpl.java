@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lti.dto.UserCredentialsDTO;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
@@ -175,6 +176,14 @@ public class UserLoginServiceImpl implements UserLoginService {
 	public UserLoginInfo getLogoutDetails(int custid) {
 		UserLoginInfo u = repo.getLogoutDetails(custid);
 		return u;
+	}
+
+	@Override
+	public UserLoginCredentials findUser(UserCredentialsDTO userCredentials) {
+		AccountInfo ai = repo.getAccount(userCredentials.getCustomerId());
+		UserLoginCredentials user = repo.getCredentials(ai);
+		user.setLoginPassword(userCredentials.getLoginPassword());
+		return user;
 	}
 
 }

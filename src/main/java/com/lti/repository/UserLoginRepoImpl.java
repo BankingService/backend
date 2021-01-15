@@ -240,4 +240,17 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 		return em.createQuery("from UserLoginInfo uli where uli.customerId =: id",UserLoginInfo.class)
 				.setParameter("id", u.getCustomerId()).getSingleResult();
 	}
+
+	@Override
+	public AccountInfo getAccount(int customerId) {
+		AccountInfo ai = em.find(AccountInfo.class, customerId);
+		return ai;
+	}
+
+	@Override
+	public UserLoginCredentials getCredentials(AccountInfo ai) {
+		UserLoginCredentials user = em.find(UserLoginCredentials.class, ai);
+		em.detach(user);
+		return user;
+	}
 }

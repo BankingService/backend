@@ -35,6 +35,10 @@ public interface UserLoginRepo {
 
 	UserLoginInfo getLogoutDetails(int custid);
 
+	AccountInfo getAccount(int customerId);
+
+	UserLoginCredentials getCredentials(AccountInfo ai);
+
 	
 
 }

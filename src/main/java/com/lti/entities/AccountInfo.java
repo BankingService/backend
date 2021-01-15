@@ -3,25 +3,16 @@ package com.lti.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 
 
 @Entity
 public class AccountInfo implements Serializable {
 
-	@Override
-	public String toString() {
-		return "AccountInfo [customerId=" + customerId + ", accountNumber=" + accountNumber + ", ifsc=" + ifsc
-				+ ", accountBalance=" + accountBalance + "]";
-	}
-
 	@Id
-	@OneToOne
+	@OneToOne(targetEntity = CustomerInfo.class)
 	@JoinColumn(name = "customerId")
 	private CustomerInfo customerId;
 
@@ -69,6 +60,12 @@ public class AccountInfo implements Serializable {
 
 	public void setAccountBalance(float accountBalance) {
 		this.accountBalance = accountBalance;
+	}
+	
+	@Override
+	public String toString() {
+		return "AccountInfo [customerId=" + customerId + ", accountNumber=" + accountNumber + ", ifsc=" + ifsc
+				+ ", accountBalance=" + accountBalance + "]";
 	}
 
 }

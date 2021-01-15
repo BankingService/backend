@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lti.dto.LoginStatus;
 import com.lti.dto.LogoutDTO;
 import com.lti.dto.Status;
+import com.lti.dto.UserCredentialsDTO;
 import com.lti.dto.Status.StatusType;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.CustomerInfo;
@@ -26,9 +27,10 @@ public class UserController {
 	private UserLoginService service;
 
 	@PostMapping(path = "/userLogin")
-	public Status loginInfo(@RequestBody UserLoginCredentials user) {
+	public Status loginInfo(@RequestBody UserCredentialsDTO userCredentials) {
 		LoginStatus a = new LoginStatus();
 		try {
+			UserLoginCredentials user = service.findUser(userCredentials);
 			String result = service.loginCustomer(user);
 
 			if (result.equals("Login Success")) {

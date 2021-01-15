@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.lti.entities.AccountInfo;
+import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
 
 @Repository
@@ -24,5 +26,11 @@ public class NetBankingRegRepoImpl implements NetBankingRegRepo {
 	@Override
 	public boolean isInfoPresent(UserLoginCredentials userCredentials) {
 		return em.find(UserLoginCredentials.class, userCredentials.getCustomerId()) != null ? true : false ;
+	}
+
+	@Override
+	public AccountInfo getAccountInfo(int customerId) {
+		AccountInfo ai = em.find(AccountInfo.class, customerId);
+		return ai;
 	}
 }

@@ -1,5 +1,6 @@
 package com.lti.services;
 
+import com.lti.dto.UserCredentialsDTO;
 import com.lti.entities.AccountInfo;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
@@ -26,6 +27,7 @@ public interface UserLoginService {
 	int verifyProfilePassword(int custid, String profilePassword);
 
 	UserLoginInfo getLogoutDetails(int custid);
-	
+
+	UserLoginCredentials findUser(UserCredentialsDTO userCredentials);
 
 }

@@ -1,13 +1,13 @@
 package com.lti.dto;
 
-public class RegistrationDTO {
+public class UserCredentialsDTO {
 	
 	private int CustomerId;
 	private String transactionPassword;
 	private String loginPassword;
 	private String profilePassword;
 	
-	public RegistrationDTO() {
+	public UserCredentialsDTO() {
 		// TODO Auto-generated constructor stub
 	}
 

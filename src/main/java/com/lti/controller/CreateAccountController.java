@@ -98,7 +98,7 @@ public class CreateAccountController {
 		try {
 			int otp = service.generateOtp(emailId);
 			status.setStatus(StatusType.SUCCESS);
-			status.setMessage("The otp is : " + otp);
+			status.setMessage(String.valueOf(otp));
 			return status;
 		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);

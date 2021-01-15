@@ -46,7 +46,7 @@ public class TransactionController {
 		try {
 			int otp = service.generateOtp(custid);
 			status.setStatus(StatusType.SUCCESS);
-			status.setMessage("The otp is : " + otp);
+			status.setMessage(String.valueOf(otp));
 			return status;
 		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);

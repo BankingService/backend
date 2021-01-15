@@ -72,7 +72,7 @@ public class UserController {
 		try {
 			int otp = service.forgotPassword(custid);
 			status.setStatus(StatusType.SUCCESS);
-			status.setMessage("The otp is : " + otp);
+			status.setMessage(String.valueOf(otp));
 			return status;
 		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);
@@ -88,7 +88,7 @@ public class UserController {
 		try {
 			int otp = service.forgotUserId(accNo);
 			status.setStatus(StatusType.SUCCESS);
-			status.setMessage("The otp is : " + otp);
+			status.setMessage(String.valueOf(otp));
 			return status;
 		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);

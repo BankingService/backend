@@ -36,16 +36,21 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 	@Override
 	public int checkCredentials(UserLoginCredentials user) {
 		// AccountInfo ac = em.find(AccountInfo.class, user.getCustomerId());
-		List<UserLoginCredentials> i = null;
+//		List<UserLoginCredentials> i = null;
+		int i=0;
 		CustomerInfo c = em.find(CustomerInfo.class, user.getCustomerId().getCustomerId().getCustomerId()); 
 		if(c.getStatusId().getStatusId()==2) {
-		i = em.createQuery("from UserLoginCredentials u where u.customerId =:id and u.loginPassword =: pass",
-						UserLoginCredentials.class)
-				.setParameter("id", user.getCustomerId()).setParameter("pass", user.getLoginPassword()).getResultList();
+			UserLoginCredentials ulc = em.find(UserLoginCredentials.class, user.getCustomerId());
+			if(ulc.getLoginPassword().equals(user.getLoginPassword())) {
+				i=1;
+			}
+//		i = em.createQuery("from UserLoginCredentials u where u.customerId =:id and u.loginPassword =:pass",
+//						UserLoginCredentials.class)
+//				.setParameter("id", user.getCustomerId()).setParameter("pass", user.getLoginPassword()).getResultList();
 		}
-		if (i != null) {
-			System.out.println("Size " + i.size());
-			int size = i.size();
+		if (i == 1) {
+			System.out.println("Size " + i);
+			int size = i;
 			if (size == 1)
 				return 1;
 			else

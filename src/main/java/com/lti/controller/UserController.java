@@ -1,11 +1,14 @@
 package com.lti.controller;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.LoginStatus;
@@ -20,7 +23,7 @@ import com.lti.entities.UserLoginInfo;
 import com.lti.services.UserLoginService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
 	@Autowired
@@ -127,7 +130,8 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/viewProfileDetails/{custid}")
-	public CustomerInfo getCustomerDetails(@PathVariable("custId") int custid) {
+	public CustomerInfo getCustomerDetails(@PathParam("custId") int custid) {
+		System.out.println(custid);
 		CustomerInfo details = service.getCustomerDetails(custid);
 		return details;
 	}

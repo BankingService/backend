@@ -23,7 +23,7 @@ import com.lti.entities.UserLoginInfo;
 import com.lti.services.UserLoginService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class UserController {
 
 	@Autowired
@@ -129,8 +129,8 @@ public class UserController {
 		}
 	}
 
-	@GetMapping(path = "/viewProfileDetails/{custid}")
-	public CustomerInfo getCustomerDetails(@PathParam("custId") int custid) {
+	@GetMapping(path = "/viewProfileDetails/{custId}")
+	public CustomerInfo getCustomerDetails(@PathVariable("custId") int custid) {
 		System.out.println(custid);
 		CustomerInfo details = service.getCustomerDetails(custid);
 		return details;

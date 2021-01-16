@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.lti.entities.AccountInfo;
+import com.lti.entities.CustomerDocs;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.Status;
 import com.lti.entities.UserLoginCredentials;
@@ -216,9 +217,13 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 	public CustomerInfo editCustomerInfo(CustomerInfo custInfo) {
 
 		CustomerInfo c = em.find(CustomerInfo.class, custInfo.getCustomerId());
-		
+		CustomerDocs docs = new CustomerDocs();
+		docs.setAadharCard(c.getCustomerDoc().getAadharCard());
+		docs.setPanCard(c.getCustomerDoc().getPanCard());
+		custInfo.setCustomerDoc(docs);
 		custInfo.setApprovedBy(c.getApprovedBy());
 		custInfo.setStatusId(c.getStatusId());
+		
 		
 		em.merge(custInfo);
 		em.flush();

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.dto.LoginStatus;
 import com.lti.dto.LogoutDTO;
+import com.lti.dto.ProfilePasswordDTO;
+import com.lti.dto.SetNewPasswordDTO;
 import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
 import com.lti.dto.UserCredentialsDTO;
@@ -97,10 +99,11 @@ public class UserController {
 		}
 	}
 
-	@GetMapping(path = "/setnewpassword/{custid}/{loginPassword}/{transactionPassword}")
-	public Status setNewPassword(@PathVariable("custid") int custid,
-			@PathVariable("loginPassword") String loginPassword,
-			@PathVariable("transactionPassword") String transactionPassword) {
+	@PostMapping(path = "/setnewpassword")
+	public Status setNewPassword(@RequestBody SetNewPasswordDTO set) {
+		int custid = set.getCustomerId();
+		String loginPassword = set.getLoginPassword();
+		String transactionPassword = set.getTransactionPassword();
 		Status status = new Status();
 		try {
 			service.setNewPassword(custid, loginPassword, transactionPassword);
@@ -142,8 +145,12 @@ public class UserController {
 		return details;
 	}
 
-	@GetMapping(path="/viewProfile/{custid}/{profilePassword}")
-	public Status viewProfileUsingPassword(@PathVariable("custid") int custid,@PathVariable("profilePassword") String profilePassword) {
+	@PostMapping(path="/viewProfile")
+	public Status viewProfileUsingPassword(@RequestBody ProfilePasswordDTO profile) {
+		int custid = profile.getCustomerId();
+		String profilePassword = profile.getProfilePassword();
+		System.out.println(custid);
+		System.out.println(profilePassword);
 		Status s = new Status();
 		try {
 			int result = service.verifyProfilePassword(custid, profilePassword);

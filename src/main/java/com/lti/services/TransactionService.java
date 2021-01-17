@@ -9,5 +9,7 @@ public interface TransactionService {
 
 	int generateOtp(int custid);
 
+	float getBalance(int custid);
+
 	
 }

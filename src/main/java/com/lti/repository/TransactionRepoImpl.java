@@ -121,4 +121,10 @@ public class TransactionRepoImpl implements TransactionRepo {
 		return em.find(CustomerInfo.class, custid);
 	}
 
+	@Override
+	public float getBalance(int custid) {
+		AccountInfo ai = em.find(AccountInfo.class, custid);
+		return ai.getAccountBalance();
+	}
+
 }

@@ -56,4 +56,21 @@ public class TransactionController {
 		}
 
 	}
+	
+	@GetMapping(path = "/getAccountBalance/{customerId}")
+	public Status getAccountBalance(@PathVariable("customerId") int custid) {
+
+		Status status = new Status();
+		try {
+			float balance = service.getBalance(custid);
+			status.setStatus(StatusType.SUCCESS);
+			status.setMessage(String.valueOf(balance));
+			return status;
+		} catch (Exception e) {
+			status.setStatus(StatusType.FAILURE);
+			status.setMessage("Invalid Request");
+			return status;
+		}
+
+	}
 }

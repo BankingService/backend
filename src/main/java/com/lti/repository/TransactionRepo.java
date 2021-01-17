@@ -17,4 +17,6 @@ public interface TransactionRepo {
 	UserTransaction transact(TransactionDto usertransaction, Float balance, String transactionType, int transactionId, int i);
 
 	CustomerInfo getCustomerInfo(int custid);
+
+	float getBalance(int custid);
 }

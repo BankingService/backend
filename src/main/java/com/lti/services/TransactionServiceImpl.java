@@ -82,4 +82,10 @@ public class TransactionServiceImpl implements TransactionService {
 		return randomPin;
 	}
 
+	@Override
+	public float getBalance(int custid) {
+		float balance = transaction.getBalance(custid);
+		return balance;
+	}
+
 }

@@ -213,23 +213,64 @@ public class UserLoginRepoImpl implements UserLoginRepo {
 				.setParameter("acc", accNo).getSingleResult() != null ? 1 : 0;
 	}
 
+//	@Override
+//	public CustomerInfo editCustomerInfo(CustomerInfo custInfo) {
+//
+//		CustomerInfo c = em.find(CustomerInfo.class, custInfo.getCustomerId());
+//		CustomerDocs docs = new CustomerDocs();
+//		docs.setAadharCard(c.getCustomerDoc().getAadharCard());
+//		docs.setPanCard(c.getCustomerDoc().getPanCard());
+//		custInfo.setCustomerDoc(docs);
+//		custInfo.setApprovedBy(c.getApprovedBy());
+//		custInfo.setStatusId(c.getStatusId());
+//		
+//		
+//		em.merge(custInfo);
+//		em.flush();
+//		return c;
+//	}
+	
 	@Override
-	public CustomerInfo editCustomerInfo(CustomerInfo custInfo) {
+    public CustomerInfo editCustomerInfo(CustomerInfo custInfo) {
 
-		CustomerInfo c = em.find(CustomerInfo.class, custInfo.getCustomerId());
-		CustomerDocs docs = new CustomerDocs();
-		docs.setAadharCard(c.getCustomerDoc().getAadharCard());
-		docs.setPanCard(c.getCustomerDoc().getPanCard());
-		custInfo.setCustomerDoc(docs);
-		custInfo.setApprovedBy(c.getApprovedBy());
-		custInfo.setStatusId(c.getStatusId());
-		
-		
-		em.merge(custInfo);
-		em.flush();
-		return c;
-	}
+ 
 
+        CustomerInfo c = em.find(CustomerInfo.class, custInfo.getCustomerId());
+
+ 
+
+        CustomerDocs docs = new CustomerDocs();
+        docs.setAadharCard(c.getCustomerDoc().getAadharCard());
+        docs.setPanCard(c.getCustomerDoc().getPanCard());
+
+ 
+
+        custInfo.setTitle(c.getTitle());
+        custInfo.setFirstName(c.getFirstName());
+        custInfo.setMiddleName(c.getMiddleName());
+        custInfo.setLastName(c.getLastName());
+        custInfo.setFatherName(c.getFatherName());
+        custInfo.setDateOfBirth(c.getDateOfBirth());
+
+ 
+
+        custInfo.setAadharCardNo(c.getAadharCardNo());
+        custInfo.setPanNumber(c.getPanNumber());
+
+ 
+
+        custInfo.setCustomerDoc(docs);
+        custInfo.setApprovedBy(c.getApprovedBy());
+        custInfo.setStatusId(c.getStatusId());
+
+ 
+
+        em.merge(custInfo);
+        em.flush();
+        return c;
+    }
+	
+	
 	@Override
 	public int verifyProfilePassword(int custid, String profilePassword) {
 		

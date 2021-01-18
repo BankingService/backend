@@ -68,7 +68,7 @@ public class CreateAccountController {
 			return status;
 		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);
-			status.setMessage("Account is Active");
+			status.setMessage("INVALID REFERENCE ID");
 			return status;
 		}
 		

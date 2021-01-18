@@ -34,6 +34,7 @@ public class TransactionServiceImpl implements TransactionService {
 				String transactionType = "DEBIT";
 				UserTransaction ut = transaction.transact(usertransaction, balance.get(0), transactionType, transactionId, usertransaction.getCustomerId());
 				transactionType = "CREDIT";
+				
 				UserTransaction ut1 = transaction.transact(usertransaction, balance.get(1), transactionType, transactionId, usertransaction.getCustomerId());
 //				System.out.println(ut.toString());
 				status.setStatus(StatusType.SUCCESS);

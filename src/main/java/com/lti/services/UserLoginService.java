@@ -32,4 +32,6 @@ public interface UserLoginService {
 
 	UserLoginCredentials findUser(UserCredentialsDTO userCredentials);
 
+	String getLoginAttempt(UserLoginCredentials user);
+
 }

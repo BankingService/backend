@@ -39,6 +39,8 @@ public interface UserLoginRepo {
 
 	UserLoginCredentials getCredentials(AccountInfo ai);
 
+	String getUserAttempt(UserLoginCredentials user);
+
 	
 
 }

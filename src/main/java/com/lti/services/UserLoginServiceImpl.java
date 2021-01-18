@@ -191,4 +191,10 @@ public class UserLoginServiceImpl implements UserLoginService {
 		return user;
 	}
 
+	@Override
+	public String getLoginAttempt(UserLoginCredentials user) {
+		String res = repo.getUserAttempt(user);
+		return res;
+	}
+
 }

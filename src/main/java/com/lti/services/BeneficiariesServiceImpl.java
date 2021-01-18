@@ -30,6 +30,7 @@ public class BeneficiariesServiceImpl implements BeneficiariesService {
 			repo.addBeneficiary(beneficiary);
 			return 1;
 			}
+			
 			return 0;
 		} catch (Exception e) {
 			return 0;

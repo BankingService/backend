@@ -40,6 +40,7 @@ public class BeneficiariesRepoImpl implements BeneficiariesRepo {
 	
 	}
 
+	
 	@Override
 	public List<Beneficiaries> viewBeneficiaries(int custid) {
 

@@ -50,7 +50,7 @@ public class UserController {
 
 			} else if (result.equals("Invalid Id or Password")) {
 				a.setStatus(StatusType.FAILURE);
-				a.setMessage("Incorrect Id or Password");
+				a.setMessage("Login Attempt Left: " + service.getLoginAttempt(user));
 			} else if (result.equals("Account Blocked")) {
 				a.setStatus(StatusType.FAILURE);
 				a.setMessage("Account Blocked");

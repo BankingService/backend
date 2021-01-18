@@ -1,7 +1,7 @@
 package com.lti.dto;
 
 public class BeneficiariesDTO {
-
+ 
 	private String beneficiaryAccountNumber;
 
 	public BeneficiariesDTO() {

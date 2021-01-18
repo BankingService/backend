@@ -12,7 +12,7 @@ import com.lti.dto.ViewAcceptedCustomers;
 import com.lti.entities.Beneficiaries;
 import com.lti.entities.CustomerInfo;
 import com.lti.repository.BeneficiariesRepo;
-
+ 
 @Service
 public class BeneficiariesServiceImpl implements BeneficiariesService {
 

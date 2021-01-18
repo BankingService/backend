@@ -16,7 +16,7 @@ import com.lti.dto.Status;
 import com.lti.dto.Status.StatusType;
 import com.lti.entities.Beneficiaries;
 import com.lti.services.BeneficiariesService;
-
+ 
 @RestController
 @CrossOrigin
 public class BeneficiaryController {

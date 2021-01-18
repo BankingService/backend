@@ -13,7 +13,7 @@ import com.lti.entities.AccountInfo;
 import com.lti.entities.Beneficiaries;
 import com.lti.entities.CustomerInfo;
 import com.lti.entities.UserLoginCredentials;
-
+ 
 @Repository
 @Transactional
 public class BeneficiariesRepoImpl implements BeneficiariesRepo {

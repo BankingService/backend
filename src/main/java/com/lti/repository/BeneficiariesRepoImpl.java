@@ -60,11 +60,26 @@ public class BeneficiariesRepoImpl implements BeneficiariesRepo {
 
 	@Override
 	public int findBeneficiary(GetBeneficiary beneficiary) {
-		CustomerInfo c = em.find(CustomerInfo.class,beneficiary.getCustomerId());
-		AccountInfo ac = em.find(AccountInfo.class, c.getCustomerId());
-		Beneficiaries b = em.find(Beneficiaries.class, ac);
-		return em.createQuery("from Beneficiaries bn where bn.customerId =:id and bn.beneficiaryAccountNumber =:accNo", Beneficiaries.class)
-				.setParameter("id", ac.getCustomerId()).setParameter("accNo", beneficiary.getBeneficiaryAccountNumber()).getSingleResult() != null ? 1 : 0;
+//		CustomerInfo c = em.find(CustomerInfo.class,beneficiary.getCustomerId());
+		AccountInfo ac = em.find(AccountInfo.class, beneficiary.getCustomerId());
+		
+		System.out.println(ac);
+		
+	//	UserLoginCredentials u = em.find(UserLoginCredentials.class, ac.getCustomerId());
+
+//		System.out.println(u);
+		
+//		Beneficiaries b = em.find(Beneficiaries.class, ac.getCustomerId());
+//		System.out.println(b);
+		
+		List<Beneficiaries> i =  em.createQuery("from Beneficiaries bn where bn.customerId =:id and bn.beneficiaryAccountNumber =:accNo", Beneficiaries.class)
+				.setParameter("id", ac).setParameter("accNo", beneficiary.getBeneficiaryAccountNumber()).getResultList();
+		System.out.println(i);
+		System.out.println(i.size());
+		if(i.size()==0)
+			return 0;
+		else 
+			return 1;
 	}
 
 }

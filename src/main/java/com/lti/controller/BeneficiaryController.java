@@ -36,8 +36,8 @@ public class BeneficiaryController {
 				return s;
 			}
 			else {
-				s.setStatus(StatusType.FAILURE);
-				s.setMessage("Adding Beneficiary failed");
+				s.setStatus(StatusType.SUCCESS);
+				s.setMessage("Beneficiary already present");
 				return s;
 			}
 

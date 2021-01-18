@@ -26,9 +26,10 @@ public class BeneficiariesServiceImpl implements BeneficiariesService {
 	public int addBeneficiary(GetBeneficiary beneficiary) {
 		try {
 			int result = repo.findBeneficiary(beneficiary);
-			if(result!=0) {
-			repo.addBeneficiary(beneficiary);
-			return 1;
+			System.out.println(result);
+			if(result==0) {
+				repo.addBeneficiary(beneficiary);
+				return 1;
 			}
 			
 			return 0;

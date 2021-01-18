@@ -96,10 +96,10 @@ public class AdminController {
 				Status a = new Status();
 				if(result!=0) {
 					a.setStatus(StatusType.SUCCESS);
-					a.setMessage(action+" action Performed");
+					a.setMessage(action);
 				} else {
 					a.setStatus(StatusType.FAILURE);
-					a.setMessage(action+" action Failed");
+					a.setMessage(action);
 				}
 				return a;
 			} catch (Exception e) {
@@ -118,10 +118,10 @@ public class AdminController {
 				Status a = new Status();
 				if(result!=0) {
 					a.setStatus(StatusType.SUCCESS);
-					a.setMessage(action+" action Performed");
+					a.setMessage(action);
 				} else {
 					a.setStatus(StatusType.FAILURE);
-					a.setMessage(action+" action Failed");
+					a.setMessage(action);
 				}
 				return a;
 			} catch (Exception e) {

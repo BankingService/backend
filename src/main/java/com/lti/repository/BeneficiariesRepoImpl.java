@@ -57,4 +57,13 @@ public class BeneficiariesRepoImpl implements BeneficiariesRepo {
 		return em.find(CustomerInfo.class, custid);
 	}
 
+	@Override
+	public int findBeneficiary(GetBeneficiary beneficiary) {
+		CustomerInfo c = em.find(CustomerInfo.class,beneficiary.getCustomerId());
+		AccountInfo ac = em.find(AccountInfo.class, c.getCustomerId());
+		Beneficiaries b = em.find(Beneficiaries.class, ac);
+		return em.createQuery("from Beneficiaries bn where bn.customerId =:id", Beneficiaries.class)
+				.setParameter("id", ac.getCustomerId()).getSingleResult() != null ? 1 : 0;
+	}
+
 }

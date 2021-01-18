@@ -98,21 +98,25 @@ public class TransactionRepoImpl implements TransactionRepo {
 		em.persist(ut);
 		em.flush();
 		
-		AccountInfo ai = (AccountInfo) em.createQuery("from AccountInfo ai where ai.accountNumber =: accNumber")
-				.setParameter("accNumber", ut.getFromAccountNumber()).getSingleResult();
-		System.out.println(ai.getAccountNumber());
+		try {
+			AccountInfo ai = (AccountInfo) em.createQuery("from AccountInfo ai where ai.accountNumber =: accNumber")
+					.setParameter("accNumber", ut.getFromAccountNumber()).getSingleResult();
+			System.out.println(ai.getAccountNumber());
 
-		System.out.println(ai.getCustomerId().getCustomerId());
-		CustomerInfo custInfo = em.find(CustomerInfo.class, ai.getCustomerId().getCustomerId());
+			System.out.println(ai.getCustomerId().getCustomerId());
+			CustomerInfo custInfo = em.find(CustomerInfo.class, ai.getCustomerId().getCustomerId());
 
-		String toEmail = custInfo.getEmailId();
-		String toSubject = "Transaction In Your Account";
-		String message = "Hi "+ custInfo.getFirstName() +",\n"
-				+ ut.getTransactionAmount() +" has been "+ut.getTransactionType()+"ED "
-						+ "from/in your account.\n"
-						+ "Your updated balance is: " + ut.getUpdatedBalance();
+			String toEmail = custInfo.getEmailId();
+			String toSubject = "Transaction In Your Account";
+			String message = "Hi "+ custInfo.getFirstName() +",\n"
+					+ ut.getTransactionAmount() +" has been "+ut.getTransactionType()+"ED "
+							+ "from/in your account.\n"
+							+ "Your updated balance is: " + ut.getUpdatedBalance();
 
-		email.sendEmail(toEmail, toSubject, message);
+			email.sendEmail(toEmail, toSubject, message);
+		}catch(Exception e) {
+			return ut;
+		}	
 		return ut;
 	}
 

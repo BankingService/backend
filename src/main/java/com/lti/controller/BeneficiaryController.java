@@ -21,6 +21,7 @@ import com.lti.services.BeneficiariesService;
 @CrossOrigin
 public class BeneficiaryController {
 
+	
 	@Autowired
 	private BeneficiariesService service;
 

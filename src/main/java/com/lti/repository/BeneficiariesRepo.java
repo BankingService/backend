@@ -16,4 +16,6 @@ public interface BeneficiariesRepo {
 
 	void addBeneficiary(GetBeneficiary beneficiary);
 
+	int findBeneficiary(GetBeneficiary beneficiary);
+
 }

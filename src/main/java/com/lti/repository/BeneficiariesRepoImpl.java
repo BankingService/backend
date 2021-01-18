@@ -40,6 +40,7 @@ public class BeneficiariesRepoImpl implements BeneficiariesRepo {
 	
 	}
 
+	
 	@Override
 	public List<Beneficiaries> viewBeneficiaries(int custid) {
 
@@ -55,6 +56,15 @@ public class BeneficiariesRepoImpl implements BeneficiariesRepo {
 	@Override
 	public CustomerInfo getCustomerInfo(int custid) {
 		return em.find(CustomerInfo.class, custid);
+	}
+
+	@Override
+	public int findBeneficiary(GetBeneficiary beneficiary) {
+		CustomerInfo c = em.find(CustomerInfo.class,beneficiary.getCustomerId());
+		AccountInfo ac = em.find(AccountInfo.class, c.getCustomerId());
+		Beneficiaries b = em.find(Beneficiaries.class, ac);
+		return em.createQuery("from Beneficiaries bn where bn.customerId =:id and bn.beneficiaryAccountNumber =:accNo", Beneficiaries.class)
+				.setParameter("id", ac.getCustomerId()).setParameter("accNo", beneficiary.getBeneficiaryAccountNumber()).getSingleResult() != null ? 1 : 0;
 	}
 
 }

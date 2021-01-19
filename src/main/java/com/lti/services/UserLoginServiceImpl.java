@@ -61,7 +61,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 							+ "User Id : "+c.getCustomerId()+"\n"
 							+ "Account Number : "+a.getAccountNumber()+"\n"
 							+ "Best Regards,\n"
-							+ "Bank";
+							+ "365 Bank";
 					email.sendEmail(toEmail, subject, msg);
 					
 					return "Account Blocked";
@@ -97,7 +97,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 				+ "\nYour OTP is : "+randomPin
 				+ "\nThank You\n"
 				+ "Best Regards,\n"
-				+ "Bank";
+				+ "365 Bank";
 		email.sendEmail(toEmail, subject, msg);
 		
 		return randomPin;
@@ -125,7 +125,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 				+ "\nYour OTP is : "+randomPin
 				+ "\nThank You\n"
 				+ "Best Regards,\n"
-				+ "Bank";
+				+ "365 Bank";
 		email.sendEmail(toEmail, subject, msg);
 		
 		return randomPin;
@@ -152,7 +152,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 				+ "\nYour Customer ID is : "+c.getCustomerId()
 				+ "\nThank You\n"
 				+ "Best Regards,\n"
-				+ "Bank";
+				+ "365 Bank";
 		email.sendEmail(toEmail, subject, msg);
 		
 	}

@@ -75,8 +75,8 @@ public class ImageServiceImpl implements ImageService {
 		String subject = "Account Creation Request";
 		String msg = "Hi " + customerInfo.getFirstName() + ",\nCongratulations!!"
 				+ "\nYour account opening request is registered successfully.\n"
-				+ "Please not down this Reference Id: " + apr.getRefernceId() + " to check your status.\n"
-				+ "Thank You\n" + "Regards\n" + "Bank";
+				+ "Please note down this Reference Id: " + apr.getRefernceId() + " to check your status.\n"
+				+ "Thank You\n" + "Regards\n" + "365 Bank";
 		email.sendEmail(toEmail, subject, msg);
 		return apr.getRefernceId();
 	}

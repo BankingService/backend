@@ -77,7 +77,7 @@ public class TransactionServiceImpl implements TransactionService {
 				+ "\nYour OTP is : "+randomPin
 				+ "\nThank You\n"
 				+ "Best Regards,\n"
-				+ "Bank";
+				+ "365 Bank";
 		email.sendEmail(toEmail, subject, msg);
 		
 		return randomPin;

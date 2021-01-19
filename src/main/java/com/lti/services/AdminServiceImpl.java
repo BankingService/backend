@@ -128,7 +128,7 @@ public class AdminServiceImpl implements AdminService {
 					+ "As bonus we have added Rs. 1000 for registering with our bank.\n"
 					+ "Thank You\n"
 					+ "Best Regards,\n"
-					+ "Bank";
+					+ "365 Bank";
 			email.sendEmail(toEmail, subject, msg);
 					
 			adminRepo.updateCustomerInfo(aid,refid);
@@ -137,6 +137,21 @@ public class AdminServiceImpl implements AdminService {
 		 } else {
 			adminRepo.updateStatusAppReference(refid);
 			adminRepo.updateStatusCustomerInfo(aid,refid);
+			
+			CustomerInfo c = adminRepo.getdetails(refid);
+			
+			String toEmail = c.getEmailId();
+			
+			String subject = "Account Rejected!!";
+			String msg = "Hi "
+					+ c.getFirstName()
+					+ ",\nSorry to inform you,"
+					+ "\nYour account has been rejected based on the documents you provided.\n"
+					+ "Thank You\n"
+					+ "Best Regards,\n"
+					+ "365 Bank";
+			email.sendEmail(toEmail, subject, msg);
+			
 		}
 	}catch(Exception e) {
 		return 0;
@@ -169,13 +184,28 @@ public class AdminServiceImpl implements AdminService {
 							+ "IFSC: "+ a.getIfsc()
 					+ "\nThank You\n"
 					+ "Best Regards,\n"
-					+ "Bank";
+					+ "365 Bank";
 			email.sendEmail(toEmail, subject, msg);
 					
 			
 			
 		 } else {
 			adminRepo.updateStatusCustomerInfoRejected(aid,custid);
+			
+			CustomerInfo c = adminRepo.getdetailsAfterUpdation(custid);
+			
+			String toEmail = c.getEmailId();
+			
+			String subject = "Account Rejected!!";
+			String msg = "Hi "
+					+ c.getFirstName()
+					+ ",\nSorry to inform you,"
+					+ "\nYour account has been rejected due to discrepancy in your account.\n"
+					+ "Thank You\n"
+					+ "Best Regards,\n"
+					+ "365 Bank";
+			email.sendEmail(toEmail, subject, msg);
+			
 		}
 	}catch(Exception e) {
 		return 0;

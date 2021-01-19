@@ -111,7 +111,8 @@ public class TransactionRepoImpl implements TransactionRepo {
 			String message = "Hi "+ custInfo.getFirstName() +",\n"
 					+ ut.getTransactionAmount() +" has been "+ut.getTransactionType()+"ED "
 							+ "from/in your account.\n"
-							+ "Your updated balance is: " + ut.getUpdatedBalance();
+							+ "Your updated balance is: " + ut.getUpdatedBalance() +""
+									+ "\nThanks\nRegards\n365 Bank";
 
 			email.sendEmail(toEmail, toSubject, message);
 		}catch(Exception e) {

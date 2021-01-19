@@ -63,7 +63,7 @@ public class BeneficiariesServiceImpl implements BeneficiariesService {
 
 		String subject = "OTP";
 		String msg = "Hi " + c.getFirstName() + ", " + "\nYour OTP is : " + randomPin + "\nThank You\n"
-				+ "Best Regards,\n" + "Bank";
+				+ "Best Regards,\n" + "365 Bank";
 		email.sendEmail(toEmail, subject, msg);
 
 		return randomPin;

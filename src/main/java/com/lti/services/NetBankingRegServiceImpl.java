@@ -50,7 +50,7 @@ public class NetBankingRegServiceImpl implements NetBankingRegServices {
 				+ "\nYour OTP is : "+randomPin
 				+ "\nThank You\n"
 				+ "Best Regards,\n"
-				+ "Bank";
+				+ "365 Bank";
 		email.sendEmail(toEmail, subject, msg);
 		
 		return randomPin;

@@ -73,9 +73,16 @@ public class UserController {
 		Status status = new Status();
 		try {
 			int otp = service.forgotPassword(custid);
+			if(otp!=0) {
 			status.setStatus(StatusType.SUCCESS);
 			status.setMessage(String.valueOf(otp));
 			return status;
+			}
+			else {
+				status.setStatus(StatusType.FAILURE);
+				status.setMessage("Register For Net Banking First");
+				return status;
+			}
 		} catch (Exception e) {
 			status.setStatus(StatusType.FAILURE);
 			status.setMessage("User Not Registered");
